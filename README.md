@@ -18,7 +18,7 @@ Implémentation d'un drone de défense pour se défendre des ennemies !!!
 
 ## Auteurs
 
-* **Clément Jouret** - *Chef de projet/Développeur* - Mail : clementjouret@hotmail.fr -[GitLab](https://rodez.3il.fr/gitlab/c.jouret.19)
+* **Clément Jouret** - *Chef de projet/Développeur* - Mail : clementjouret@hotmail.fr - [GitLab](https://rodez.3il.fr/gitlab/c.jouret.19)
 * **Paul Espinosa** - *Développeur* - Mail : p.espinosa11@hotmail.fr - [GitLab](https://rodez.3il.fr/gitlab/p.espinosa.19)
 * **Théo Bouviala** - *Développeur* - Mail : theobouviala@gmail.com - [GitLab](https://rodez.3il.fr/gitlab/t.bouviala.19)
 * **Guillaume Cagniard** - *Développeur* - Mail : gui.cagniard@gmail.com - [GitLab](https://rodez.3il.fr/gitlab/g.cagniard.19)
