@@ -3,14 +3,14 @@
 Un robot vient d'atterir sur Mars ! Un panorama dessertique et une planète peu acceuillante par les robots
 concurrents. Voici l'intrigue de ce projet...
 
-Partie 1 - Exploiration sur Mars :
+**Partie 1 - Exploiration sur Mars :**  
 Implémentation d'un robot qui doit collecter différent  minérais en focntion d'une carte de la planète, d'équipements futuriste comme des battrie aux vibranium ou encore des laser Adegan.
 
 * [Documentation Conception]()
 * [Documentation Technique]()
 
 
-Partie 2 - Combats : 
+**Partie 2 - Combats :**   
 Implémentation d'un drone de défense pour se défendre des ennemies !!!
 
 * [Documentation Conception]()
