@@ -1,10 +1,10 @@
 # Projet Mars
 
-Un robot vient d'atterir sur Mars ! Un panorama dessertique et une planète peu acceuillante par les robots
+Un robot vient d'atterrir sur Mars ! Un panorama désertique et une planète peu accueillante par les robots
 concurrents. Voici l'intrigue de ce projet...
 
 **Partie 1 - Exploiration sur Mars :**  
-Implémentation d'un robot qui doit collecter différent  minérais en focntion d'une carte de la planète, d'équipements futuriste comme des battrie aux vibranium ou encore des laser Adegan.
+Implémentation d'un robot qui doit collecter différent minérais en fonction d'une carte de la planète, d'équipements futuriste comme des battries aux vibranium ou encore des laser Adegan.
 
 * [Documentation Conception]()
 * [Documentation Technique]()
