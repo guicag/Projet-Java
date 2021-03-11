@@ -25,7 +25,7 @@ Implémentation d'un drone de défense pour se défendre des ennemies !!!
 
 ## License
 
-Ce projet réalisé dans le cadre de notre formation d'ingénieur informatique à 3iL afin de valider le module Java sous la direction de notre professeur M.Philippe Roussille
+Ce projet réalisé dans le cadre de notre formation d'ingénieur informatique à 3iL afin de valider le module Java sous la direction de notre excellent professeur M.Philippe Roussille
 
 
 
