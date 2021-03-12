@@ -16,6 +16,14 @@ Implémentation d'un drone de défense pour se défendre des ennemies !!!
 * [Documentation Conception]()
 * [Documentation Technique]()
 
+## Installation Projet
+
+- Génerer une clé une shh avec la commande --> `ssh-keygen`
+- Ouvrir le fichier qui contient la clé --> `cat ~/.ssh/id_rsa.pub`
+- Copier la clé 
+- Aller sur le profil dans l'onglet ssh key puis ajouter la clé
+- Cloner le projet avec la commande --> `GIT_SSL_NO_VERIFY=true git clone ssh://git@rodez.3il.fr:51200/Promotion_19/Promotion_19_-_Projet_Java_-_Equipe_Tatou/projet-java-objectif-mars.git`
+
 ## Auteurs
 
 * **Clément Jouret** - *Chef de projet/Développeur* - Mail : clementjouret@hotmail.fr - [GitLab](https://rodez.3il.fr/gitlab/c.jouret.19)
