@@ -4,21 +4,21 @@ Un robot vient d'atterrir sur Mars ! Un panorama désertique et une planète peu
 concurrents. Voici l'intrigue de ce projet...
 
 **Partie 1 - Exploiration sur Mars :**  
-Implémentation d'un robot qui doit collecter différent minérais en fonction d'une carte de la planète, d'équipements futuriste comme des battries aux vibranium ou encore des laser Adegan.
+Implémentation d'un robot qui doit collecter différent minérais en fonction d'une carte de la planète, d'équipements futuristes comme des batteries aux vibranium ou encore des laser Adegan.
 
 * [Documentation Conception]()
 * [Documentation Technique]()
 
 
 **Partie 2 - Combats :**   
-Implémentation d'un drone de défense pour se défendre des ennemies !!!
+Implémentation d'un drone de défense pour se défendre des ennemis !!!
 
 * [Documentation Conception]()
 * [Documentation Technique]()
 
 ## Installation Projet
 
-- Génerer une clé une shh avec la commande --> `ssh-keygen`
+- Génerer une clé SSH avec la commande --> `ssh-keygen`
 - Ouvrir le fichier qui contient la clé --> `cat ~/.ssh/id_rsa.pub`
 - Copier la clé 
 - Aller sur le profil dans l'onglet ssh key puis ajouter la clé
@@ -33,7 +33,7 @@ Implémentation d'un drone de défense pour se défendre des ennemies !!!
 
 ## License
 
-Ce projet réalisé dans le cadre de notre formation d'ingénieur informatique à 3iL afin de valider le module Java sous la direction de notre excellent professeur M.Philippe Roussille
+Ce projet réalisé dans le cadre de notre formation d'Ingénieur Informatique à 3iL afin de valider le module de Java sous la direction de notre excellent professeur M. Philippe Roussille
 
 
 
