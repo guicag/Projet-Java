@@ -1,0 +1,25 @@
+So as you know, one of this year's projects was to be able to centralize the data.
+The objectives were: Optimize dashboard creation and avoid repetition, have a quick access to the data and 
+also facililate data modification.
+So to do this, we decided to create a single excel file that regroups the data and implements the different dashboards.
+So we use a javascript library that converts the excel file into a JSON variable and we can sort the data from this 
+variable to display what we want on the dashboard.
+The dashboard links I sent you are implemented using this library and the new excel file. This means that now for 
+the new data update you can directly modify the excel file and the data will be automatically on the dashboard, 
+we won't need to use different tables to change the data on the dashboard anymore. So the file is called Data structure 
+and it's here.
+
+To come in detail on the excel file, in the first sheet we have combined the data from the "Investment Cash" 
+and "WithoutCash" sheets. So there are partnerships and investments, to differentiate them there is a relationship column 
+to specify the type. For the moment we have kept the columns where the data are used in the dashboards and added 
+technical columns like DisplayDasboard to facilitate the data processing. But if you want to add other columns that 
+are useful for future dashboard or that are relevant or useful for you, we can add them, it can be modified. 
+And in the future it will have to be changed to add new dashboard. The meeting is there for that too.
+ 
+So this sheet is used for investment dashboard, battery dashboard and AD Dashboard to see partnerships. 
+Now quick on the other dashboards, in the second table we have the data that are used in the battry dashboard. 
+So we have a category column that differentiates the data from the charts. Even if the data have no links, this table 
+is useful to group the data. 
+In the third sheet, there is data specific to one OEM at the moment there is only the data from Tesla but in the future we can imagine adding data from other OEMs.
+And for the last one, it is the data that is used in the HMI bus, so we didn't modify it because it was already complete. 
+
