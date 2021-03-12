@@ -18,6 +18,9 @@ Implémentation d'un drone de défense pour se défendre des ennemis !!!
 
 ## Installation Projet
 
+Avant de commencer, petit [tuto](https://rogerdudler.github.io/git-guide/index.fr.html) sur git :)
+
+
 - Génerer une clé SSH avec la commande --> `ssh-keygen`
 - Ouvrir le fichier qui contient la clé --> `cat ~/.ssh/id_rsa.pub`
 - Copier la clé 
