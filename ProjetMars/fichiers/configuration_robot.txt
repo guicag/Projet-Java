@@ -1,0 +1,11 @@
+charge_maximale=300
+temps_rotation=15
+cout_rotation=0.2
+cout_deplacement=0.0178
+temps_installation=300
+cout_installation=0
+batterie_defaut=100
+laser_defaut=100
+emoussage_laser=0.01
+limite_emoussage=0.1
+temps_avant_que_nasa_repere=86400

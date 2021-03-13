@@ -1,0 +1,8 @@
+Objet Nom Valeur Dureté Poids
+* Diamant 500 21 10
+% Rocher très dur 0 140 50
+. Sable 0 3 1
+: Grès 0 12 2
+= Roche volcanique 0 42 3
+- Petit rocher 0 15 20
+# Rubis 250 21 5
