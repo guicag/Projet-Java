@@ -21,7 +21,7 @@ public class Jeu {
 		
 		//Analyse du matériel disponible
 		ArrayList<Equipement> listEquipement = FileParser.lectureEquipementsDisponibles();
-		
+		ProprietesRobot prop = FileParser.lectureConfigurationRobot();
 		assert listEquipement != null : "Vous devez analyser les equipements dont le robot dispose avant de le créer.";
 		this.robot = new Robot();
 	}

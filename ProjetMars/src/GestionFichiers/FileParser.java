@@ -7,11 +7,15 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 import Equipements.Batterie;
 import Equipements.Equipement;
 import Equipements.Laser;
 import Equipements.Minerai;
+import Partie.ProprietesRobot;
 
 public abstract class FileParser {
 
@@ -58,6 +62,7 @@ public abstract class FileParser {
 						durete = Integer.parseInt(mots[3].replaceAll(" ", ""));
 						poids = Integer.parseInt(mots[4].replaceAll(" ", ""));
 					}
+					
 					Minerai mineraiTemp = new Minerai(symbole, nom, val, durete, poids);
 					listMinerai.add(mineraiTemp);
 				}
@@ -81,7 +86,8 @@ public abstract class FileParser {
 	 * @return Une matrice d'objets Minerai correspondant à la carte.
 	 */
 	public static Minerai[][] lectureCarte(ArrayList<Minerai> listMinerai) {
-		Minerai[][] carte = new Minerai[20][40];
+		
+		Minerai[][] carte = null;
 		try {
 			System.out.println("Début de l'analyse de la carte.");
 
@@ -90,7 +96,17 @@ public abstract class FileParser {
 			BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
 			String contenuLigne = reader.readLine();
 			
+			int nbLigne = 0;
+			int nbCol = contenuLigne.length();;
+			while (contenuLigne != null) {
+				contenuLigne = reader.readLine();
+				nbLigne++;
+			}
+			
+			reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
+			carte = new Minerai[nbLigne][nbCol];
 			int ligne = 0;
+			contenuLigne = reader.readLine();
 			while (contenuLigne != null) {
 				for (int col = 0; col < contenuLigne.length(); col++) {
 					Character c = contenuLigne.charAt(col);
@@ -162,6 +178,45 @@ public abstract class FileParser {
 		}
 		
 		return  listEquipement;
+	}
+	
+	/**
+	 * Lis le fichier fichiers/configuration_robot.txt afin d'analyser la configuration du robot.
+	 * 
+	 * @return 
+	 */
+	public static ProprietesRobot lectureConfigurationRobot() {
+		ProprietesRobot proprietes = new ProprietesRobot();
+		try {
+			System.out.println("Début de l'analyse de la configuration du robot.");
+
+			// Ouverture du fichier fichiers/configuration_robot.txt
+			Path path = FileSystems.getDefault().getPath("fichiers", "configuration_robot.txt");
+			BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
+			String ligne = reader.readLine();
+			HashMap<String, Double> listProprietes = new HashMap<String, Double>();
+			while (ligne != null) {
+				String[] mots = ligne.split("=");
+				double val = Double.parseDouble(mots[1]);
+				String cle = mots[0];
+				listProprietes.put(mots[0], Double.parseDouble(mots[1]));
+				ligne = reader.readLine();
+			}
+			
+			Map<String, Double> treeMap = new TreeMap<String, Double>(listProprietes);
+			
+			for (String stringProp : treeMap.keySet()) {
+				double valProp =  treeMap.get(stringProp);
+				proprietes = new ProprietesRobot();
+			}
+			
+			System.out.println("Analyse de la configuration du robot. '-_-' \n");
+		} catch (IOException e) {
+			System.out.println("File I/O error!");
+			e.printStackTrace();
+		}
+		
+		return  proprietes;
 	}
 
 	public static boolean isNumericString(String s) {

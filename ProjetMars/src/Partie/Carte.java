@@ -13,11 +13,11 @@ public class Carte {
 	
 	public void afficherCarte() {
 		System.out.println("Carte : ");
-		for(int ligne = 0; ligne < 20; ligne++) {
-			for(int col = 0; col < 40; col++) {
+		for(int ligne = 0; ligne < getRowLength(); ligne++) {
+			for(int col = 0; col < getColumnLength(); col++) {
 				if(matriceMinerais[ligne][col]!=null)
 					System.out.print(matriceMinerais[ligne][col].getCaractere());
-				else System.out.print('R');
+				else System.out.print('@');
 			}
 			System.out.println();
 		}
@@ -29,6 +29,14 @@ public class Carte {
 
 	public void setMatriceMinerais(Minerai[][] matriceMinerais) {
 		this.matriceMinerais = matriceMinerais;
+	}
+	
+	public int getRowLength() {
+		return this.matriceMinerais.length;
+	}
+	
+	public int getColumnLength() {
+		return this.matriceMinerais[0].length;
 	}
 	
 	
