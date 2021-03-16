@@ -1,9 +1,9 @@
-Equipement Cout Valeur initiale
-laser_basique 200 100
-laser_fluxe 600 160
-laser_a_plutonium 2000 250
-laser_a_energie_noire 7200 460
-batterie_basique 200 100
-batterie_avancee 500 180
-batterie_nucleaire 1600 320
-batterie_au_citron 5200 570
+Equipement	Coût	Valeur initiale
+laser_basique	200	100
+laser_fluxé	600	160
+laser_a_plutonium	2000	250
+laser_a_energie_noire	7200	460
+batterie_basique	200	100
+batterie_avancée	500	180
+batterie_nucleaire	1600	320
+batterie_au_citron	5200	570

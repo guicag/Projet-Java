@@ -1,5 +1,6 @@
 package Partie;
 import java.util.ArrayList;
+import java.util.Map;
 
 import Equipements.Equipement;
 import Equipements.Minerai;
@@ -21,8 +22,10 @@ public class Jeu {
 		
 		//Analyse du matériel disponible
 		ArrayList<Equipement> listEquipement = FileParser.lectureEquipementsDisponibles();
-		ProprietesRobot prop = FileParser.lectureConfigurationRobot();
+		Map<String, Number> configuration = FileParser.lectureConfigurationRobot();
 		assert listEquipement != null : "Vous devez analyser les equipements dont le robot dispose avant de le créer.";
-		this.robot = new Robot();
+		assert configuration != null : "Vous devez analyser la configuration du robot avant de le créer.";
+		this.robot = new Robot(configuration, listEquipement);
+		System.out.println("Jeu initialisé '-_-'");
 	}
 }
