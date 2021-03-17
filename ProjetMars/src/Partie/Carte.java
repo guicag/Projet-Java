@@ -39,5 +39,23 @@ public class Carte {
 		return this.matriceMinerais[0].length;
 	}
 	
+	/**
+	 * Permet de récupérer la position INITIALE du robot. 
+	 * 
+	 * @return Un tableau d'netiers comprenant dans [0] la position X, et dans [1] la position Y.
+	 */
+	public int[] getBase() {
+		for(int ligne = 0; ligne < getRowLength(); ligne++) {
+			for(int col = 0; col < getColumnLength(); col++) {
+				if (this.matriceMinerais[ligne][col] == null) {
+					int[] posBase = {ligne, col};
+					return posBase;
+				}
+					
+			}
+		}
+		return null;
+	}
+	
 	
 }
