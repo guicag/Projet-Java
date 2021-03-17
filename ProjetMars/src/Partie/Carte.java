@@ -22,6 +22,18 @@ public class Carte {
 			System.out.println();
 		}
 	}
+	
+	public String toString(){
+		String s_carte = "";
+		for(int ligne = 0; ligne < getRowLength(); ligne++) {
+			for(int col = 0; col < getColumnLength(); col++) {
+				if(matriceMinerais[ligne][col]!=null) s_carte += matriceMinerais[ligne][col].getCaractere();
+				else s_carte += " ";
+			}
+			s_carte += "\n";
+		}
+		return s_carte;
+	}
 
 	public Minerai[][] getMatriceMinerais() {
 		return matriceMinerais;

@@ -13,12 +13,13 @@ public class Robot {
 	private int baseY;
 	private int posX;
 	private int posY;
+	private int charge;
 	private Batterie batterie_actuelle;
 	private Laser laser_actuel;
 	private ArrayList<Equipement> equipements_disponibles;
 	private Map<String, Number> configuration;
 	private Direction direction;
-	private Number argent;
+	private Number score;
 	
 	/**
 	 * Constructeur non paramatré de l'objet Robot.
@@ -37,7 +38,8 @@ public class Robot {
 		this.baseX = posX;
 		this.baseY = posY;
 		this.direction = Direction.NORD;
-		this.argent = 0;
+		this.score = 0;
+		this.charge = 0;
 	}
 	
 	
@@ -47,8 +49,9 @@ public class Robot {
 	 * @param dir Enum direction indiquant la direction dans laquelle avancer
 	 * 
 	 * @return actions7
+	 * @throws Exception 
 	 */
-	public String avancer(Direction dir, Carte carte){
+	public String avancer(Direction dir, Carte carte) throws Exception{
 		String actions = "";
 		// Décrémentation du temps de rotation
 		if(this.direction!=dir) {
@@ -81,23 +84,26 @@ public class Robot {
 		return actions;
 	}
 	
-	public void minage(Minerai minerai) {
+	public void minage(Minerai minerai) throws Exception {
 		int poidsMinerai = minerai.getPoids();
 		int dureteMinerai = minerai.getDurete();
 		int valeur = minerai.getValeur();
-		double pui_batterie = this.batterie_actuelle.getPuissance_actuelle();
 		double pui_laser = this.laser_actuel.getPuissance_actuelle();
-		
-		// Emoussage du laser
-		this.configuration.put("limite_emoussage", (Double) configuration.get("limite_emoussage") - (Double) configuration.get("emoussage_laser"));
 		// Calcul du temps de minage et décrémentation du temps restant.
 		double temps_minage =  dureteMinerai*100/pui_laser;
+		double emoussage_laser = temps_minage * (Double) configuration.get("emoussage_laser"); 	// Emoussage du laser
+		if(pui_laser - emoussage_laser > 0.1) { // Ne pas casser le laser
+			this.laser_actuel.setPuissance_actuelle(pui_laser - emoussage_laser);
+			// Utilisation de la batterie
+			batterie_actuelle.setPuissance_actuelle(batterie_actuelle.getPuissance_actuelle() - (Double) configuration.get("cout_minage"));
+			
+			
+			// incrémentation charge max
+		} else {
+			if(charge + poidsMinerai > (Double) configuration.get("charge_maximale")) throw new Exception("Vous ne pourrez pas porter ce minerai...");
+			else throw new Exception("Le laser n'a plus la capacité de miner cela...");
+		}
 		
-		double emoussage_laser = temps_minage * (Double) configuration.get("emoussage_laser");
-		
-		
-		
-		//incrémùentation charge mlax
 	}
 	
 
@@ -171,5 +177,21 @@ public class Robot {
 
 	public void setDirection(Direction direction) {
 		this.direction = direction;
+	}
+
+	public int getCharge() {
+		return charge;
+	}
+
+	public void setCharge(int charge) {
+		this.charge = charge;
+	}
+
+	public Number getScore() {
+		return score;
+	}
+
+	public void setScore(Number score) {
+		this.score = score;
 	}
 }
