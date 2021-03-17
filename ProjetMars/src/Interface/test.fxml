@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:controller="Interface.Controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="300.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/mars.jpg" />
+         </image>
+      </ImageView>
+      <BorderPane prefHeight="300.0" prefWidth="600.0">
+         <bottom>
+            <Label text="© Equipe Tatou" textFill="WHITE" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </bottom>
+         <top>
+            <Label text="Exploiration Marsienne" textFill="WHITE" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Noto Mono" size="34.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets top="20.0" />
+               </BorderPane.margin>
+            </Label>
+         </top>
+         <center>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="187.0" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" text="Jouer" onAction="#ouvrirPageGame" />
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" text="Edit" onAction="#ouvrirPageEdit" />
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" text="Quitter" onAction="#fermerApp" />
+               </children>
+            </VBox>
+         </center></BorderPane>
+   </children>
+</AnchorPane>

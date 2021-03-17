@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="601.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.Controller">
+   <children>
+      <BorderPane prefHeight="601.0" prefWidth="779.0">
+         <left>
+            <VBox prefHeight="601.0" prefWidth="306.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" text="Equipements :" textOverrun="CLIP">
+                     <VBox.margin>
+                        <Insets left="5.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TableView fx:id="listEquip" prefHeight="279.0" prefWidth="318.0" />
+                  <Label text="Minerais :">
+                     <VBox.margin>
+                        <Insets left="5.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TableView fx:id="listMinerais" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="228.0" />
+               </children>
+            </VBox>
+         </left>
+         <right>
+            <VBox prefHeight="335.0" prefWidth="137.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Score :">
+                     <VBox.margin>
+                        <Insets left="5.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label prefHeight="43.0" prefWidth="137.0" text="Label">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Deplacement :">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label prefHeight="49.0" prefWidth="134.0" text="Label" />
+               </children>
+            </VBox>
+         </right>
+         <center>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Carte :">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="carte" alignment="CENTER" contentDisplay="CENTER" prefHeight="331.0" prefWidth="223.0" text="Label">
+                     <VBox.margin>
+                        <Insets top="40.0" />
+                     </VBox.margin></Label>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

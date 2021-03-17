@@ -1,13 +1,18 @@
 package Partie;
 
+import java.util.ArrayList;
+
 import Equipements.Minerai;
+import GestionFichiers.FileParser;
 
 public class Carte {
 	
 	private Minerai[][] matriceMinerais;
+	private ArrayList<Minerai> minerais_disponibles;
 	
 	public Carte(Minerai[][] minerais) {
 		this.matriceMinerais = minerais;
+		this.minerais_disponibles = FileParser.lectureDescriptifMesures();
 		afficherCarte();
 	}
 	
@@ -49,6 +54,10 @@ public class Carte {
 	
 	public int getColumnLength() {
 		return this.matriceMinerais[0].length;
+	}
+	
+	public ArrayList<Minerai> getMinerais_disponibles() {
+		return this.minerais_disponibles;
 	}
 	
 	/**
