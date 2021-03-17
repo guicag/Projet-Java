@@ -1,8 +1,6 @@
 package Equipements;
 
 public class Laser extends Equipement  {
-
-	
 	/**
 	 * Constructeur paramétré de Laser.
 	 * @param n Nom du Laser

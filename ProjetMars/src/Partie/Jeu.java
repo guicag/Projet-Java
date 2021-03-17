@@ -12,10 +12,13 @@ public class Jeu {
 	
 	private Carte carte;
 	private Robot robot;
+	private String[] parcoursRobot;
 	
+	/*
+	 * Constructeur de l'objet Jeu. Il permet d'initialiser le jeu en analysant les fichiers de configuration.
+	 */
 	public Jeu() {
 		//Analyse des fichiers et création de la carte et du robot
-		
 		//Analyse des minerais
 		ArrayList<Minerai> listMinerai = FileParser.lectureDescriptifMesures();
 		//Analyse de la carte
@@ -30,7 +33,6 @@ public class Jeu {
 		
 		Batterie batterie_def = new Batterie();
 		Laser laser_def = new Laser();
-		
 		for(Equipement equip : listEquipement) {
 			if(equip.getNom().contains("defaut")) {
 				if(equip.getNom().contains("batterie")) {
@@ -39,9 +41,20 @@ public class Jeu {
 					laser_def = (Laser) equip;
 				}
 			}
-		}
+		} 
 		int[] position = carte.getBase();
 		this.robot = new Robot(configuration, listEquipement, batterie_def, laser_def, position[0], position[1]);
 		System.out.println("Jeu initialisé '-_-'");
 	}
+	
+	/**
+	 * Fonction permettant de choisir une direction à suivre lors du prochain déplacement, et de toruner le robot dans celle-ci.
+	 * 
+	 * @return Un enum Direction indisuant la prhcaine direction à suivre.
+	 */
+	public Direction choisirDirection() {
+		
+		return null;
+	}
+
 }

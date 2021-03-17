@@ -31,7 +31,7 @@ public class Minerai implements Comparable<Object>{
 		this.setValeur(v);
 		this.durete = d;
 		this.poids = p;
-		if(v!=0) this.ratio = (double) d/ (double) v;
+		this.ratio = (double) v/ (double) d;
 	}
 
 	public int getValeur() {
