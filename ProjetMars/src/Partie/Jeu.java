@@ -57,4 +57,28 @@ public class Jeu {
 		return null;
 	}
 
+	public Carte getCarte() {
+		return carte;
+	}
+
+	public void setCarte(Carte carte) {
+		this.carte = carte;
+	}
+
+	public Robot getRobot() {
+		return robot;
+	}
+
+	public void setRobot(Robot robot) {
+		this.robot = robot;
+	}
+
+	public String[] getParcoursRobot() {
+		return parcoursRobot;
+	}
+
+	public void setParcoursRobot(String[] parcoursRobot) {
+		this.parcoursRobot = parcoursRobot;
+	}
+
 }

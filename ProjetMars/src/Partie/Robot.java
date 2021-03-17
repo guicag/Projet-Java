@@ -88,9 +88,14 @@ public class Robot {
 		double pui_batterie = this.batterie_actuelle.getPuissance_actuelle();
 		double pui_laser = this.laser_actuel.getPuissance_actuelle();
 		
+		// Emoussage du laser
 		this.configuration.put("limite_emoussage", (Double) configuration.get("limite_emoussage") - (Double) configuration.get("emoussage_laser"));
+		// Calcul du temps de minage et décrémentation du temps restant.
 		double temps_minage =  dureteMinerai*100/pui_laser;
+		
 		double emoussage_laser = temps_minage * (Double) configuration.get("emoussage_laser");
+		
+		
 		
 		//incrémùentation charge mlax
 	}
