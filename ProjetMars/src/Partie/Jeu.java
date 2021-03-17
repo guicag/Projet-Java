@@ -2,7 +2,9 @@ package Partie;
 import java.util.ArrayList;
 import java.util.Map;
 
+import Equipements.Batterie;
 import Equipements.Equipement;
+import Equipements.Laser;
 import Equipements.Minerai;
 import GestionFichiers.FileParser;
 
@@ -25,7 +27,21 @@ public class Jeu {
 		Map<String, Number> configuration = FileParser.lectureConfigurationRobot();
 		assert listEquipement != null : "Vous devez analyser les equipements dont le robot dispose avant de le créer.";
 		assert configuration != null : "Vous devez analyser la configuration du robot avant de le créer.";
-		this.robot = new Robot(configuration, listEquipement);
+		
+		Batterie batterie_def = new Batterie();
+		Laser laser_def = new Laser();
+		
+		for(Equipement equip : listEquipement) {
+			if(equip.getNom().contains("defaut")) {
+				if(equip.getNom().contains("batterie")) {
+					batterie_def = (Batterie) equip;
+				} else if(equip.getNom().contains("laser")) {
+					laser_def = (Laser) equip;
+				}
+			}
+		}
+		int[] position = carte.getBase();
+		this.robot = new Robot(configuration, listEquipement, batterie_def, laser_def, position[0], position[1]);
 		System.out.println("Jeu initialisé '-_-'");
 	}
 }
