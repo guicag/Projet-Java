@@ -15,7 +15,6 @@ import Equipements.Batterie;
 import Equipements.Equipement;
 import Equipements.Laser;
 import Equipements.Minerai;
-import Partie.ProprietesRobot;
 
 public abstract class FileParser {
 

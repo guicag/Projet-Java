@@ -55,12 +55,23 @@ public class Jeu {
 	 * @return Un enum Direction indisuant la prhcaine direction à suivre.
 	 */
 	public Direction choisirDirection() {
+		int posXRobot = robot.getPosX();
+		int posYRobot = robot.getPosY();
 		
+		if(posXRobot - 1 < 0 || posXRobot + 1 > carte.getRowLength()-1) {
+			
+		}
+		
+		
+		/*if(pos)
+		Minerai minAuDessus = carte.getMatriceMinerais()[--posXRobot][posYRobot];*/
 		
 		return null;
 	}
 	
 	public void jouer() {
+		//Première phase 
+		//		Stratégie : Miner les plus rentable jusqu'à avoir le meilleur laser et la meilleure batterie.
 		while(robot.getBatterie_actuelle().equals(robot.getBestBatterie()) && robot.getLaser_actuel().equals(robot.getBestLaser())) {
 			
 		}
