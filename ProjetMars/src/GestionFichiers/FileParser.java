@@ -70,7 +70,7 @@ public abstract class FileParser {
 			BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
 			String contenuLigne = reader.readLine();
 			int nbLigne = 0;
-			int nbCol = contenuLigne.length();;
+			int nbCol = contenuLigne.length();
 			while (contenuLigne != null) {
 				contenuLigne = reader.readLine();
 				nbLigne++;
