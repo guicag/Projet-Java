@@ -58,8 +58,8 @@ public abstract class FileParser {
 	/**
 	 * Lis le fichier fichiers/zone_a_explorer.txt afin d'analyser les minerais qui composent la carte de Mars.
 	 * 
-	 * @param listMinerai : correspond à la liste des minerais dont la carte peut être composée. Ne doit pas être nulle, elle est nécéssaire à l'analyse.
-	 * @return Une matrice d'objets Minerai correspondant à la carte.
+	 * @param listMinerai : correspond a la liste des minerais dont la carte peut etre compose. Ne doit pas etre nulle, elle est necessaire a l'analyse.
+	 * @return Une matrice d'objets Minerai correspondant a la carte.
 	 */
 	public static Minerai[][] lectureCarte(ArrayList<Minerai> listMinerai) {
 		Minerai[][] carte = null;

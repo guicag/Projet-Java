@@ -53,8 +53,8 @@ public class Robot {
 	 */
 	public String avancer(Direction dir, Carte carte){
 		String actions = "";
-		// Décrémentation du temps de rotation
 		if(this.direction!=dir) {
+			// Décrémentation du temps de rotation et de la batterie
 			this.batterie_actuelle.setPuissance_actuelle(batterie_actuelle.getPuissance_actuelle() - (Double) configuration.get("cout_rotation"));
 			this.batterie_actuelle.setPuissance_actuelle(batterie_actuelle.getPuissance_actuelle() - (Double) configuration.get("cout_minage"));
 			this.configuration.put("temps_avant_que_nasa_repere", (Double) configuration.get("temps_avant_que_nasa_repere") - (Double) configuration.get("temps_rotation"));
@@ -63,7 +63,7 @@ public class Robot {
 		} else {
 			actions += "AVANCER,";
 		}
-		
+		// Avance dans la "dir" souhaitée
 		switch(dir) {
 			case NORD :
 				this.posX--;
@@ -93,6 +93,7 @@ public class Robot {
 	 * @throws Exception Lorsque votre laser n'a plus la capacité de miner une telle roche, ou bine de la porter. (charge maximale atteinte)
 	 */
 	public void miner(Minerai minerai){
+		// Récupération des caractéristiques du minerai
 		int poidsMinerai = minerai.getPoids();
 		int dureteMinerai = minerai.getDurete();
 		int valeur = minerai.getValeur();
@@ -116,6 +117,9 @@ public class Robot {
 	 */
 	public void decharger() {
 		this.charge = 0;
+		if ((this.getBaseX() != this.getPosX()) && (this.getBaseY() != this.getPosY())) { // Vérifie que le robot soit bien à la base
+			
+		}
 	}
 	
 	/**

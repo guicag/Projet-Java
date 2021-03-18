@@ -21,30 +21,30 @@ public class Jeu {
 		//Analyse des fichiers et création de la carte et du robot
 		//Analyse des minerais
 		ArrayList<Minerai> listMinerai = FileParser.lectureDescriptifMesures();
+		assert listMinerai != null : "Vous devez analyser les minerais qui composent la carte avant de l'analyser.";
 		//Analyse de la carte
-		assert listMinerai != null : "Vous devez analyser les minerais qui composent la carte avant d'analyser celle-ci.";
 		this.carte = new Carte(FileParser.lectureCarte(listMinerai));
-		
-		System.out.println(carte.toString());
-		
+		System.out.println(carte.toString() + "\n");
 		//Analyse du matériel disponible
 		ArrayList<Equipement> listEquipement = FileParser.lectureEquipementsDisponibles();
-		Map<String, Number> configuration = FileParser.lectureConfigurationRobot();
 		assert listEquipement != null : "Vous devez analyser les equipements dont le robot dispose avant de le créer.";
+		//Analyse de la configuration du robot 
+		Map<String, Number> configuration = FileParser.lectureConfigurationRobot();
 		assert configuration != null : "Vous devez analyser la configuration du robot avant de le créer.";
-		Batterie batterie_def = new Batterie();
-		Laser laser_def = new Laser();
+		//Création du robot
+		Batterie batterieDef = new Batterie();
+		Laser laserDef = new Laser();
 		for(Equipement equip : listEquipement) {
 			if(equip.getNom().contains("defaut")) {
 				if(equip.getNom().contains("batterie")) {
-					batterie_def = (Batterie) equip;
+					batterieDef = (Batterie) equip;
 				} else if(equip.getNom().contains("laser")) {
-					laser_def = (Laser) equip;
+					laserDef = (Laser) equip;
 				}
 			}
 		} 
 		int[] position = carte.getBase();
-		this.robot = new Robot(configuration, listEquipement, batterie_def, laser_def, position[0], position[1]);
+		this.robot = new Robot(configuration, listEquipement, batterieDef, laserDef, position[0], position[1]);
 		this.parcoursRobot = new ArrayList<String>();
 		System.out.println("Jeu initialisé '-_-'");
 	}

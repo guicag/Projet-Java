@@ -8,19 +8,23 @@ import GestionFichiers.FileParser;
 public class Carte {
 	
 	private Minerai[][] matriceMinerais;
-	private ArrayList<Minerai> minerais_disponibles;
+	private ArrayList<Minerai> mineraisDisponibles;
 	
+	/**
+	 * Constructeur paramétré d'une carte.
+	 * @param minerais Matrice de minerais 
+	 */
 	public Carte(Minerai[][] minerais) {
 		this.matriceMinerais = minerais;
-		this.minerais_disponibles = FileParser.lectureDescriptifMesures();
+		this.mineraisDisponibles = FileParser.lectureDescriptifMesures();
 		afficherCarte();
 	}
 	
 	public void afficherCarte() {
-		System.out.println("Carte : ");
+		System.out.println("Carte : \n");
 		for(int ligne = 0; ligne < getRowLength(); ligne++) {
 			for(int col = 0; col < getColumnLength(); col++) {
-				if(matriceMinerais[ligne][col]!=null)
+				if(matriceMinerais[ligne][col] != null)
 					System.out.print(matriceMinerais[ligne][col].getCaractere());
 				else System.out.print('@');
 			}
@@ -63,7 +67,7 @@ public class Carte {
 	/**
 	 * Permet de récupérer la position INITIALE du robot. 
 	 * 
-	 * @return Un tableau d'netiers comprenant dans [0] la position X, et dans [1] la position Y.
+	 * @return Un tableau d'entiers comprenant dans [0] la position X, et dans [1] la position Y.
 	 */
 	public int[] getBase() {
 		for(int ligne = 0; ligne < getRowLength(); ligne++) {
