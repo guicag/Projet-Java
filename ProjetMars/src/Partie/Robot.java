@@ -56,6 +56,7 @@ public class Robot {
 		// Décrémentation du temps de rotation
 		if(this.direction!=dir) {
 			this.batterie_actuelle.setPuissance_actuelle(batterie_actuelle.getPuissance_actuelle() - (Double) configuration.get("cout_rotation"));
+			this.batterie_actuelle.setPuissance_actuelle(batterie_actuelle.getPuissance_actuelle() - (Double) configuration.get("cout_minage"));
 			this.configuration.put("temps_avant_que_nasa_repere", (Double) configuration.get("temps_avant_que_nasa_repere") - (Double) configuration.get("temps_rotation"));
 			this.direction = dir;
 			actions += "TOURNER "+dir.name()+", AVANCER,";
