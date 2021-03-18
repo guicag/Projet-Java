@@ -19,7 +19,7 @@ public class Robot {
 	private ArrayList<Equipement> equipements_disponibles;
 	private Map<String, Number> configuration;
 	private Direction direction;
-	private Number score;
+	private int score;
 	
 	/**
 	 * Constructeur non paramatré de l'objet Robot.
@@ -51,7 +51,7 @@ public class Robot {
 	 * @return actions7
 	 * @throws Exception 
 	 */
-	public String avancer(Direction dir, Carte carte) throws Exception{
+	public String avancer(Direction dir, Carte carte){
 		String actions = "";
 		// Décrémentation du temps de rotation
 		if(this.direction!=dir) {
@@ -66,25 +66,32 @@ public class Robot {
 		switch(dir) {
 			case NORD :
 				this.posX--;
-				if(carte.getMatriceMinerais()[posX][posY] != null) minage(carte.getMatriceMinerais()[posX][posY]);
+				if(carte.getMatriceMinerais()[posX][posY] != null) miner(carte.getMatriceMinerais()[posX][posY]);
 				break;
 			case SUD :
 				this.posX++;
-				if(carte.getMatriceMinerais()[posX][posY] != null) minage(carte.getMatriceMinerais()[posX][posY]);
+				if(carte.getMatriceMinerais()[posX][posY] != null) miner(carte.getMatriceMinerais()[posX][posY]);
 				break;
 			case EST :
 				this.posY++;
-				if(carte.getMatriceMinerais()[posX][posY] != null) minage(carte.getMatriceMinerais()[posX][posY]);
+				if(carte.getMatriceMinerais()[posX][posY] != null) miner(carte.getMatriceMinerais()[posX][posY]);
 				break;
 			case OUEST :
 				this.posY--;
-				if(carte.getMatriceMinerais()[posX][posY] != null) minage(carte.getMatriceMinerais()[posX][posY]);
+				if(carte.getMatriceMinerais()[posX][posY] != null) miner(carte.getMatriceMinerais()[posX][posY]);
 				break;
 		}
 		return actions;
 	}
 	
-	public void minage(Minerai minerai) throws Exception {
+	/**
+	 *  Permet de miner le minerai à l'endroit ou se trouve le robot.
+	 *  
+	 * @param minerai Minerai à miner.
+	 * 
+	 * @throws Exception Lorsque votre laser n'a plus la capacité de miner une telle roche, ou bine de la porter. (charge maximale atteinte)
+	 */
+	public void miner(Minerai minerai){
 		int poidsMinerai = minerai.getPoids();
 		int dureteMinerai = minerai.getDurete();
 		int valeur = minerai.getValeur();
@@ -92,20 +99,50 @@ public class Robot {
 		// Calcul du temps de minage et décrémentation du temps restant.
 		double temps_minage =  dureteMinerai*100/pui_laser;
 		double emoussage_laser = temps_minage * (Double) configuration.get("emoussage_laser"); 	// Emoussage du laser
-		if(pui_laser - emoussage_laser > 0.1) { // Ne pas casser le laser
-			this.laser_actuel.setPuissance_actuelle(pui_laser - emoussage_laser);
-			// Utilisation de la batterie
-			batterie_actuelle.setPuissance_actuelle(batterie_actuelle.getPuissance_actuelle() - (Double) configuration.get("cout_minage"));
-			
-			
-			// incrémentation charge max
-		} else {
-			if(charge + poidsMinerai > (Double) configuration.get("charge_maximale")) throw new Exception("Vous ne pourrez pas porter ce minerai...");
-			else throw new Exception("Le laser n'a plus la capacité de miner cela...");
-		}
-		
+		this.laser_actuel.setPuissance_actuelle(pui_laser - emoussage_laser);
+		// Utilisation de la batterie
+		batterie_actuelle.setPuissance_actuelle(batterie_actuelle.getPuissance_actuelle() - (Double) configuration.get("cout_minage"));
+		// Incrémentation charge max
+		charge += poidsMinerai;
+		score += (int) valeur;
+		//Décrémentation du temps restant
+		this.configuration.put("temps_avant_que_nasa_repere", (Double) configuration.get("temps_avant_que_nasa_repere") - temps_minage);
 	}
 	
+	/**
+	 * Permet de décharger le robot. N'est appellée uniquement si le robot est bien à la base.
+	 * 
+	 */
+	public void decharger() {
+		this.charge = 0;
+	}
+	
+	/**
+	 * Permet de s'équiper d'un laser ou d'une batterie.
+	 */
+	public void equiper(Equipement equip) {
+		if(equip.getClass()==laser_actuel.getClass()) {
+			this.laser_actuel = (Laser) equip;
+		} else {
+			this.batterie_actuelle = (Batterie) equip;
+		}
+		double prix = equip.getCout();
+		this.score -= prix;
+	}
+	
+	public Equipement getBestLaser() {
+		for(Equipement equip : equipements_disponibles) {
+			if(equip.getClass()==laser_actuel.getClass()) return equip;
+		}
+		return null;
+	}
+	
+	public Equipement getBestBatterie() {
+		for(Equipement equip : equipements_disponibles) {
+			if(equip.getClass()==batterie_actuelle.getClass()) return equip;
+		}
+		return null;
+	}
 
 	public int getBaseX() {
 		return baseX;
@@ -191,7 +228,7 @@ public class Robot {
 		return score;
 	}
 
-	public void setScore(Number score) {
+	public void setScore(int score) {
 		this.score = score;
 	}
 }

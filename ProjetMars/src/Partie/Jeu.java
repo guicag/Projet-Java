@@ -32,7 +32,6 @@ public class Jeu {
 		Map<String, Number> configuration = FileParser.lectureConfigurationRobot();
 		assert listEquipement != null : "Vous devez analyser les equipements dont le robot dispose avant de le créer.";
 		assert configuration != null : "Vous devez analyser la configuration du robot avant de le créer.";
-		
 		Batterie batterie_def = new Batterie();
 		Laser laser_def = new Laser();
 		for(Equipement equip : listEquipement) {
@@ -56,7 +55,14 @@ public class Jeu {
 	 */
 	public Direction choisirDirection() {
 		
+		
 		return null;
+	}
+	
+	public void jouer() {
+		while(robot.getBatterie_actuelle().equals(robot.getBestBatterie()) && robot.getLaser_actuel().equals(robot.getBestLaser())) {
+			
+		}
 	}
 
 	public Carte getCarte() {

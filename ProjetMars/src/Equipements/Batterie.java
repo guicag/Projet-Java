@@ -22,4 +22,11 @@ public class Batterie extends Equipement {
 		super();
 	}
 
+	public boolean equals(Object bestBatterie) {
+		boolean res = false;
+		Batterie batterie = (Batterie) bestBatterie;
+		if(nom == batterie.getNom() && cout == batterie.getCout() && puissance_initiale == batterie.getPuissance_initiale() && ratio == batterie.getRatio()) res = true;
+		return res;
+	}
+
 }

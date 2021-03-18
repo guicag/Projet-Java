@@ -29,7 +29,7 @@ public abstract class FileParser {
 	public static ArrayList<Minerai> lectureDescriptifMesures() {
 		ArrayList<Minerai> listMinerai = new ArrayList<Minerai>();
 		try {//
-			System.out.println("DÃ©but de l'analyse des minerais.");
+			System.out.println("Début de l'analyse des minerais.");
 			// Ouverture du fichier fichiers/descriptif_mesures.txt
 			Path path = FileSystems.getDefault().getPath("fichiers", "descriptif_mesures.txt");
 			BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
@@ -47,7 +47,7 @@ public abstract class FileParser {
 				ligne = reader.readLine();
 			}
 			listMinerai.sort(null);
-			System.out.println("Analyse des minerais terminÃ©e. '-_-' \n");
+			System.out.println("Analyse des minerais terminée. '-_-' \n");
 		} catch (IOException e) {
 			System.out.println("File I/O error!");
 			e.printStackTrace();
@@ -65,7 +65,7 @@ public abstract class FileParser {
 	public static Minerai[][] lectureCarte(ArrayList<Minerai> listMinerai) {
 		Minerai[][] carte = null;
 		try {
-			System.out.println("DÃ©but de l'analyse de la carte.");
+			System.out.println("Début de l'analyse de la carte.");
 			// Ouverture du fichier fichiers/zone_a_explorer.txt
 			Path path = FileSystems.getDefault().getPath("fichiers", "zone_a_explorer.txt");
 			BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
@@ -93,7 +93,7 @@ public abstract class FileParser {
 				contenuLigne = reader.readLine();
 				ligne++;
 			}
-			System.out.println("Analyse de la carte terminÃ©e. '-_-' \n");
+			System.out.println("Analyse de la carte terminée. '-_-' \n");
 		} catch (IOException e) {
 			System.out.println("File I/O error!");
 			e.printStackTrace();
@@ -110,7 +110,7 @@ public abstract class FileParser {
 	public static ArrayList<Equipement> lectureEquipementsDisponibles() {
 		ArrayList<Equipement> listEquipement = new ArrayList<Equipement>();
 		try {
-			System.out.println("DÃ©but de l'analyse des lasers disponibles.");
+			System.out.println("Début de l'analyse des lasers disponibles.");
 			// Ouverture du fichier fichiers/zone_a_explorer.txt
 			Path path = FileSystems.getDefault().getPath("fichiers", "materiel_disponible.txt");
 			BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
@@ -136,7 +136,7 @@ public abstract class FileParser {
 				ligne = reader.readLine();
 			}
 			listEquipement.sort(null);
-			System.out.println("Analyse des Ã©quipements disponibles terminÃ©e. '-_-' \n");
+			System.out.println("Analyse des équipements disponibles terminée. '-_-' \n");
 		} catch (IOException e) {
 			System.out.println("File I/O error!");
 			e.printStackTrace();
@@ -152,8 +152,7 @@ public abstract class FileParser {
 	public static Map<String, Number> lectureConfigurationRobot() {
 		Map<String, Number> configuration = new HashMap<String, Number>();
 		try {
-			
-			System.out.println("DÃ©but de l'analyse de la configuration du robot.");
+			System.out.println("Début de l'analyse de la configuration du robot.");
 
 			// Ouverture du fichier fichiers/configuration_robot.txt
 			Path path = FileSystems.getDefault().getPath("fichiers", "configuration_robot.txt");
