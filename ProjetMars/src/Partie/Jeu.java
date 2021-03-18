@@ -15,7 +15,7 @@ public class Jeu {
 	private ArrayList<String> parcoursRobot;
 	
 	/*
-	 * Constructeur de l'objet Jeu. Il permet d'initialiser le jeu en analysant les fichiers de configuration.2
+	 * Constructeur de l'objet Jeu. Il permet d'initialiser le jeu en analysant les fichiers de configuration.
 	 */
 	public Jeu() {
 		//Analyse des fichiers et création de la carte et du robot
