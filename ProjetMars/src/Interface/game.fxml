@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="601.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.Controller">
+<AnchorPane prefHeight="601.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.ControllerGame">
    <children>
       <ImageView fitHeight="601.0" fitWidth="779.0" opacity="0.35" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../images/mars.jpg" />
+            <Image url="@../../images/marsGame.jpg" />
          </image>
       </ImageView>
       <BorderPane prefHeight="601.0" prefWidth="779.0">

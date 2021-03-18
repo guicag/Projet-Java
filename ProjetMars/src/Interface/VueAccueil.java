@@ -24,8 +24,8 @@ public class VueAccueil extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("game.fxml"));
-		primaryStage.setScene(new Scene(root));
+		Parent rootAccueil = FXMLLoader.load(getClass().getResource("accueil.fxml"));
+		primaryStage.setScene(new Scene(rootAccueil));
 		primaryStage.show();
 	}
 
