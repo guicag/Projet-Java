@@ -12,7 +12,7 @@ public class Jeu {
 	
 	private Carte carte;
 	private Robot robot;
-	private String[] parcoursRobot;
+	private ArrayList<String> parcoursRobot;
 	
 	/*
 	 * Constructeur de l'objet Jeu. Il permet d'initialiser le jeu en analysant les fichiers de configuration.
@@ -46,6 +46,7 @@ public class Jeu {
 		} 
 		int[] position = carte.getBase();
 		this.robot = new Robot(configuration, listEquipement, batterie_def, laser_def, position[0], position[1]);
+		this.parcoursRobot = new ArrayList<String>();
 		System.out.println("Jeu initialisé '-_-'");
 	}
 	
@@ -75,11 +76,11 @@ public class Jeu {
 		this.robot = robot;
 	}
 
-	public String[] getParcoursRobot() {
+	public ArrayList<String> getParcoursRobot() {
 		return parcoursRobot;
 	}
 
-	public void setParcoursRobot(String[] parcoursRobot) {
+	public void setParcoursRobot(ArrayList<String> parcoursRobot) {
 		this.parcoursRobot = parcoursRobot;
 	}
 

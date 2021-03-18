@@ -32,6 +32,12 @@ public class Controller implements Initializable{
 	Jeu jeu;
 	
     @FXML
+    private Label score;
+
+    @FXML
+    private Label deplacement;
+	
+    @FXML
     private Button btnJouer;
 
     @FXML
@@ -81,11 +87,16 @@ public class Controller implements Initializable{
 		jeu = new Jeu();
 		
 		carte.setText(jeu.getCarte().toString());
-		carte.setFont(Font.font ("MonoSpaced", 13));
+		carte.setFont(Font.font ("MonoSpaced", 17));
 		carte.setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 0.7), new CornerRadii(5.0), new Insets(-5.0))));
+		
+		score.setText(String.valueOf(jeu.getRobot().getScore()));
+		score.setFont(Font.font("MonoSpaces", 20));
+		score.setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 0.7), new CornerRadii(5.0), new Insets(-5.0))));
 		
 		loadDataEquipement();
 		loadDataMinerais();
+		loadDataDeplacement();
 		
 	}
 	
@@ -124,5 +135,18 @@ public class Controller implements Initializable{
 		for (int i = 0; i < sizeMinerais; i++) {
 			listMinerais.getItems().add(jeu.getCarte().getMinerais_disponibles().get(i));
 		}
+	}
+	
+	public void loadDataDeplacement() {
+		int sizeListDeplacement = jeu.getParcoursRobot().size();
+		String deplacements = "";
+		if (sizeListDeplacement != 0) {
+			for (int i = 0; i < sizeListDeplacement; i++) {
+				deplacements += jeu.getParcoursRobot().get(i) + " ";
+			}
+		}
+		deplacement.setText(deplacements);
+		deplacement.setFont(Font.font("MonoSpaced", 15));
+		deplacement.setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 0.7), new CornerRadii(5.0), new Insets(-5.0))));
 	}
 }
