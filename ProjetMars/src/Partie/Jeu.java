@@ -45,6 +45,7 @@ public class Jeu {
 		} 
 		int[] position = carte.getBase();
 		this.robot = new Robot(configuration, listEquipement, batterie_def, laser_def, position[0], position[1]);
+		this.parcoursRobot = new ArrayList<String>();
 		System.out.println("Jeu initialisé '-_-'");
 	}
 	

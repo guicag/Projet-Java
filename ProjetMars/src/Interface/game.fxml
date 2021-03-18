@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -7,8 +8,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="601.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.Controller">
+<AnchorPane prefHeight="601.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.ControllerGame">
    <children>
+      <ImageView fitHeight="601.0" fitWidth="779.0" opacity="0.35" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/marsGame.jpg" />
+         </image>
+      </ImageView>
       <BorderPane prefHeight="601.0" prefWidth="779.0">
          <left>
             <VBox prefHeight="601.0" prefWidth="306.0" BorderPane.alignment="CENTER">
@@ -17,12 +23,18 @@
                      <VBox.margin>
                         <Insets left="5.0" top="10.0" />
                      </VBox.margin>
+                     <font>
+                        <Font name="Noto Mono" size="17.0" />
+                     </font>
                   </Label>
                   <TableView fx:id="listEquip" prefHeight="279.0" prefWidth="318.0" />
                   <Label text="Minerais :">
                      <VBox.margin>
                         <Insets left="5.0" top="10.0" />
                      </VBox.margin>
+                     <font>
+                        <Font size="17.0" />
+                     </font>
                   </Label>
                   <TableView fx:id="listMinerais" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="228.0" />
                </children>
@@ -35,18 +47,24 @@
                      <VBox.margin>
                         <Insets left="5.0" top="10.0" />
                      </VBox.margin>
+                     <font>
+                        <Font size="23.0" />
+                     </font>
                   </Label>
-                  <Label prefHeight="43.0" prefWidth="137.0" text="Label">
+                  <Label fx:id="score" prefHeight="43.0" prefWidth="137.0" text="Label">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="Deplacement :">
+                  <Label text="Deplacements :">
                      <VBox.margin>
                         <Insets top="30.0" />
                      </VBox.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
                   </Label>
-                  <Label prefHeight="49.0" prefWidth="134.0" text="Label" />
+                  <Label fx:id="deplacement" prefHeight="400.0" prefWidth="134.0" text="Label" />
                </children>
             </VBox>
          </right>
@@ -57,11 +75,17 @@
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
+                     <font>
+                        <Font size="26.0" />
+                     </font>
                   </Label>
-                  <Label fx:id="carte" alignment="CENTER" contentDisplay="CENTER" prefHeight="331.0" prefWidth="223.0" text="Label">
+                  <Label fx:id="carte" alignment="CENTER" contentDisplay="CENTER" prefHeight="447.0" prefWidth="298.0" text="Label">
                      <VBox.margin>
                         <Insets top="40.0" />
-                     </VBox.margin></Label>
+                     </VBox.margin>
+                     <font>
+                        <Font size="17.0" />
+                     </font></Label>
                </children>
             </VBox>
          </center>
