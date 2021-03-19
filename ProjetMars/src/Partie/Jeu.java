@@ -26,7 +26,6 @@ public class Jeu {
 		assert listMinerai != null : "Vous devez analyser les minerais qui composent la carte avant de l'analyser.";
 		//Analyse de la carte
 		this.carte = new Carte(FileParser.lectureCarte(listMinerai));
-		System.out.println(carte.toString() + "\n");
 		//Analyse du matériel disponible
 		ArrayList<Equipement> listEquipement = (ArrayList<Equipement>) FileParser.lectureEquipementsDisponibles();
 		assert listEquipement != null : "Vous devez analyser les equipements dont le robot dispose avant de le créer.";

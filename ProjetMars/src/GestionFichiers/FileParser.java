@@ -40,6 +40,7 @@ import Equipements.Minerai;
 		try {
 			System.out.println("Début de l'analyse des minerais.");
 			String ligne = reader.readLine();
+			ligne = reader.readLine();
 			while (ligne != null) {
 				String[] mots = ligne.split("\t");
 				char symbole = mots[0].charAt(0);
