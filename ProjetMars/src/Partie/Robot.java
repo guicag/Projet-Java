@@ -1,6 +1,7 @@
 package Partie;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import Equipements.Batterie;
@@ -14,12 +15,13 @@ public class Robot {
 	private int posX;
 	private int posY;
 	private int charge;
-	private Batterie batterie_actuelle;
-	private Laser laser_actuel;
-	private ArrayList<Equipement> equipements_disponibles;
+	private Batterie batterieActuelle;
+	private Laser laserActuel;
+	private ArrayList<Equipement> equipementsDisponibles;
 	private Map<String, Number> configuration;
 	private Direction direction;
 	private int score;
+	private static final String TEMPS_NASA_RESTANT = "temps_avant_que_nasa_repere";
 	
 	/**
 	 * Constructeur non paramatré de l'objet Robot.
@@ -28,11 +30,11 @@ public class Robot {
 		super();
 	}
 	
-	public Robot(Map<String, Number> configuration, ArrayList<Equipement> equipements_disponibles, Batterie batterie_def, Laser laser_def, int posX, int posY) {
+	public Robot(Map<String, Number> configuration, List<Equipement> equipementsDisponibles, Batterie batterieDef, Laser laserDef, int posX, int posY) {
 		this.configuration = configuration;
-		this.equipements_disponibles = equipements_disponibles;
-		this.batterie_actuelle = batterie_def;
-		this.laser_actuel = laser_def;
+		this.equipementsDisponibles = (ArrayList<Equipement>) equipementsDisponibles;
+		this.batterieActuelle = batterieDef;
+		this.laserActuel = laserDef;
 		this.posX = posX;
 		this.posY = posY;
 		this.baseX = posX;
@@ -55,9 +57,9 @@ public class Robot {
 		String actions = "";
 		if(this.direction!=dir) {
 			// Décrémentation du temps de rotation et de la batterie
-			this.batterie_actuelle.setPuissance_actuelle(batterie_actuelle.getPuissance_actuelle() - (Double) configuration.get("cout_rotation"));
-			this.batterie_actuelle.setPuissance_actuelle(batterie_actuelle.getPuissance_actuelle() - (Double) configuration.get("cout_minage"));
-			this.configuration.put("temps_avant_que_nasa_repere", (Double) configuration.get("temps_avant_que_nasa_repere") - (Double) configuration.get("temps_rotation"));
+			this.batterieActuelle.setPuissanceActuelle(batterieActuelle.getPuissanceActuelle() - (Double) configuration.get("cout_rotation"));
+			this.batterieActuelle.setPuissanceActuelle(batterieActuelle.getPuissanceActuelle() - (Double) configuration.get("cout_minage"));
+			this.configuration.put(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - (Double) configuration.get("temps_rotation"));
 			this.direction = dir;
 			actions += "TOURNER "+dir.name()+", AVANCER,";
 		} else {
@@ -97,18 +99,18 @@ public class Robot {
 		int poidsMinerai = minerai.getPoids();
 		int dureteMinerai = minerai.getDurete();
 		int valeur = minerai.getValeur();
-		double pui_laser = this.laser_actuel.getPuissance_actuelle();
+		double puiLaser = this.laserActuel.getPuissanceActuelle();
 		// Calcul du temps de minage et décrémentation du temps restant.
-		double temps_minage =  dureteMinerai*100/pui_laser;
-		double emoussage_laser = temps_minage * (Double) configuration.get("emoussage_laser"); 	// Emoussage du laser
-		this.laser_actuel.setPuissance_actuelle(pui_laser - emoussage_laser);
+		double tempsMinage =  dureteMinerai*100/puiLaser;
+		double emoussageLaser = tempsMinage * (Double) configuration.get("emoussage_laser"); 	// Emoussage du laser
+		this.laserActuel.setPuissanceActuelle(puiLaser - emoussageLaser);
 		// Utilisation de la batterie
-		batterie_actuelle.setPuissance_actuelle(batterie_actuelle.getPuissance_actuelle() - (Double) configuration.get("cout_minage"));
+		batterieActuelle.setPuissanceActuelle(batterieActuelle.getPuissanceActuelle() - (Double) configuration.get("cout_minage"));
 		// Incrémentation charge max
 		charge += poidsMinerai;
-		score += (int) valeur;
+		score += valeur;
 		//Décrémentation du temps restant
-		this.configuration.put("temps_avant_que_nasa_repere", (Double) configuration.get("temps_avant_que_nasa_repere") - temps_minage);
+		this.configuration.put(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - tempsMinage);
 	}
 	
 	/**
@@ -126,25 +128,25 @@ public class Robot {
 	 * Permet de s'équiper d'un laser ou d'une batterie.
 	 */
 	public void equiper(Equipement equip) {
-		if(equip.getClass()==laser_actuel.getClass()) {
-			this.laser_actuel = (Laser) equip;
+		if(equip.getClass()==laserActuel.getClass()) {
+			this.laserActuel = (Laser) equip;
 		} else {
-			this.batterie_actuelle = (Batterie) equip;
+			this.batterieActuelle = (Batterie) equip;
 		}
 		double prix = equip.getCout();
 		this.score -= prix;
 	}
 	
 	public Equipement getBestLaser() {
-		for(Equipement equip : equipements_disponibles) {
-			if(equip.getClass()==laser_actuel.getClass()) return equip;
+		for(Equipement equip : equipementsDisponibles) {
+			if(equip.getClass()==laserActuel.getClass()) return equip;
 		}
 		return null;
 	}
 	
 	public Equipement getBestBatterie() {
-		for(Equipement equip : equipements_disponibles) {
-			if(equip.getClass()==batterie_actuelle.getClass()) return equip;
+		for(Equipement equip : equipementsDisponibles) {
+			if(equip.getClass()==batterieActuelle.getClass()) return equip;
 		}
 		return null;
 	}
@@ -181,28 +183,28 @@ public class Robot {
 		this.posY = posY;
 	}
 
-	public Batterie getBatterie_actuelle() {
-		return batterie_actuelle;
+	public Batterie getBatterieActuelle() {
+		return batterieActuelle;
 	}
 
-	public void setBatterie_actuelle(Batterie batterie_actuelle) {
-		this.batterie_actuelle = batterie_actuelle;
+	public void setBatterieActuelle(Batterie batterieActuelle) {
+		this.batterieActuelle = batterieActuelle;
 	}
 
-	public Laser getLaser_actuel() {
-		return laser_actuel;
+	public Laser getLaserActuel() {
+		return laserActuel;
 	}
 
-	public void setLaser_actuel(Laser laser_actuel) {
-		this.laser_actuel = laser_actuel;
+	public void setLaserActuel(Laser laserActuel) {
+		this.laserActuel = laserActuel;
 	}
 
-	public ArrayList<Equipement> getEquipements_disponibles() {
-		return equipements_disponibles;
+	public List<Equipement> getEquipementsDisponibles() {
+		return equipementsDisponibles;
 	}
 
-	public void setEquipements_disponibles(ArrayList<Equipement> equipements_disponibles) {
-		this.equipements_disponibles = equipements_disponibles;
+	public void setEquipementsDisponibles(List<Equipement> equipementsDisponibles) {
+		this.equipementsDisponibles = (ArrayList<Equipement>) equipementsDisponibles;
 	}
 
 	public Map<String, Number> getConfiguration() {

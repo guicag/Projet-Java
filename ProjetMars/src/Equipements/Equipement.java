@@ -1,10 +1,10 @@
 package Equipements;
 
 public class Equipement implements Comparable<Object>{
-	private String nom;
+	protected String nom;
 	protected int cout;
-	protected double puissance_initiale;
-	protected double puissance_actuelle;
+	protected double puissanceInitiale;
+	protected double puissanceActuelle;
 	protected double ratio;
 	
 	/**
@@ -16,8 +16,8 @@ public class Equipement implements Comparable<Object>{
 	public Equipement(String n, int c, double pi) {
 		this.setNom(n);
 		this.cout = c;
-		this.puissance_initiale = pi;
-		this.puissance_actuelle = pi;		
+		this.puissanceInitiale = pi;
+		this.puissanceActuelle = pi;		
 		if(pi!=0) this.ratio = (double) c/ pi;
 	}
 	
@@ -41,6 +41,13 @@ public class Equipement implements Comparable<Object>{
 		if(equip.ratio>ratio) res = 1;
 		return res;
 	}
+	
+	public boolean equalsTo(Object o) {
+		Equipement equip = (Equipement) o;
+		boolean val = false;
+		if(equip.ratio>ratio) val = true;
+		return val;
+	}
 
 	public int getCout() {
 		return cout;
@@ -50,20 +57,20 @@ public class Equipement implements Comparable<Object>{
 		this.cout = cout;
 	}
 
-	public double getPuissance_initiale() {
-		return puissance_initiale;
+	public double getPuissanceInitiale() {
+		return puissanceInitiale;
 	}
 
-	public void setPuissance_initiale(double puissance_initiale) {
-		this.puissance_initiale = puissance_initiale;
+	public void setPuissanceInitiale(double puissanceInitiale) {
+		this.puissanceInitiale = puissanceInitiale;
 	}
 
-	public double getPuissance_actuelle() {
-		return puissance_actuelle;
+	public double getPuissanceActuelle() {
+		return puissanceActuelle;
 	}
 
-	public void setPuissance_actuelle(double puissance_actuelle) {
-		this.puissance_actuelle = puissance_actuelle;
+	public void setPuissanceActuelle(double puissanceActuelle) {
+		this.puissanceActuelle = puissanceActuelle;
 	}
 
 	public double getRatio() {

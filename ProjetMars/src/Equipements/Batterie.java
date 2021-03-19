@@ -1,11 +1,11 @@
 package Equipements;
 
 public class Batterie extends Equipement {
-	private String nom;
-	private int cout;
-	private double puissance_initiale;
-	private double puissance_actuelle;
-	private double ratio;
+	private String nomBatterie;
+	private int coutBatterie;
+	private double puissanceBatterieInitiale;
+	private double puissanceBatterieActuelle;
+	private double ratioBatterie;
 	
 	/**
 	 * Constructeur paramétré de Laser.
@@ -25,7 +25,7 @@ public class Batterie extends Equipement {
 	public boolean equals(Object bestBatterie) {
 		boolean res = false;
 		Batterie batterie = (Batterie) bestBatterie;
-		if(nom == batterie.getNom() && cout == batterie.getCout() && puissance_initiale == batterie.getPuissance_initiale() && ratio == batterie.getRatio()) res = true;
+		if(nom == batterie.getNom() && cout == batterie.getCout() && puissanceInitiale == batterie.getPuissanceInitiale() && ratio == batterie.getRatio()) res = true;
 		return res;
 	}
 

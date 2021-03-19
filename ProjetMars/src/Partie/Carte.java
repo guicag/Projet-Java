@@ -1,6 +1,8 @@
 package Partie;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import Equipements.Minerai;
 import GestionFichiers.FileParser;
@@ -9,14 +11,18 @@ public class Carte {
 	
 	private Minerai[][] matriceMinerais;
 	private ArrayList<Minerai> mineraisDisponibles;
-	
+	private static final String ERREUR_CARTE = "Erreur lors de la lecture du fichier de la carte.";
 	/**
 	 * Constructeur paramétré d'une carte.
 	 * @param minerais Matrice de minerais 
 	 */
 	public Carte(Minerai[][] minerais) {
 		this.matriceMinerais = minerais;
-		this.mineraisDisponibles = FileParser.lectureDescriptifMesures();
+		try {
+			this.mineraisDisponibles = (ArrayList<Minerai>) FileParser.lectureDescriptifMesures();
+		} catch (IOException e) {
+			getErreurCarte();
+		}
 		afficherCarte();
 	}
 	
@@ -33,15 +39,15 @@ public class Carte {
 	}
 	
 	public String toString(){
-		String s_carte = "";
+		String sCarte = "";
 		for(int ligne = 0; ligne < getRowLength(); ligne++) {
 			for(int col = 0; col < getColumnLength(); col++) {
-				if(matriceMinerais[ligne][col]!=null) s_carte += matriceMinerais[ligne][col].getCaractere();
-				else s_carte += " ";
+				if(matriceMinerais[ligne][col]!=null) sCarte += matriceMinerais[ligne][col].getCaractere();
+				else sCarte += " ";
 			}
-			s_carte += "\n";
+			sCarte += "\n";
 		}
-		return s_carte;
+		return sCarte;
 	}
 
 	public Minerai[][] getMatriceMinerais() {
@@ -60,8 +66,8 @@ public class Carte {
 		return this.matriceMinerais[0].length;
 	}
 	
-	public ArrayList<Minerai> getMinerais_disponibles() {
-		return this.minerais_disponibles;
+	public List<Minerai> getMineraisDisponibles() {
+		return this.mineraisDisponibles;
 	}
 	
 	/**
@@ -80,6 +86,10 @@ public class Carte {
 			}
 		}
 		return null;
+	}
+
+	public static String getErreurCarte() {
+		return ERREUR_CARTE;
 	}
 	
 	

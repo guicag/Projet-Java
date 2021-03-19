@@ -1,6 +1,11 @@
 package Equipements;
 
 public class Laser extends Equipement  {
+	private String nomLaser;
+	private int coutLaser;
+	private double puissanceLaserInitiale;
+	private double puissanceLaserActuelle;
+	private double ratioLaser;
 	/**
 	 * Constructeur paramétré de Laser.
 	 * @param n Nom du laser
@@ -15,4 +20,13 @@ public class Laser extends Equipement  {
 	public Laser() {
 		super();
 	}
+	
+	public boolean equals(Object obj) {
+		  if (obj == null)
+		    return false;
+
+		  if (this.getClass() != obj.getClass())
+		    return false;
+		return true;
+		}
 }

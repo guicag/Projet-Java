@@ -1,5 +1,7 @@
 package Partie;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import Equipements.Batterie;
@@ -17,16 +19,16 @@ public class Jeu {
 	/*
 	 * Constructeur de l'objet Jeu. Il permet d'initialiser le jeu en analysant les fichiers de configuration.
 	 */
-	public Jeu() {
+	public Jeu() throws IOException {
 		//Analyse des fichiers et création de la carte et du robot
 		//Analyse des minerais
-		ArrayList<Minerai> listMinerai = FileParser.lectureDescriptifMesures();
+		ArrayList<Minerai> listMinerai = (ArrayList<Minerai>) FileParser.lectureDescriptifMesures();
 		assert listMinerai != null : "Vous devez analyser les minerais qui composent la carte avant de l'analyser.";
 		//Analyse de la carte
 		this.carte = new Carte(FileParser.lectureCarte(listMinerai));
 		System.out.println(carte.toString() + "\n");
 		//Analyse du matériel disponible
-		ArrayList<Equipement> listEquipement = FileParser.lectureEquipementsDisponibles();
+		ArrayList<Equipement> listEquipement = (ArrayList<Equipement>) FileParser.lectureEquipementsDisponibles();
 		assert listEquipement != null : "Vous devez analyser les equipements dont le robot dispose avant de le créer.";
 		//Analyse de la configuration du robot 
 		Map<String, Number> configuration = FileParser.lectureConfigurationRobot();
@@ -45,7 +47,7 @@ public class Jeu {
 		} 
 		int[] position = carte.getBase();
 		this.robot = new Robot(configuration, listEquipement, batterieDef, laserDef, position[0], position[1]);
-		this.parcoursRobot = new ArrayList<String>();
+		this.parcoursRobot = new ArrayList<>();
 		System.out.println("Jeu initialisé '-_-'");
 	}
 	
@@ -54,26 +56,11 @@ public class Jeu {
 	 * 
 	 * @return Un enum Direction indisuant la prhcaine direction à suivre.
 	 */
-	public Direction choisirDirection() {
-		int posXRobot = robot.getPosX();
-		int posYRobot = robot.getPosY();
-		
-		if(posXRobot - 1 < 0 || posXRobot + 1 > carte.getRowLength()-1) {
-			
-		}
-		
-		
-		/*if(pos)
-		Minerai minAuDessus = carte.getMatriceMinerais()[--posXRobot][posYRobot];*/
-		
-		return null;
-	}
 	
 	public void jouer() {
 		//Première phase 
 		//		Stratégie : Miner les plus rentable jusqu'à avoir le meilleur laser et la meilleure batterie.
-		while(robot.getBatterie_actuelle().equals(robot.getBestBatterie()) && robot.getLaser_actuel().equals(robot.getBestLaser())) {
-			
+		while(robot.getBatterieActuelle().equals(robot.getBestBatterie()) && robot.getLaserActuel().equals(robot.getBestLaser())) {
 		}
 	}
 
@@ -93,12 +80,12 @@ public class Jeu {
 		this.robot = robot;
 	}
 
-	public ArrayList<String> getParcoursRobot() {
+	public List<String> getParcoursRobot() {
 		return parcoursRobot;
 	}
 
-	public void setParcoursRobot(ArrayList<String> parcoursRobot) {
-		this.parcoursRobot = parcoursRobot;
+	public void setParcoursRobot(List<String> parcoursRobot) {
+		this.parcoursRobot = (ArrayList<String>) parcoursRobot;
 	}
 
 }
