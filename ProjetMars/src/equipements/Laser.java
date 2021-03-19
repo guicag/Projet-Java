@@ -1,4 +1,4 @@
-package Equipements;
+package equipements;
 
 public class Laser extends Equipement  {
 	private String nomLaser;

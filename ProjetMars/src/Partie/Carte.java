@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Equipements.Minerai;
 import GestionFichiers.FileParser;
+import equipements.Minerai;
 
 public class Carte {
 	

@@ -11,10 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import Equipements.Batterie;
-import Equipements.Equipement;
-import Equipements.Laser;
-import Equipements.Minerai;
+import equipements.Batterie;
+import equipements.Equipement;
+import equipements.Laser;
+import equipements.Minerai;
 
  public abstract class FileParser {
 	private static final String ERREUR_FICHIER = "File I/O error";
@@ -153,8 +153,7 @@ import Equipements.Minerai;
 		} catch (IOException e) {
 			System.out.println(ERREUR_FICHIER);
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			reader.close();
 		}
 		return  listEquipement;

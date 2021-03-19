@@ -3,12 +3,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
-import Equipements.Batterie;
-import Equipements.Equipement;
-import Equipements.Laser;
-import Equipements.Minerai;
 import GestionFichiers.FileParser;
+import equipements.Batterie;
+import equipements.Equipement;
+import equipements.Laser;
+import equipements.Minerai;
+import equipements.MineraiComparator;
 
 public class Jeu {
 	
@@ -55,11 +57,41 @@ public class Jeu {
 	 * 
 	 * @return Un enum Direction indisuant la prhcaine direction à suivre.
 	 */
+	public Direction choisirDirection() {
+		int posXRobot = robot.getPosX();
+		int posYRobot = robot.getPosY();
+		TreeMap<Minerai, Direction> listMineraiDir = new TreeMap<Minerai, Direction>();
+		for(Direction dir : Direction.values()) {
+			switch(dir) {
+				case NORD :
+					if(posXRobot != 0) listMineraiDir.put(carte.getMatriceMinerais()[posXRobot-1][posYRobot], dir);// NORD impossible
+					break;
+				case SUD :
+					if(posXRobot != carte.getRowLength()-1) listMineraiDir.put(carte.getMatriceMinerais()[posXRobot+1][posYRobot], dir);// SUD impossible
+					break;
+				case EST :
+					if(posYRobot != carte.getColumnLength()-1) listMineraiDir.put(carte.getMatriceMinerais()[posXRobot][posYRobot+1], dir);// EST impossible
+					break;
+				case OUEST :
+					if(posYRobot != 0) listMineraiDir.put(carte.getMatriceMinerais()[posXRobot][posYRobot-1], dir);// OUEST impossible
+					break;
+			}
+		}
+		return listMineraiDir.firstEntry().getValue();
+	}
+	
+	/**
+	 * Fonction permettant de choisir une direction à suivre lors du prochain déplacement, et de toruner le robot dans celle-ci.
+	 * 
+	 * @return Un enum Direction indisuant la prhcaine direction à suivre.
+	 */
 	
 	public void jouer() {
 		//Première phase 
 		//		Stratégie : Miner les plus rentable jusqu'à avoir le meilleur laser et la meilleure batterie.
+		//while(robot.getConfiguration().get("temps_avant_que_nasa_repere"))
 		while(robot.getBatterieActuelle().equals(robot.getBestBatterie()) && robot.getLaserActuel().equals(robot.getBestLaser())) {
+			
 		}
 	}
 

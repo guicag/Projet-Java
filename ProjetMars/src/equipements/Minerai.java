@@ -1,4 +1,4 @@
-package Equipements;
+package equipements;
 /**
  * @author cleme
  *

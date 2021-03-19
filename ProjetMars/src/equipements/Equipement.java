@@ -1,4 +1,4 @@
-package Equipements;
+package equipements;
 
 public class Equipement implements Comparable<Object>{
 	protected String nom;
