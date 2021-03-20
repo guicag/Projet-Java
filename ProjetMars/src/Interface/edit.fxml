@@ -1,18 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="534.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/15.0.1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="424.0" fitWidth="534.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/walking.gif" />
          </image>
       </ImageView>
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="395.0" prefWidth="534.0" />
+      <ImageView fitHeight="55.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../theo/tatou.jpg" />
+         </image>
+      </ImageView>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="395.0" prefWidth="534.0">
+         <center>
+            <VBox alignment="TOP_CENTER" prefHeight="301.0" prefWidth="447.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Bienvenue sur Mars !" textFill="WHITE" />
+                  <Label prefHeight="37.0" prefWidth="285.0" text="L’équipe tatou vient d’atterrir sur la Planet Rouge. " textFill="WHITE" />
+                  <Label prefHeight="5.0" prefWidth="462.0" text="À l’aide de leur robot ultrasophistiqué nos ingénieurs en herbe en pour but d’acquérir" textFill="WHITE" />
+                  <Label prefHeight="4.0" prefWidth="350.0" text=" le plus de richesse possible que nous offre cette nouvelle planète." textFill="WHITE" />
+                  <Label text="Cependant cette mission est ardue du fait que la NASA est sur la trace de notre équipe " textFill="WHITE" />
+                  <Label text="ils n’ont que 24h avant d’être détecter." textFill="WHITE" />
+                  <Label prefHeight="57.0" prefWidth="358.0" text="L'équipe tatou se compose:" textFill="WHITE" />
+                  <Label prefHeight="17.0" prefWidth="517.0" text="    Colonel Tatou               Commandant Tatou               Lieutenant Tatou              1er classe Tatou" textFill="WHITE" />
+                  <Label prefHeight="17.0" prefWidth="532.0" text="     Clément JOURET           Guillaume CAGNIARD            Paul ESPINOSA                  Théo BOUVIALA" textFill="WHITE" />
+                  <HBox alignment="CENTER" prefHeight="181.0" prefWidth="471.0">
+                     <children>
+                        <ImageView fitHeight="133.0" fitWidth="138.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/clemclem.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="134.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/guigui.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="134.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/popo.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="138.0" fitWidth="123.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/tete.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>
