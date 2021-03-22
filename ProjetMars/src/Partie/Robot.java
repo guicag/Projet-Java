@@ -59,11 +59,7 @@ public class Robot {
 	public String avancer(Direction dir, Carte carte){
 		String actions = "";
 		if(this.direction!=dir) {
-			// Décrémentation du temps de rotation et de la batterie
-			this.batterieActuelle.setPuissanceActuelle(batterieActuelle.getPuissanceActuelle() - (Double) configuration.get("cout_rotation"));
-			this.configuration.put(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - (Double) configuration.get("temps_rotation"));
-			this.direction = dir;
-			actions += "TOURNER "+dir.name()+", AVANCER,";
+			actions += tourner(dir);
 		} else {
 			actions += "AVANCER,";
 		}
@@ -87,6 +83,19 @@ public class Robot {
 				break;
 		}
 		return actions;
+	}
+	
+	/**
+	 * Permet de faire tourner le robot dans une direction donner en parametre
+	 * @param dir
+	 * @return Un string qui decrit le comportement du robot
+	 */
+	public String tourner(Direction dir) {
+		// Décrémentation du temps de rotation et de la batterie
+		this.batterieActuelle.setPuissanceActuelle(batterieActuelle.getPuissanceActuelle() - (Double) configuration.get("cout_rotation"));
+		this.configuration.put(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - (Double) configuration.get("temps_rotation"));
+		this.direction = dir;
+		return "TOURNER "+dir.name()+", AVANCER,";
 	}
 	
 	/**

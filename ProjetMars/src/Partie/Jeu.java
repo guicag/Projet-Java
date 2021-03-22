@@ -1,8 +1,10 @@
 package Partie;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 import GestionFichiers.FileParser;
@@ -60,23 +62,56 @@ public class Jeu {
 		int posXRobot = robot.getPosX();
 		int posYRobot = robot.getPosY();
 		TreeMap<Minerai, Direction> listMineraiDir = new TreeMap<Minerai, Direction>();
+		List<Minerai> listMinerais = new ArrayList<Minerai>();
 		for(Direction dir : Direction.values()) {
 			switch(dir) {
 				case NORD :
-					if(posXRobot != 0) listMineraiDir.put(carte.getMatriceMinerais()[posXRobot-1][posYRobot], dir);// NORD impossible
+					if(posXRobot != 0) {
+						listMineraiDir.put(carte.getMatriceMinerais()[posXRobot-1][posYRobot], dir);// NORD impossible
+						listMinerais.add(carte.getMatriceMinerais()[posXRobot-1][posYRobot]);
+					}
 					break;
 				case SUD :
-					if(posXRobot != carte.getRowLength()-1) listMineraiDir.put(carte.getMatriceMinerais()[posXRobot+1][posYRobot], dir);// SUD impossible
+					if(posXRobot != carte.getRowLength()-1) {
+						listMineraiDir.put(carte.getMatriceMinerais()[posXRobot+1][posYRobot], dir);// SUD impossible
+						listMinerais.add(carte.getMatriceMinerais()[posXRobot+1][posYRobot]);
+					}
 					break;
 				case EST :
-					if(posYRobot != carte.getColumnLength()-1) listMineraiDir.put(carte.getMatriceMinerais()[posXRobot][posYRobot+1], dir);// EST impossible
+					if(posYRobot != carte.getColumnLength()-1) {
+						listMineraiDir.put(carte.getMatriceMinerais()[posXRobot][posYRobot+1], dir);// EST impossible
+						listMinerais.add(carte.getMatriceMinerais()[posXRobot][posYRobot+1]);
+					}
 					break;
 				case OUEST :
-					if(posYRobot != 0) listMineraiDir.put(carte.getMatriceMinerais()[posXRobot][posYRobot-1], dir);// OUEST impossible
+					if(posYRobot != 0) {
+						listMineraiDir.put(carte.getMatriceMinerais()[posXRobot][posYRobot-1], dir);// OUEST impossible
+						listMinerais.add(carte.getMatriceMinerais()[posXRobot][posYRobot-1]);
+					}
 					break;
 			}
 		}
+		if (testZeroValues(listMinerais)) {
+			
+		}
 		return listMineraiDir.firstEntry().getValue();
+	}
+	
+	public boolean testZeroValues(List<Minerai> listMinerais) {
+		boolean res;
+		int count = 0;
+		for (int i = 0; i < listMinerais.size(); i++) {
+			if (listMinerais.get(i).getRatio() == 0) {
+				count++;
+			}
+		}
+		if (count == listMinerais.size()) {
+			res = true;
+		} else {
+			res = false;
+		}
+		
+		return true;
 	}
 	
 	/**
@@ -84,7 +119,6 @@ public class Jeu {
 	 * 
 	 * @return Un enum Direction indisuant la prhcaine direction à suivre.
 	 */
-	
 	public void jouer() {
 		//Première phase 
 		//		Stratégie : Miner les plus rentable jusqu'à avoir le meilleur laser et la meilleure batterie.
