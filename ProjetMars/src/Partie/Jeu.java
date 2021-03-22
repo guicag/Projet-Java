@@ -10,7 +10,6 @@ import equipements.Batterie;
 import equipements.Equipement;
 import equipements.Laser;
 import equipements.Minerai;
-import equipements.MineraiComparator;
 
 public class Jeu {
 	

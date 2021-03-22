@@ -1,5 +1,6 @@
 package Interface;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -21,6 +22,8 @@ import javafx.scene.text.Font;
 
 public class ControllerGame implements Initializable{
 	
+	private Jeu jeu;
+	
     @FXML
     private TableView<Equipement> listEquip;
     
@@ -29,8 +32,6 @@ public class ControllerGame implements Initializable{
     
     @FXML
     private Label carte;
-    
-	Jeu jeu;
 	
     @FXML
     private Label score;
@@ -41,7 +42,12 @@ public class ControllerGame implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		jeu = new Jeu();
+		try {
+			jeu = new Jeu();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		carte.setText(jeu.getCarte().toString());
 		carte.setFont(Font.font ("MonoSpaced", 17));
@@ -69,9 +75,9 @@ public class ControllerGame implements Initializable{
 
 		listEquip.getColumns().addAll(nomColonne, ratioColonne, coutColonne);
 		
-		int sizeEquipements = jeu.getRobot().getEquipements_disponibles().size();
+		int sizeEquipements = jeu.getRobot().getEquipementsDisponibles().size();
 		for (int i = 0; i < sizeEquipements; i++) {
-			listEquip.getItems().add(jeu.getRobot().getEquipements_disponibles().get(i));
+			listEquip.getItems().add(jeu.getRobot().getEquipementsDisponibles().get(i));
 		}
 	}
 	
@@ -85,11 +91,14 @@ public class ControllerGame implements Initializable{
 		TableColumn valeurColonne = new TableColumn("Valeur");
 		valeurColonne.setCellValueFactory(new PropertyValueFactory<>("valeur"));
 		
-		listMinerais.getColumns().addAll(symbolColonne, nomColonne, valeurColonne);
+		TableColumn ratioColonne = new TableColumn("Ration");
+		ratioColonne.setCellValueFactory(new PropertyValueFactory<>("ratio"));
 		
-		int sizeMinerais = jeu.getCarte().getMinerais_disponibles().size();
+		listMinerais.getColumns().addAll(symbolColonne, nomColonne, valeurColonne, ratioColonne);
+		
+		int sizeMinerais = jeu.getCarte().getMineraisDisponibles().size();
 		for (int i = 0; i < sizeMinerais; i++) {
-			listMinerais.getItems().add(jeu.getCarte().getMinerais_disponibles().get(i));
+			listMinerais.getItems().add(jeu.getCarte().getMineraisDisponibles().get(i));
 		}
 	}
 	

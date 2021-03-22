@@ -27,7 +27,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class Controller {
+public class ControllerAccueil {
 	
     @FXML
     private Button btnJouer;
@@ -55,12 +55,21 @@ public class Controller {
 
     @FXML
     void ouvrirPageEdit(ActionEvent event) {
-    	System.out.println("edit");
+        try {
+        	Parent root = FXMLLoader.load(getClass().getResource("edit.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            // Hide this current window (if this is what you want)
+            ((Node)(event.getSource())).getScene().getWindow().hide();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     @FXML
     void fermerApp(ActionEvent event) {
-    	System.out.println("quitter");
     	((Node)(event.getSource())).getScene().getWindow().hide();
     }
    
