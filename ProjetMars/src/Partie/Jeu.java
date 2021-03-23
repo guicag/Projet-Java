@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
 import GestionFichiers.FileParser;
 import equipements.Batterie;
+import equipements.Case;
 import equipements.Equipement;
 import equipements.Laser;
 import equipements.Minerai;
@@ -34,10 +36,10 @@ public class Jeu {
 		assert listEquipement != null : "Vous devez analyser les equipements dont le robot dispose avant de le créer.";
 		//Analyse de la configuration du robot 
 		Map<String, Number> configuration = FileParser.lectureConfigurationRobot();
-		assert configuration != null : "Vous devez analyser la configuration du robot avant de le créer.";
+		assert configuration == null : "Vous devez analyser la configuration du robot avant de le créer.";
 		//Création du robot
-		Batterie batterieDef = new Batterie();
-		Laser laserDef = new Laser();
+		Batterie batterieDef = new Batterie("batterie_defaut", 0, (Double) configuration.get("batterie_defaut"));
+		Laser laserDef = new Laser("laser_defaut", 0, (Double) configuration.get("laser_defaut"));
 		for(Equipement equip : listEquipement) {
 			if(equip.getNom().contains("defaut")) {
 				if(equip.getNom().contains("batterie")) {
@@ -46,7 +48,7 @@ public class Jeu {
 					laserDef = (Laser) equip;
 				}
 			}
-		} 
+		}
 		int[] position = carte.getBase();
 		this.robot = new Robot(configuration, listEquipement, batterieDef, laserDef, position[0], position[1]);
 		this.parcoursRobot = new ArrayList<>();
@@ -61,57 +63,50 @@ public class Jeu {
 	public Direction choisirDirection() {
 		int posXRobot = robot.getPosX();
 		int posYRobot = robot.getPosY();
-		TreeMap<Minerai, Direction> listMineraiDir = new TreeMap<Minerai, Direction>();
+		TreeMap<Case, Direction> listMineraiDir = new TreeMap<Case, Direction>();
 		List<Minerai> listMinerais = new ArrayList<Minerai>();
 		for(Direction dir : Direction.values()) {
 			switch(dir) {
 				case NORD :
-					if(posXRobot != 0) {
+					if(posXRobot != 0  && posXRobot+1 != robot.getBaseX()) {
 						listMineraiDir.put(carte.getMatriceMinerais()[posXRobot-1][posYRobot], dir);// NORD impossible
-						listMinerais.add(carte.getMatriceMinerais()[posXRobot-1][posYRobot]);
 					}
 					break;
 				case SUD :
-					if(posXRobot != carte.getRowLength()-1) {
+					if(posXRobot != carte.getRowLength()-1 && posXRobot+1 != robot.getBaseX()) {
 						listMineraiDir.put(carte.getMatriceMinerais()[posXRobot+1][posYRobot], dir);// SUD impossible
-						listMinerais.add(carte.getMatriceMinerais()[posXRobot+1][posYRobot]);
 					}
 					break;
 				case EST :
-					if(posYRobot != carte.getColumnLength()-1) {
+					if(posYRobot != carte.getColumnLength()-1 && posYRobot+1 != robot.getBaseY()) {
 						listMineraiDir.put(carte.getMatriceMinerais()[posXRobot][posYRobot+1], dir);// EST impossible
-						listMinerais.add(carte.getMatriceMinerais()[posXRobot][posYRobot+1]);
 					}
 					break;
 				case OUEST :
-					if(posYRobot != 0) {
+					if(posYRobot != 0  && posYRobot-1 != robot.getBaseY()) {
 						listMineraiDir.put(carte.getMatriceMinerais()[posXRobot][posYRobot-1], dir);// OUEST impossible
-						listMinerais.add(carte.getMatriceMinerais()[posXRobot][posYRobot-1]);
 					}
 					break;
 			}
 		}
-		if (testZeroValues(listMinerais)) {
+		/*if (testNullValues(listMineraiDir)) {
 			
-		}
+		}*/
 		return listMineraiDir.firstEntry().getValue();
 	}
 	
-	public boolean testZeroValues(List<Minerai> listMinerais) {
-		boolean res;
-		int count = 0;
-		for (int i = 0; i < listMinerais.size(); i++) {
-			if (listMinerais.get(i).getRatio() == 0) {
-				count++;
-			}
-		}
-		if (count == listMinerais.size()) {
-			res = true;
-		} else {
-			res = false;
-		}
-		
-		return true;
+	/**
+	 * Permet de déterminer si le robot est entouré de minerais ayant un ratio égal à 0;
+	 * 
+	 * @param listMineraiDir Liste des minerais qui entourent le robot.
+	 * @return Boolean true si que des zéros autour du robot, sinon false
+	 */
+	public boolean testNullValues(TreeMap<Minerai, Direction> listMineraiDir) {
+		boolean res = true;
+		for (Entry<Minerai, Direction> entry : listMineraiDir.entrySet()) {
+            if(((Case) entry.getKey()) != null) res =  false;
+        }
+		return res;
 	}
 	
 	/**
@@ -122,10 +117,26 @@ public class Jeu {
 	public void jouer() {
 		//Première phase 
 		//		Stratégie : Miner les plus rentable jusqu'à avoir le meilleur laser et la meilleure batterie.
-		//while(robot.getConfiguration().get("temps_avant_que_nasa_repere"))
-		while(robot.getBatterieActuelle().equals(robot.getBestBatterie()) && robot.getLaserActuel().equals(robot.getBestLaser())) {
-			
+		/*while((Double) robot.getConfiguration().get("temps_avant_que_nasa_repere") > 0.0) {
+			while(robot.getBatterieActuelle().notEquals(robot.getBestBatterie()) && robot.getLaserActuel().notEquals(robot.getBestLaser())) {
+				Direction dir = choisirDirection();
+				parcoursRobot.add(robot.avancer(dir, carte));
+			}
+			Direction dir = choisirDirection();
+			parcoursRobot.add(robot.avancer(dir, carte));
+		}*/
+		
+		for(int i = 0; i < 10; i++) {
+			Direction dir = choisirDirection();
+			parcoursRobot.add(robot.avancer(dir, carte));
 		}
+		
+		for(String s : parcoursRobot) {
+			System.out.print(s);
+		}
+		carte.afficherCarte();
+		if(robot.getBatterieActuelle().equals(robot.getBestBatterie()) && robot.getLaserActuel().equals(robot.getBestLaser())) System.out.println("EQUIPE");
+		System.out.println(robot.getScore());
 	}
 
 	public Carte getCarte() {

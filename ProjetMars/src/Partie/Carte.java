@@ -5,19 +5,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import GestionFichiers.FileParser;
+import equipements.Base;
+import equipements.Case;
 import equipements.Minerai;
+import equipements.Vide;
 
 public class Carte {
 	
-	private Minerai[][] matriceMinerais;
+	private Case[][] matriceCase;
 	private ArrayList<Minerai> mineraisDisponibles;
 	private static final String ERREUR_CARTE = "Erreur lors de la lecture du fichier de la carte.";
 	/**
 	 * Constructeur paramétré d'une carte.
 	 * @param minerais Matrice de minerais 
 	 */
-	public Carte(Minerai[][] minerais) {
-		this.matriceMinerais = minerais;
+	public Carte(Case[][] minerais) {
+		this.matriceCase = minerais;
 		try {
 			this.mineraisDisponibles = (ArrayList<Minerai>) FileParser.lectureDescriptifMesures();
 		} catch (IOException e) {
@@ -30,9 +33,9 @@ public class Carte {
 		System.out.println("Carte : \n");
 		for(int ligne = 0; ligne < getRowLength(); ligne++) {
 			for(int col = 0; col < getColumnLength(); col++) {
-				if(matriceMinerais[ligne][col] != null)
-					System.out.print(matriceMinerais[ligne][col].getCaractere());
-				else System.out.print('@');
+				if(matriceCase[ligne][col] instanceof Base) System.out.print('B');
+				else if (matriceCase[ligne][col] instanceof Vide) System.out.print("1");
+				else System.out.print(matriceCase[ligne][col].getCaractere());
 			}
 			System.out.println();
 		}
@@ -42,7 +45,7 @@ public class Carte {
 		String sCarte = "";
 		for(int ligne = 0; ligne < getRowLength(); ligne++) {
 			for(int col = 0; col < getColumnLength(); col++) {
-				if(matriceMinerais[ligne][col]!=null) sCarte += matriceMinerais[ligne][col].getCaractere();
+				if(matriceCase[ligne][col]!=null) sCarte += matriceCase[ligne][col].getCaractere();
 				else sCarte += " ";
 			}
 			sCarte += "\n";
@@ -50,20 +53,20 @@ public class Carte {
 		return sCarte;
 	}
 
-	public Minerai[][] getMatriceMinerais() {
-		return matriceMinerais;
+	public Case[][] getMatriceMinerais() {
+		return matriceCase;
 	}
 
 	public void setMatriceMinerais(Minerai[][] matriceMinerais) {
-		this.matriceMinerais = matriceMinerais;
+		this.matriceCase = matriceMinerais;
 	}
 	
 	public int getRowLength() {
-		return this.matriceMinerais.length;
+		return this.matriceCase.length;
 	}
 	
 	public int getColumnLength() {
-		return this.matriceMinerais[0].length;
+		return this.matriceCase[0].length;
 	}
 	
 	public List<Minerai> getMineraisDisponibles() {
@@ -78,11 +81,10 @@ public class Carte {
 	public int[] getBase() {
 		for(int ligne = 0; ligne < getRowLength(); ligne++) {
 			for(int col = 0; col < getColumnLength(); col++) {
-				if (this.matriceMinerais[ligne][col] == null) {
+				if (this.matriceCase[ligne][col] instanceof Base) {
 					int[] posBase = {ligne, col};
 					return posBase;
 				}
-					
 			}
 		}
 		return null;

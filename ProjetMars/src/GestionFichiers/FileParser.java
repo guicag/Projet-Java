@@ -11,7 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import equipements.Base;
 import equipements.Batterie;
+import equipements.Case;
 import equipements.Equipement;
 import equipements.Laser;
 import equipements.Minerai;
@@ -71,8 +73,8 @@ import equipements.Minerai;
 	 * @return Une matrice d'objets Minerai correspondant a la carte.
 	 * @throws IOException 
 	 */
-	public static Minerai[][] lectureCarte(List<Minerai> listMinerai) throws IOException {
-		Minerai[][] carte = null;
+	public static Case[][] lectureCarte(List<Minerai> listMinerai) throws IOException {
+		Case[][] carte = null;
 		// Ouverture du fichier fichiers/zone_a_explorer.txt
 		Path path = FileSystems.getDefault().getPath(FICHIER, "zone_a_explorer.txt");
 		BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
@@ -87,18 +89,25 @@ import equipements.Minerai;
 				nbLigne++;
 			}
 			reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
-			carte = new Minerai[nbLigne][nbCol];
+			carte = new Case[nbLigne][nbCol];
 			int ligne = 0;
 			contenuLigne = reader.readLine();
 			while (contenuLigne != null) {
 				for (int col = 0; col < contenuLigne.length(); col++) {
 					Character c = contenuLigne.charAt(col);
-					Minerai mineraiTemp = null;
-					//Recherche du Minerai correspondant au caractère
-					for(Minerai minerai : listMinerai) {
-						if(minerai.getCaractere()==c) mineraiTemp = minerai;
+					Case caseTemp = null;
+					if(c=='@') {
+						caseTemp = Base.getInstance();
+					} else {
+						Minerai mineraiTemp = null;
+						
+						//Recherche du Minerai correspondant au caractere
+						for(Minerai minerai : listMinerai) {
+							if(minerai.getCaractere()==c) mineraiTemp = minerai;
+						}
+						caseTemp = new Minerai(mineraiTemp);
 					}
-					carte[ligne][col] = mineraiTemp;
+					carte[ligne][col] = caseTemp;
 				}
 				contenuLigne = reader.readLine();
 				ligne++;
@@ -187,7 +196,7 @@ import equipements.Minerai;
 		}finally {
 			reader.close();
 		}
-		return  null;
+		return configuration;
 	}
 
 	public static boolean isNumericString(String s) {

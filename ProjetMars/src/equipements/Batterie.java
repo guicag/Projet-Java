@@ -29,4 +29,10 @@ public class Batterie extends Equipement {
 		return res;
 	}
 
+	public boolean notEquals(Equipement bestBatterie) {
+		boolean res = true;
+		Batterie batterie = (Batterie) bestBatterie;
+		if(nom == batterie.getNom() && cout == batterie.getCout() && puissanceInitiale == batterie.getPuissanceInitiale() && ratio == batterie.getRatio()) res = false;
+		return res;
+	}
 }

@@ -4,17 +4,25 @@ package equipements;
  *
  *
  */
-public class Minerai implements Comparable<Object>{
+public class Minerai extends Case implements Comparable<Case>{
 
-	private char caractere;
-	private String nom;
 	private int valeur;
 	private int durete;
 	private int poids;
 	private double ratio;// Le ratio correspond au rapport de la dureté sur la valeur du minerai. Différent de 0 si valeur l'est aussi.
+	private boolean isMine;
 	
-	public Minerai() {
-		super();
+	/**
+	 * Constructeur de copie.
+	 * @param other
+	 */
+	public Minerai(Minerai other) {
+		super(other.caractere, other.nom);
+		this.valeur = other.valeur;
+		this.durete = other.durete;
+		this.poids = other.poids;
+		this.ratio = other.ratio;
+		this.isMine = other.isMine;
 	}
 	
 	/**
@@ -26,12 +34,12 @@ public class Minerai implements Comparable<Object>{
 	 * @param p Poids du minerai
 	 */
 	public Minerai(char c, String n, int v, int d, int p) {
-		this.caractere = c;
-		this.nom = n;
+		super(c, n);
 		this.setValeur(v);
 		this.durete = d;
 		this.poids = p;
 		this.ratio = (double) v/ (double) d;
+		this.isMine = false;
 	}
 
 	public int getValeur() {
@@ -40,22 +48,6 @@ public class Minerai implements Comparable<Object>{
 
 	public void setValeur(int valeur) {
 		this.valeur = valeur;
-	}
-
-	public char getCaractere() {
-		return caractere;
-	}
-
-	public void setCaractere(char caractere) {
-		this.caractere = caractere;
-	}
-
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
 	}
 
 	public int getDurete() {
@@ -83,12 +75,32 @@ public class Minerai implements Comparable<Object>{
 	}
 
 	@Override
-	public int compareTo(Object o) {
-		Minerai min = (Minerai) o;
-		int res = 0;
-		if(min.ratio<ratio) res = -1;
-		if(min.ratio>ratio) res = 1;
-		return res;
+	public int compareTo(Case cas) {
+		if(cas instanceof Minerai) {
+			Minerai min = (Minerai) cas;
+			int res = 0;
+			if(min.ratio<ratio) res = -1;
+			if(min.ratio>ratio) res = 1;
+			if(min.ratio == 0 && ratio == 0){
+				if(min.durete>durete) res = -1;
+				if(min.durete<durete) res = 1;
+			}
+			return res;
+		} else {
+			return -1;
+		}
+	}
+	
+	public boolean isMine() {
+		return isMine;
+	}
+
+	public void setMine(boolean isMine) {
+		this.isMine = isMine;
+	}
+
+	public void setRatio(double ratio) {
+		this.ratio = ratio;
 	}
 
 	

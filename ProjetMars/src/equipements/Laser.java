@@ -29,4 +29,11 @@ public class Laser extends Equipement  {
 		    return false;
 		return true;
 		}
+
+	public boolean notEquals(Object obj) {
+		Laser laser = (Laser) obj;
+		if (this.getNom() == laser.nom && this.getCout() == laser.cout && this.getPuissanceInitiale() == laser.puissanceInitiale && this.getRatio() == laser.ratio)
+		    return false;
+		return true;
+	}
 }

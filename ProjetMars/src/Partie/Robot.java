@@ -8,6 +8,7 @@ import equipements.Batterie;
 import equipements.Equipement;
 import equipements.Laser;
 import equipements.Minerai;
+import equipements.Vide;
 
 public class Robot {
 	private int baseX;
@@ -45,6 +46,8 @@ public class Robot {
 		this.direction = Direction.NORD;
 		this.score = 0;
 		this.charge = 0;
+		this.listDeplacementsPourBase = new ArrayList<Direction>();
+		this.pocheDeMinerais = new ArrayList<Minerai>();
 	}
 	
 	
@@ -67,21 +70,26 @@ public class Robot {
 		switch(dir) {
 			case NORD :
 				this.posX--;
-				if(carte.getMatriceMinerais()[posX][posY] != null) miner(carte.getMatriceMinerais()[posX][posY], dir);
+				listDeplacementsPourBase.add(Direction.SUD);
 				break;
 			case SUD :
 				this.posX++;
-				if(carte.getMatriceMinerais()[posX][posY] != null) miner(carte.getMatriceMinerais()[posX][posY], dir);
+				listDeplacementsPourBase.add(Direction.NORD);
 				break;
 			case EST :
 				this.posY++;
-				if(carte.getMatriceMinerais()[posX][posY] != null) miner(carte.getMatriceMinerais()[posX][posY], dir);
+				listDeplacementsPourBase.add(Direction.OUEST);
 				break;
 			case OUEST :
 				this.posY--;
-				if(carte.getMatriceMinerais()[posX][posY] != null) miner(carte.getMatriceMinerais()[posX][posY], dir);
+				listDeplacementsPourBase.add(Direction.EST);
 				break;
 		}
+		if(carte.getMatriceMinerais()[posX][posY] instanceof Minerai) {
+			miner((Minerai) carte.getMatriceMinerais()[posX][posY], dir);
+			carte.getMatriceMinerais()[posX][posY] = Vide.getInstance();
+		}
+		else this.configuration.put(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - (Double) configuration.get("temps_deplacement_vide"));
 		return actions;
 	}
 	
@@ -92,6 +100,7 @@ public class Robot {
 	 */
 	public String tourner(Direction dir) {
 		// Décrémentation du temps de rotation et de la batterie
+		System.out.println("");
 		this.batterieActuelle.setPuissanceActuelle(batterieActuelle.getPuissanceActuelle() - (Double) configuration.get("cout_rotation"));
 		this.configuration.put(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - (Double) configuration.get("temps_rotation"));
 		this.direction = dir;
@@ -136,6 +145,7 @@ public class Robot {
 		score += valeur;
 		//Décrémentation du temps restant
 		this.configuration.put(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - tempsMinage);
+		pocheDeMinerais.add(minerai);
 	}
 	
 	
@@ -167,15 +177,18 @@ public class Robot {
 		this.configuration.put(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - (Double) configuration.get(TEMPS_INSTALLATION));
 	}
 	
-	
 	/**
-	 * Permet de s'équiper d'un laser ou d'une batterie.
+	 * Permet de retourner à la base.
+	 * @param Carte carte : la carte du jeu
+	 * @return Renvoie la liste des actions effectuées par le robot pour rentrer à la base.
 	 */
-	public String rentrerBase() {
-		
-		// tant que coord diff de base 
-			// apple a avan
-		return null;
+	public List<String> rentrerBase(Carte carte) {
+		List<String> listDeplacements = new ArrayList<String>();
+		for(Direction dir : listDeplacementsPourBase) {
+			listDeplacements.add(avancer(dir, carte));
+		}
+		listDeplacementsPourBase.clear();		
+		return listDeplacements;
 	}
 	
 	public Equipement getBestLaser() {

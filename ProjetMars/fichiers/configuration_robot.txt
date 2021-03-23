@@ -2,6 +2,7 @@ charge_maximale=300
 temps_rotation=15
 cout_rotation=0.2
 cout_deplacement=0.0178
+temps_deplacement_vide=1
 temps_installation=300
 cout_installation=0
 cout_minage=1

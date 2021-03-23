@@ -10,7 +10,9 @@ public class Launcher {
 		final String ERREUR_JEU = "Le jeu n'a pas pu être lancé à cause d'une erreur de fichiers.";
 		try {
 			setPartie(new Jeu());
+			partie.jouer();
 		} catch (IOException e) {
+			e.printStackTrace();
 			System.out.println(ERREUR_JEU);
 		}
 	}
