@@ -45,8 +45,9 @@ public class Carte {
 		String sCarte = "";
 		for(int ligne = 0; ligne < getRowLength(); ligne++) {
 			for(int col = 0; col < getColumnLength(); col++) {
-				if(matriceCase[ligne][col]!=null) sCarte += matriceCase[ligne][col].getCaractere();
-				else sCarte += " ";
+				if(matriceCase[ligne][col] instanceof Minerai) sCarte += matriceCase[ligne][col].getCaractere();
+				if(matriceCase[ligne][col] instanceof Vide) sCarte += "1";
+				if(matriceCase[ligne][col] instanceof Base) sCarte += "B";
 			}
 			sCarte += "\n";
 		}

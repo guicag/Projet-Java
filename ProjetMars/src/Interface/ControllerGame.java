@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -39,18 +40,22 @@ public class ControllerGame implements Initializable{
     @FXML
     private Label deplacement;
     
+    @FXML
+    private AnchorPane page;
+    
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		try {
 			jeu = new Jeu();
+			jeu.jouer();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		carte.setText(jeu.getCarte().toString());
-		carte.setFont(Font.font ("MonoSpaced", 17));
+		carte.setFont(Font.font ("MonoSpaced", 15));
 		carte.setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 0.7), new CornerRadii(5.0), new Insets(-5.0))));
 		
 		score.setText(String.valueOf(jeu.getRobot().getScore()));
@@ -91,10 +96,7 @@ public class ControllerGame implements Initializable{
 		TableColumn valeurColonne = new TableColumn("Valeur");
 		valeurColonne.setCellValueFactory(new PropertyValueFactory<>("valeur"));
 		
-		TableColumn ratioColonne = new TableColumn("Ration");
-		ratioColonne.setCellValueFactory(new PropertyValueFactory<>("ratio"));
-		
-		listMinerais.getColumns().addAll(symbolColonne, nomColonne, valeurColonne, ratioColonne);
+		listMinerais.getColumns().addAll(symbolColonne, nomColonne, valeurColonne);
 		
 		int sizeMinerais = jeu.getCarte().getMineraisDisponibles().size();
 		for (int i = 0; i < sizeMinerais; i++) {
@@ -107,11 +109,11 @@ public class ControllerGame implements Initializable{
 		String deplacements = "";
 		if (sizeListDeplacement != 0) {
 			for (int i = 0; i < sizeListDeplacement; i++) {
-				deplacements += jeu.getParcoursRobot().get(i) + " ";
+				deplacements += jeu.getParcoursRobot().get(i) + "\n";
 			}
-		}
 		deplacement.setText(deplacements);
-		deplacement.setFont(Font.font("MonoSpaced", 15));
+		deplacement.setFont(Font.font("MonoSpaced", 9));
 		deplacement.setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 0.7), new CornerRadii(5.0), new Insets(-5.0))));
+		}
 	}
 }

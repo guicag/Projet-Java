@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="601.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.ControllerGame">
+<AnchorPane fx:id="page" prefHeight="601.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.ControllerGame">
    <children>
       <ImageView fitHeight="601.0" fitWidth="779.0" opacity="0.35" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -17,7 +17,7 @@
       </ImageView>
       <BorderPane prefHeight="601.0" prefWidth="779.0">
          <left>
-            <VBox prefHeight="601.0" prefWidth="306.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="601.0" prefWidth="224.0" BorderPane.alignment="CENTER">
                <children>
                   <Label alignment="CENTER" text="Equipements :" textOverrun="CLIP">
                      <VBox.margin>
@@ -36,7 +36,7 @@
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="listMinerais" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="228.0" />
+                  <TableView fx:id="listMinerais" prefHeight="250.0" prefWidth="228.0" />
                </children>
             </VBox>
          </left>
@@ -64,7 +64,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="deplacement" prefHeight="400.0" prefWidth="134.0" text="Label" />
+                  <Label fx:id="deplacement" alignment="TOP_LEFT" prefHeight="400.0" prefWidth="134.0" text="Label" />
                </children>
             </VBox>
          </right>
@@ -79,7 +79,7 @@
                         <Font size="26.0" />
                      </font>
                   </Label>
-                  <Label fx:id="carte" alignment="CENTER" contentDisplay="CENTER" prefHeight="447.0" prefWidth="298.0" text="Label">
+                  <Label fx:id="carte" alignment="CENTER" contentDisplay="CENTER" prefHeight="498.0" prefWidth="383.0" text="Label">
                      <VBox.margin>
                         <Insets top="40.0" />
                      </VBox.margin>
