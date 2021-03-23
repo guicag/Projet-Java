@@ -64,7 +64,6 @@ public class Jeu {
 		int posXRobot = robot.getPosX();
 		int posYRobot = robot.getPosY();
 		TreeMap<Case, Direction> listMineraiDir = new TreeMap<Case, Direction>();
-		List<Minerai> listMinerais = new ArrayList<Minerai>();
 		for(Direction dir : Direction.values()) {
 			switch(dir) {
 				case NORD :
@@ -126,14 +125,17 @@ public class Jeu {
 			parcoursRobot.add(robot.avancer(dir, carte));
 		}*/
 		
-		for(int i = 0; i < 10; i++) {
+		for(int i = 0; i < 3; i++) {
 			Direction dir = choisirDirection();
 			parcoursRobot.add(robot.avancer(dir, carte));
 		}
 		
+		
 		for(String s : parcoursRobot) {
 			System.out.print(s);
 		}
+		robot.rentrerBase(carte);
+		System.out.println("PosRobot X :" + robot.getPosX() + "PosRobot Y :" + robot.getPosY());
 		carte.afficherCarte();
 		if(robot.getBatterieActuelle().equals(robot.getBestBatterie()) && robot.getLaserActuel().equals(robot.getBestLaser())) System.out.println("EQUIPE");
 		System.out.println(robot.getScore());

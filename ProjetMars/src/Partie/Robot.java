@@ -184,8 +184,9 @@ public class Robot {
 	 */
 	public List<String> rentrerBase(Carte carte) {
 		List<String> listDeplacements = new ArrayList<String>();
-		for(Direction dir : listDeplacementsPourBase) {
-			listDeplacements.add(avancer(dir, carte));
+		for (int i = listDeplacementsPourBase.size() - 1; i > 0; i--) {
+			System.out.println(listDeplacementsPourBase.get(i));
+			listDeplacements.add(avancer(listDeplacementsPourBase.get(i), carte));
 		}
 		listDeplacementsPourBase.clear();		
 		return listDeplacements;
