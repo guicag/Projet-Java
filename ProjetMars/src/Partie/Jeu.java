@@ -9,11 +9,13 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import GestionFichiers.FileParser;
+import equipements.Base;
 import equipements.Batterie;
 import equipements.Case;
 import equipements.Equipement;
 import equipements.Laser;
 import equipements.Minerai;
+import equipements.Vide;
 
 public class Jeu {
 	
@@ -67,30 +69,33 @@ public class Jeu {
 		for(Direction dir : Direction.values()) {
 			switch(dir) {
 				case NORD :
-					if(posXRobot != 0  && posXRobot+1 != robot.getBaseX()) {
+					if(posXRobot != 0  && !(carte.getMatriceMinerais()[posXRobot-1][posYRobot] instanceof Base) && !(carte.getMatriceMinerais()[posXRobot-1][posYRobot] instanceof Vide)) {
 						listMineraiDir.put(carte.getMatriceMinerais()[posXRobot-1][posYRobot], dir);// NORD impossible
 					}
 					break;
 				case SUD :
-					if(posXRobot != carte.getRowLength()-1 && posXRobot+1 != robot.getBaseX()) {
+					if(posXRobot != carte.getRowLength()-1 && !(carte.getMatriceMinerais()[posXRobot+1][posYRobot] instanceof Base) && !(carte.getMatriceMinerais()[posXRobot+1][posYRobot] instanceof Vide)) {
 						listMineraiDir.put(carte.getMatriceMinerais()[posXRobot+1][posYRobot], dir);// SUD impossible
 					}
 					break;
 				case EST :
-					if(posYRobot != carte.getColumnLength()-1 && posYRobot+1 != robot.getBaseY()) {
+					if(posYRobot != carte.getColumnLength()-1 && !(carte.getMatriceMinerais()[posXRobot][posYRobot+1] instanceof Base) && !(carte.getMatriceMinerais()[posXRobot][posYRobot+1] instanceof Vide)) {
 						listMineraiDir.put(carte.getMatriceMinerais()[posXRobot][posYRobot+1], dir);// EST impossible
 					}
 					break;
 				case OUEST :
-					if(posYRobot != 0  && posYRobot-1 != robot.getBaseY()) {
+					if(posYRobot != 0  && !(carte.getMatriceMinerais()[posXRobot][posYRobot-1] instanceof Base) && !(carte.getMatriceMinerais()[posXRobot][posYRobot-1] instanceof Vide)) {
 						listMineraiDir.put(carte.getMatriceMinerais()[posXRobot][posYRobot-1], dir);// OUEST impossible
 					}
 					break;
 			}
 		}
-		/*if (testNullValues(listMineraiDir)) {
-			
-		}*/
+		if (listMineraiDir.size() == 0) {
+			if (posXRobot != 0) return Direction.NORD;
+			if (posYRobot != carte.getColumnLength()-1) return Direction.EST;
+			if (posXRobot != carte.getRowLength()-1) return Direction.SUD;
+			if (posYRobot != 0) return Direction.OUEST;
+		}
 		return listMineraiDir.firstEntry().getValue();
 	}
 	
@@ -115,30 +120,103 @@ public class Jeu {
 	 */
 	public void jouer() {
 		//Première phase 
-		//		Stratégie : Miner les plus rentable jusqu'à avoir le meilleur laser et la meilleure batterie.
-		/*while((Double) robot.getConfiguration().get("temps_avant_que_nasa_repere") > 0.0) {
-			while(robot.getBatterieActuelle().notEquals(robot.getBestBatterie()) && robot.getLaserActuel().notEquals(robot.getBestLaser())) {
-				Direction dir = choisirDirection();
-				parcoursRobot.add(robot.avancer(dir, carte));
+		//Stratégie : Miner les plus rentable jusqu'à avoir le meilleur laser et la meilleure batterie.
+
+ 		while ((Double) robot.getConfiguration().get("temps_avant_que_nasa_repere") > 0.0) {
+			Direction direction = choisirDirection();
+			if (robot.getCoutRetourBase() + (Double) robot.getConfiguration().get("cout_minage") < robot.getBatterieActuelle().getPuissanceActuelle()) {
+				if (testerMinerDirection(direction) ) {
+					String s = robot.avancer(direction, carte);
+					parcoursRobot.add(s);
+				} else {
+					rentrerVider();
+				}
+			} else {
+				rentrerChangerEquipement();
 			}
-			Direction dir = choisirDirection();
-			parcoursRobot.add(robot.avancer(dir, carte));
-		}*/
-		
-		for(int i = 0; i < 3; i++) {
-			Direction dir = choisirDirection();
-			parcoursRobot.add(robot.avancer(dir, carte));
+			System.out.println("PosX : "+robot.getPosX()+" PosY : "+robot.getPosY());
+			carte.afficherCarte();
 		}
 		
-		
-		for(String s : parcoursRobot) {
-			System.out.print(s);
+		/*for (int i = 0 ; i < 15; i++) {
+			robot.avancer(choisirDirection(), carte);
 		}
-		robot.rentrerBase(carte);
-		System.out.println("PosRobot X :" + robot.getPosX() + "PosRobot Y :" + robot.getPosY());
 		carte.afficherCarte();
-		if(robot.getBatterieActuelle().equals(robot.getBestBatterie()) && robot.getLaserActuel().equals(robot.getBestLaser())) System.out.println("EQUIPE");
-		System.out.println(robot.getScore());
+		robot.rentrerBase(carte);
+		if (robot.getBaseX() == robot.getPosX() && robot.getBaseY() == robot.getPosY()) {
+			System.out.println("test reussi");
+		}*/
+	}
+	
+	/**
+	 * Cette fonction permet de revenir à la base quand la charge maximal
+	 */
+	public void rentrerVider() {
+		robot.rentrerBase(carte);
+		if (robot.getPosX() == robot.getBaseX() && robot.getPosY() == robot.getBaseY()) {
+			robot.decharger();
+		}
+	}
+	
+	public void rentrerChangerEquipement() {
+		robot.rentrerBase(carte);
+		if (robot.getPosX() == robot.getBaseX() && robot.getPosY() == robot.getBaseY()) {
+			robot.decharger();
+			if ((Integer) robot.getScore() >= robot.getBestBatterie().getCout()) {
+				robot.equiper(robot.getBestBatterie());
+			} else if (robot.getBestBatterieAchetable() != null){
+				robot.equiper(robot.getBestBatterieAchetable());
+			}
+			if ((Integer) robot.getScore() >= robot.getBestLaser().getCout()) {
+				robot.equiper(robot.getBestLaser());
+			} else if ( robot.getBestLaserAchetable() != null) {
+				if ((Integer) robot.getScore() >= robot.getBestLaserAchetable().getCout()) robot.equiper(robot.getBestLaserAchetable());
+			}
+		}
+	}
+	
+	
+	/**
+	 * Permet de tester si le robot peut miner le minerai dans la direction indiquée en paramètre.
+	 * 
+	 * @param direction Direction du minerai à tester.
+	 * @return boolean un booléen indiquant si le robot peut miner le minerai.
+	 */
+	public boolean testerMinerDirection(Direction direction) {
+		boolean res = false;
+		int posXRobot = robot.getPosX();
+		int posYRobot = robot.getPosY();
+		switch(direction) {
+			case NORD :
+				if (posXRobot != 0 && !(carte.getMatriceMinerais()[robot.getPosX()-1][robot.getPosY()] instanceof Vide)) {
+					res = robot.testerMiner((Minerai) carte.getMatriceMinerais()[robot.getPosX()-1][robot.getPosY()]);
+				} else {
+					res = true;
+				}
+				break;
+			case SUD :
+				if (posXRobot != carte.getRowLength()-1 && !(carte.getMatriceMinerais()[robot.getPosX()+1][robot.getPosY()] instanceof Vide)) {
+					res = robot.testerMiner((Minerai) carte.getMatriceMinerais()[robot.getPosX()+1][robot.getPosY()]);
+				} else {
+					res = true;
+				}
+				break;
+			case EST :
+				if (posYRobot != carte.getColumnLength()-1 && !(carte.getMatriceMinerais()[robot.getPosX()][robot.getPosY()+1] instanceof Vide)) {
+					res = robot.testerMiner((Minerai) carte.getMatriceMinerais()[robot.getPosX()][robot.getPosY()+1]);
+				} else {
+					res = true;
+				}
+				break;
+			case OUEST :
+				if (posYRobot != 0  && !(carte.getMatriceMinerais()[robot.getPosX()][robot.getPosY()-1] instanceof Vide)) {
+					res = robot.testerMiner((Minerai) carte.getMatriceMinerais()[robot.getPosX()][robot.getPosY()-1]);
+				} else {
+					res = true;
+				}
+				break;
+		}
+		return res;
 	}
 
 	public Carte getCarte() {

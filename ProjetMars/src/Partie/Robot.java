@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import equipements.Batterie;
+import equipements.Case;
 import equipements.Equipement;
 import equipements.Laser;
 import equipements.Minerai;
@@ -113,9 +114,9 @@ public class Robot {
 	 * @param minerai
 	 * @return
 	 */
-	public boolean testerMiner(Minerai minerai) {
+	public boolean testerMiner(Minerai c) {
 		boolean mineraiOk = true;
-		if(charge + minerai.getPoids() > (Integer) configuration.get("charge_maximale")) {
+		if( charge + c.getPoids() > (Double) configuration.get("charge_maximale")) {
 			mineraiOk = false;
 		}
 		return mineraiOk;
@@ -132,7 +133,6 @@ public class Robot {
 		// Récupération des caractéristiques du minerai
 		int poidsMinerai = minerai.getPoids();
 		int dureteMinerai = minerai.getDurete();
-		int valeur = minerai.getValeur();
 		double puiLaser = this.laserActuel.getPuissanceActuelle();
 		// Calcul du temps de minage et décrémentation du temps restant.
 		double tempsMinage =  dureteMinerai*100/puiLaser;
@@ -142,7 +142,6 @@ public class Robot {
 		batterieActuelle.setPuissanceActuelle(batterieActuelle.getPuissanceActuelle() - (Double) configuration.get("cout_minage"));
 		// Incrémentation charge max
 		charge += poidsMinerai;
-		score += valeur;
 		//Décrémentation du temps restant
 		this.configuration.put(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - tempsMinage);
 		pocheDeMinerais.add(minerai);
@@ -155,19 +154,18 @@ public class Robot {
 	 * 
 	 */
 	public void decharger() {
-		if (baseX == posX && baseY == posY) { // Vérifie que le robot soit bien à la base
-			this.charge = 0;
-			for(Minerai minerai : pocheDeMinerais) {
-				score += minerai.getValeur();
-			}
+		this.charge = 0;
+		for(Minerai minerai : pocheDeMinerais) {
+			score += minerai.getValeur();
 		}
+		pocheDeMinerais.clear();
 	}
 	
 	/**
 	 * Permet de s'équiper d'un laser ou d'une batterie.
 	 */
 	public void equiper(Equipement equip) {
-		if(equip.getClass()==laserActuel.getClass()) {
+		if(equip instanceof Laser) {
 			this.laserActuel = (Laser) equip;
 		} else {
 			this.batterieActuelle = (Batterie) equip;
@@ -184,8 +182,7 @@ public class Robot {
 	 */
 	public List<String> rentrerBase(Carte carte) {
 		List<String> listDeplacements = new ArrayList<String>();
-		for (int i = listDeplacementsPourBase.size() - 1; i > 0; i--) {
-			System.out.println(listDeplacementsPourBase.get(i));
+		for (int i = listDeplacementsPourBase.size() - 1; i >= 0; i--) {
 			listDeplacements.add(avancer(listDeplacementsPourBase.get(i), carte));
 		}
 		listDeplacementsPourBase.clear();		
@@ -202,6 +199,51 @@ public class Robot {
 	public Equipement getBestBatterie() {
 		for(Equipement equip : equipementsDisponibles) {
 			if(equip.getClass()==batterieActuelle.getClass()) return equip;
+		}
+		return null;
+	}
+	
+	public double getCoutRetourBase() {
+		double coutRetour = 0;
+		 for (int i = 0; i < listDeplacementsPourBase.size() -1; i++)  
+         {
+              int index = i;  
+              for (int j = 0; j < listDeplacementsPourBase.size(); j++)
+              {
+                   if (!listDeplacementsPourBase.get(j).equals(listDeplacementsPourBase.get(index))) { 
+                	   coutRetour += (Double) configuration.get("cout_rotation");
+                   }
+              }
+       	   coutRetour += (Double) configuration.get("cout_deplacement");
+         }
+		return coutRetour;
+	}
+	
+	
+	/**
+	 * Cette fonction permet de retourner la meilleure batterie en fonction du score
+	 * @return Batterie
+	 */
+	public Batterie getBestBatterieAchetable() {
+		for (Equipement equipement : equipementsDisponibles) {
+			if (equipement instanceof Batterie) {
+				if (score >=  equipement.getCout()) {
+					return (Batterie) equipement;
+				}
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Cette fonction permet de retourner le meilleur laser en fonction du score
+	 * @return Laser
+	 */
+	public Laser getBestLaserAchetable() {
+		for (Equipement equipement : equipementsDisponibles) {
+			if (equipement instanceof Laser) {
+				if (score >= equipement.getCout()) return (Laser) equipement;
+			}
 		}
 		return null;
 	}
