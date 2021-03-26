@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import GestionFichiers.FileParser;
+import GestionFichiers.FileWrite;
 import equipements.Base;
 import equipements.Batterie;
 import equipements.Case;
@@ -23,6 +24,7 @@ public class Jeu {
 	private Carte carte;
 	private Robot robot;
 	private ArrayList<String> parcoursRobot;
+	private int nbmouvement = 0;
 	
 	/*
 	 * Constructeur de l'objet Jeu. Il permet d'initialiser le jeu en analysant les fichiers de configuration.
@@ -31,15 +33,12 @@ public class Jeu {
 		//Analyse des fichiers et création de la carte et du robot
 		//Analyse des minerais
 		ArrayList<Minerai> listMinerai = (ArrayList<Minerai>) FileParser.lectureDescriptifMesures();
-		assert listMinerai != null : "Vous devez analyser les minerais qui composent la carte avant de l'analyser.";
 		//Analyse de la carte
 		this.carte = new Carte(FileParser.lectureCarte(listMinerai));
 		//Analyse du matériel disponible
 		ArrayList<Equipement> listEquipement = (ArrayList<Equipement>) FileParser.lectureEquipementsDisponibles();
-		assert listEquipement != null : "Vous devez analyser les equipements dont le robot dispose avant de le créer.";
 		//Analyse de la configuration du robot 
 		Map<String, Number> configuration = FileParser.lectureConfigurationRobot();
-		//assert configuration == null : "Vous devez analyser la configuration du robot avant de le créer.";
 		//Création du robot
 		Batterie batterieDef = new Batterie("batterie_defaut", 0, (Double) configuration.get("batterie_defaut"));
 		Laser laserDef = new Laser("laser_defaut", 0, (Double) configuration.get("laser_defaut"));
@@ -186,7 +185,7 @@ public class Jeu {
 	
 	/**
 	 * Permet de recuperer le nombre de case Vide
-	 * @return Intege
+	 * @return Integer
 	 */
 	public int getNombreCaseVide() {
 		int count = 0;
@@ -199,7 +198,11 @@ public class Jeu {
 		}
 		return count;
 	}
-
+	
+	/**
+	 * Retourne le nombre de case total
+	 * @return Integer
+	 */
 	public int getNombreCase() {
 		return carte.getColumnLength()*carte.getRowLength();
 	}
@@ -208,78 +211,93 @@ public class Jeu {
 	 * Fonction permettant de choisir une direction à suivre lors du prochain déplacement, et de toruner le robot dans celle-ci.
 	 * 
 	 * @return Un enum Direction indisuant la prhcaine direction à suivre.
+	 * @throws IOException 
 	 */
-	public void jouer() {
+	public int jouer() throws IOException {
 		//Première phase 
 		//Stratégie : Miner les plus rentable jusqu'à avoir le meilleur laser et la meilleure batterie.
-
+		int pourcentageMinage = 50;
  		while ((Double) robot.getConfiguration().get("temps_avant_que_nasa_repere") > 0.0) {
- 			double pourcentage = (double) getNombreCaseVide()/ (double)getNombreCase() * 100;
- 			if (pourcentage < 60) {
+ 			double pourcentage = ((double) getNombreCaseVide()/ (double)getNombreCase()) * 100;
+ 			if (pourcentage < pourcentageMinage) {
  				Direction direction = choisirDirection();
  				double coutBase = robot.getCoutRetourBase();
  				if (robot.getCoutRetourBase() + (Double) robot.getConfiguration().get("cout_minage") < robot.getBatterieActuelle().getPuissanceActuelle()) {
  					if (testerMinerDirection(direction) ) {
+ 						nbmouvement++;
  						String s = robot.avancer(direction, carte);
  						parcoursRobot.add(s);
+ 						afficherInfoRobotMinage();
  					} else {
  						rentrerVider();
  					}
  				} else {
  					rentrerChangerEquipement();
  				}
- 				System.out.println(robot.getConfiguration().get("temps_avant_que_nasa_repere"));
- 				System.out.println("PosX : "+robot.getPosX()+" PosY : "+robot.getPosY());
- 				System.out.println(robot.getScore());
- 				System.out.println(robot.getBatterieActuelle().getPuissanceActuelle());
- 				System.out.println(robot.getLaserActuel().getPuissanceActuelle());
- 				carte.afficherCarte();
  			} else {
- 				break;
- 			}	
+ 				FileWrite.ecritureMission(parcoursRobot);
+ 				System.out.println("\n\n*************Partie Termine*************");
+ 				System.out.println("Vous avez miner " + pourcentageMinage + " de la carte \n\n");
+ 				System.out.println("*************Carte Finale*************");
+ 				carte.afficherCarte();
+ 				return 0;
+ 			}
 		}
-		
-		/*for (int i = 0; i < 4; i++) {
-			robot.avancer(choisirDirection(), carte);
-		}
-		System.out.println(robot.getCoutRetourBase());*/
-
-		
-		/*for (int i = 0 ; i < 15; i++) {
-			robot.avancer(choisirDirection(), carte);
-		}
+ 		FileWrite.ecritureMission(parcoursRobot);
+		FileWrite.ecritureMission(parcoursRobot);
+		System.out.println("\n\n*************Partie Termine*************");
+		System.out.println("La nasa vous a reperé \n\n");
+		System.out.println("*************Carte Finale*************");
 		carte.afficherCarte();
-		robot.rentrerBase(carte);
-		if (robot.getBaseX() == robot.getPosX() && robot.getBaseY() == robot.getPosY()) {
-			System.out.println("test reussi");
-		}*/
+		return 1;
 	}
 	
 	/**
-	 * Cette fonction permet de revenir à la base quand la charge maximal
+	 * Cette fonction permet de revenir à la base quand la charge maximal est atteinte
+	 * Enregistre les mouvements du robot aussi
 	 */
 	public void rentrerVider() {
-		robot.rentrerBase(carte);
-		if (robot.getPosX() == robot.getBaseX() && robot.getPosY() == robot.getBaseY()) {
-			robot.decharger();
+		List<String> tempList = new ArrayList<String>();
+		tempList = robot.rentrerBase(carte);
+		for (String e : tempList) {
+			parcoursRobot.add(e);
+			afficherInfoRobotRentrerCharge();
 		}
+		parcoursRobot.add(robot.decharger());
+		afficherInfoRobotDecharger();
 	}
 	
+	/**
+	 * Cette fonction permet de revenir à la base quand la batterie est trop faible
+	 * Le robot achete la meilleure batterie (meilleur ratio) s'il peut sinon il achete la batterie qui peut
+	 * S'il lui reste encore assez d'argent, il achete le laser avec le meilleur ratio sinon en focntion de son argent il achete un autre laser ou pas
+	 */
 	public void rentrerChangerEquipement() {
-		double pourcentageLaser = robot.getLaserActuel().getPuissanceActuelle()/robot.getLaserActuel().getPuissanceInitiale()*100;
-		robot.rentrerBase(carte);
-		robot.decharger();
+		List<String> temp = new ArrayList<String>();
+		temp = robot.rentrerBase(carte);
+		for (String e : temp) {
+			parcoursRobot.add(e);
+			afficherInfoRobotRentrerEquipement();
+		}
+		//double pourcentageLaser = (robot.getLaserActuel().getPuissanceActuelle()/robot.getLaserActuel().getPuissanceInitiale())*100;
+		parcoursRobot.add(robot.decharger());
+		afficherInfoRobotDecharger();
 		if ((Integer) robot.getScore() >= robot.getBestBatterie().getCout()) {
-			robot.equiper(robot.getBestBatterie());
+			parcoursRobot.add(robot.equiper(robot.getBestBatterie()));
+			afficherInfoRobotEquiper();
 		} else if (robot.getBestBatterieAchetable() != null){
-			robot.equiper(robot.getBestBatterieAchetable());
+			parcoursRobot.add(robot.equiper(robot.getBestBatterieAchetable()));
+			afficherInfoRobotEquiper();
 		}
+
 		if ((Integer) robot.getScore() >= robot.getBestLaser().getCout()) {
-			robot.equiper(robot.getBestLaser());
+			parcoursRobot.add(robot.equiper(robot.getBestLaser()));
 		} else if ( robot.getBestLaserAchetable() != null) {
-			if ((Integer) robot.getScore() >= robot.getBestLaserAchetable().getCout()) robot.equiper(robot.getBestLaserAchetable());
+			if ((Integer) robot.getScore() >= robot.getBestLaserAchetable().getCout()) {
+				parcoursRobot.add(robot.equiper(robot.getBestLaserAchetable()));
+				afficherInfoRobotEquiper();
+			}
 		}
-		
 	}
 	
 	
@@ -332,6 +350,69 @@ public class Jeu {
 				break;
 		}
 		return res;
+	}
+	
+	/**
+	 * Permet d'affichir les informations apres que le robot est miner
+	 */
+	public void afficherInfoRobotMinage() {
+		System.out.println("Mouvement n° " + nbmouvement + " (Action Minage) : \n");
+		System.out.println("Temps -> " + robot.getConfiguration().get("temps_avant_que_nasa_repere"));
+		System.out.println("Position X Robot : " + robot.getPosX() + " ; Position Y Robot : " + robot.getPosY());
+		System.out.println("Score Robot -> " + robot.getScore());
+		System.out.println("Deplacement -> " + parcoursRobot.get(nbmouvement - 1));
+		System.out.println("Batterie -> " + robot.getBatterieActuelle().getNom() + " ; Puissance : " + robot.getBatterieActuelle().getPuissanceActuelle());
+		System.out.println("Laser -> " + robot.getLaserActuel().getNom() + " ; Puissance : " + robot.getLaserActuel().getPuissanceActuelle());
+		System.out.println("\n\n");
+	}
+	
+	/**
+	 * Permet d'affichir les informations d'un mouvement du robot quand il rentre vers la base parce que la charge du robot est pleine
+	 */
+	public void afficherInfoRobotRentrerCharge() {
+		System.out.println("Mouvement n° " + nbmouvement + " (Action Rentrer Base ChargeRobot >= ChargeMaxi) : \n");
+		System.out.println("Temps -> " + robot.getConfiguration().get("temps_avant_que_nasa_repere"));
+		System.out.println("Position X Robot : " + robot.getPosX() + " ; Position Y Robot : " + robot.getPosY());
+		System.out.println("Score Robot -> " + robot.getScore());
+		System.out.println("Deplacement -> " + parcoursRobot.get(nbmouvement - 1));
+		System.out.println("Batterie -> " + robot.getBatterieActuelle().getNom() + " ; Puissance : " + robot.getBatterieActuelle().getPuissanceActuelle());
+		System.out.println("Laser -> " + robot.getLaserActuel().getNom() + " ; Puissance : " + robot.getLaserActuel().getPuissanceActuelle());
+		System.out.println("\n\n");
+	}
+	
+	/**
+	 * Permet d'affichir les informations d'un mouvement du robot quand il rentre vers la base parce que la batterie est trop faible
+	 */
+	public void afficherInfoRobotRentrerEquipement() {
+		nbmouvement++;
+		System.out.println("Mouvement n° " + nbmouvement + " (Action Rentrer pour changer Equipement) : \n");
+		System.out.println("Temps -> " + robot.getConfiguration().get("temps_avant_que_nasa_repere"));
+		System.out.println("Position X Robot : " + robot.getPosX() + " ; Position Y Robot : " + robot.getPosY());
+		System.out.println("Score Robot -> " + robot.getScore());
+		System.out.println("Deplacement -> " + parcoursRobot.get(nbmouvement - 1));
+		System.out.println("Batterie -> " + robot.getBatterieActuelle().getNom() + " ; Puissance : " + robot.getBatterieActuelle().getPuissanceActuelle());
+		System.out.println("Laser -> " + robot.getLaserActuel().getNom() + " ; Puissance : " + robot.getLaserActuel().getPuissanceActuelle());
+		System.out.println("\n\n");
+	}
+	
+	/**
+	 * Permet d'affichir les informations d'un mouvement quand le robot se décharge
+	 */
+	public void afficherInfoRobotDecharger() {
+		nbmouvement++;
+		System.out.println("Mouvement n° " + nbmouvement + " (Action Decharger) : \n");
+		System.out.println("******************Le Robot se decharge******************");
+		System.out.println("\n\n");
+	}
+	
+	/**
+	 * Permet d'affichir les informations d'un mouvement quand le robot s'équipe
+	 */
+	public void afficherInfoRobotEquiper() {
+		nbmouvement++;
+		System.out.println("Mouvement n° " + nbmouvement + " (Action Decharger) : \n");
+		System.out.println("******************Le Robot s'équipe******************");
+		System.out.println("\n\n");
 	}
 
 	public Carte getCarte() {

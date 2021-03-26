@@ -110,7 +110,6 @@ public class Robot {
 	 */
 	public String tourner(Direction dir) {
 		// Décrémentation du temps de rotation et de la batterie
-		System.out.println("");
 		this.batterieActuelle.setPuissanceActuelle(batterieActuelle.getPuissanceActuelle() - (Double) configuration.get("cout_rotation"));
 		this.configuration.replace(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - (Double) configuration.get("temps_rotation"));
 		this.direction = dir;
@@ -144,7 +143,6 @@ public class Robot {
 		int dureteMinerai = minerai.getDurete();
 		double puiLaser = this.laserActuel.getPuissanceActuelle();
 		// Calcul du temps de minage et décrémentation du temps restant.
-		System.out.println(this.laserActuel.getPuissanceActuelle());
 		double tempsMinage =  dureteMinerai*100/puiLaser;
 		double emoussageLaser = tempsMinage * (Double) configuration.get("emoussage_laser"); // Emoussage du laser
 		if ((puiLaser - emoussageLaser) <= (double) configuration.get("limite_emoussage")) {
@@ -167,18 +165,20 @@ public class Robot {
 	 * Permet de décharger le robot. N'est appellée uniquement si le robot est bien à la base.
 	 * 
 	 */
-	public void decharger() {
+	public String decharger() {
 		this.charge = 0;
 		for(Minerai minerai : pocheDeMinerais) {
 			score += minerai.getValeur();
 		}
 		pocheDeMinerais.clear();
+		return "DECHARGER,";
 	}
 	
 	/**
 	 * Permet de s'équiper d'un laser ou d'une batterie.
 	 */
-	public void equiper(Equipement equip) {
+	public String equiper(Equipement equip) {
+		String message = "";
 		if(equip instanceof Laser) {
 			this.laserActuel = (Laser) equip;
 		} else {
@@ -187,6 +187,8 @@ public class Robot {
 		double prix = equip.getCout();
 		this.score -= prix;
 		this.configuration.replace(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - (Double) configuration.get(TEMPS_INSTALLATION));
+		message += "ACHETER/EQUIPER : " + equip.getNom() +",";
+		return message;
 	}
 	
 	/**

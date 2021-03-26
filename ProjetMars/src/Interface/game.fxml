@@ -41,7 +41,7 @@
             </VBox>
          </left>
          <right>
-            <VBox prefHeight="335.0" prefWidth="137.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="601.0" prefWidth="172.0" BorderPane.alignment="CENTER">
                <children>
                   <Label text="Score :">
                      <VBox.margin>
@@ -51,7 +51,7 @@
                         <Font size="23.0" />
                      </font>
                   </Label>
-                  <Label fx:id="score" prefHeight="43.0" prefWidth="137.0" text="Label">
+                  <Label fx:id="score" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="43.0" prefWidth="137.0" text="Label">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -64,12 +64,12 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="deplacement" alignment="TOP_LEFT" prefHeight="400.0" prefWidth="134.0" text="Label" />
+                  <ListView fx:id="deplacement" prefHeight="448.0" prefWidth="137.0" />
                </children>
             </VBox>
          </right>
          <center>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <VBox alignment="TOP_CENTER" prefHeight="601.0" prefWidth="405.0" BorderPane.alignment="CENTER">
                <children>
                   <Label text="Carte :">
                      <VBox.margin>
@@ -79,7 +79,7 @@
                         <Font size="26.0" />
                      </font>
                   </Label>
-                  <Label fx:id="carte" alignment="CENTER" contentDisplay="CENTER" prefHeight="498.0" prefWidth="383.0" text="Label">
+                  <Label fx:id="carte" alignment="CENTER" contentDisplay="CENTER" prefHeight="508.0" prefWidth="375.0" text="Label">
                      <VBox.margin>
                         <Insets top="40.0" />
                      </VBox.margin>

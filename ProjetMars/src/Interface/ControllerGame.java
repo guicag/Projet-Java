@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -38,7 +39,7 @@ public class ControllerGame implements Initializable{
     private Label score;
 
     @FXML
-    private Label deplacement;
+    private ListView<String> deplacement;
     
     @FXML
     private AnchorPane page;
@@ -106,14 +107,9 @@ public class ControllerGame implements Initializable{
 	
 	public void loadDataDeplacement() {
 		int sizeListDeplacement = jeu.getParcoursRobot().size();
-		String deplacements = "";
-		if (sizeListDeplacement != 0) {
-			for (int i = 0; i < sizeListDeplacement; i++) {
-				deplacements += jeu.getParcoursRobot().get(i) + "\n";
-			}
-		deplacement.setText(deplacements);
-		deplacement.setFont(Font.font("MonoSpaced", 9));
-		deplacement.setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 0.7), new CornerRadii(5.0), new Insets(-5.0))));
+		for (int i = 0; i < sizeListDeplacement; i++) {
+			deplacement.getItems().add(jeu.getParcoursRobot().get(i));
 		}
+		
 	}
 }

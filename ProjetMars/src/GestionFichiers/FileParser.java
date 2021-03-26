@@ -40,7 +40,7 @@ import equipements.Minerai;
 		Path path = FileSystems.getDefault().getPath(FICHIER, "descriptif_mesures.txt");
 		BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
 		try {
-			System.out.println("Début de l'analyse des minerais.");
+			System.out.println("Debut de l'analyse des minerais.");
 			String ligne = reader.readLine();
 			ligne = reader.readLine();
 			while (ligne != null) {
@@ -55,7 +55,7 @@ import equipements.Minerai;
 				ligne = reader.readLine();
 			}
 			listMinerai.sort(null);
-			System.out.println("Analyse des minerais terminée. '-_-' \n");
+			System.out.println("Analyse des minerais termine. '-_-' \n");
 		} catch (IOException e) {
 			System.out.println(ERREUR_FICHIER);
 			e.printStackTrace();
@@ -79,7 +79,7 @@ import equipements.Minerai;
 		Path path = FileSystems.getDefault().getPath(FICHIER, "zone_a_explorer.txt");
 		BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
 		try {
-			System.out.println("Début de l'analyse de la carte.");
+			System.out.println("Debut de l'analyse de la carte.");
 			
 			String contenuLigne = reader.readLine();
 			int nbLigne = 0;
@@ -112,7 +112,7 @@ import equipements.Minerai;
 				contenuLigne = reader.readLine();
 				ligne++;
 			}
-			System.out.println("Analyse de la carte terminée. '-_-' \n");
+			System.out.println("Analyse de la carte termine. '-_-' \n");
 		} catch (IOException e) {
 			System.out.println(ERREUR_FICHIER);
 			e.printStackTrace();
@@ -135,7 +135,7 @@ import equipements.Minerai;
 		Path path = FileSystems.getDefault().getPath(FICHIER, "materiel_disponible.txt");
 		BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
 		try {
-			System.out.println("Début de l'analyse des lasers disponibles.");
+			System.out.println("Debut de l'analyse des lasers disponibles.");
 			String ligne = reader.readLine();
 			ligne = reader.readLine();
 			while (ligne != null) {
@@ -158,7 +158,7 @@ import equipements.Minerai;
 				ligne = reader.readLine();
 			}
 			listEquipement.sort(null);
-			System.out.println("Analyse des équipements disponibles terminée. '-_-' \n");
+			System.out.println("Analyse des quipements disponibles termine. '-_-' \n");
 		} catch (IOException e) {
 			System.out.println(ERREUR_FICHIER);
 			e.printStackTrace();
@@ -177,7 +177,7 @@ import equipements.Minerai;
 	public static Map<String, Number> lectureConfigurationRobot() throws IOException {
 		Map<String, Number> configuration = new HashMap<>();
 		// Ouverture du fichier fichiers/configuration_robot.txt
-		System.out.println("Début de l'analyse de la configuration du robot.");
+		System.out.println("Debut de l'analyse de la configuration du robot.");
 		Path path = FileSystems.getDefault().getPath(FICHIER, "configuration_robot.txt");
 		BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
 		try {
@@ -199,13 +199,4 @@ import equipements.Minerai;
 		return configuration;
 	}
 
-	public static boolean isNumericString(String s) {
-		boolean res = true;
-		for (int i = 0; i < s.length(); i++) {
-			if (Character.isDigit(s.charAt(i)) == false) {
-				res = false;
-			}
-		}
-		return res;
-	}
 }
