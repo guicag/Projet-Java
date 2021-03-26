@@ -21,7 +21,7 @@ public class Jeu {
 	
 	private Carte carte;
 	private Robot robot;
-	private ArrayList<String> parcoursRobot;
+	private List<String> parcoursRobot;
 	
 	/*
 	 * Constructeur de l'objet Jeu. Il permet d'initialiser le jeu en analysant les fichiers de configuration.
@@ -38,7 +38,7 @@ public class Jeu {
 		assert listEquipement != null : "Vous devez analyser les equipements dont le robot dispose avant de le créer.";
 		//Analyse de la configuration du robot 
 		Map<String, Number> configuration = FileParser.lectureConfigurationRobot();
-		assert configuration == null : "Vous devez analyser la configuration du robot avant de le créer.";
+		//assert configuration == null : "Vous devez analyser la configuration du robot avant de le créer.";
 		//Création du robot
 		Batterie batterieDef = new Batterie("batterie_defaut", 0, (Double) configuration.get("batterie_defaut"));
 		Laser laserDef = new Laser("laser_defaut", 0, (Double) configuration.get("laser_defaut"));
@@ -55,6 +55,14 @@ public class Jeu {
 		this.robot = new Robot(configuration, listEquipement, batterieDef, laserDef, position[0], position[1]);
 		this.parcoursRobot = new ArrayList<>();
 		System.out.println("Jeu initialisé '-_-'");
+	}
+	/**
+	 * Constructeur paramétré de Jeu (pour tests)
+	 */
+	public Jeu(Robot robot, Carte carte) {
+		this.robot = robot;
+		this.carte = carte;
+		this.parcoursRobot = new ArrayList<String>();
 	}
 	
 	/**
@@ -135,6 +143,7 @@ public class Jeu {
 				rentrerChangerEquipement();
 			}
 			System.out.println("PosX : "+robot.getPosX()+" PosY : "+robot.getPosY());
+			System.out.println(robot.getConfiguration().get("temps_restant_avant_que_nasa_repere"));
 			carte.afficherCarte();
 		}
 		

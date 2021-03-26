@@ -35,6 +35,15 @@ public class Robot {
 		super();
 	}
 	
+	/**
+	 * Constructeur paramétré de l'objet Robot.  
+	 * @param configuration Map de String et Number correpsondant à la configuration du robot.
+	 * @param equipementsDisponibles Liste d'objet Equipement correspondant aux équipement que peux achter le robot.
+	 * @param batterieDef Batterie par defaut que va equiper le robot.
+	 * @param laserDef Laser par defaut que va equiper le robot.
+	 * @param posX 
+	 * @param posY
+	 */
 	public Robot(Map<String, Number> configuration, List<Equipement> equipementsDisponibles, Batterie batterieDef, Laser laserDef, int posX, int posY) {
 		this.configuration = configuration;
 		this.equipementsDisponibles = (ArrayList<Equipement>) equipementsDisponibles;
@@ -334,5 +343,21 @@ public class Robot {
 
 	public void setScore(int score) {
 		this.score = score;
+	}
+
+	public ArrayList<Direction> getListDeplacementsPourBase() {
+		return listDeplacementsPourBase;
+	}
+
+	public void setListDeplacementsPourBase(ArrayList<Direction> listDeplacementsPourBase) {
+		this.listDeplacementsPourBase = listDeplacementsPourBase;
+	}
+
+	public ArrayList<Minerai> getPocheDeMinerais() {
+		return pocheDeMinerais;
+	}
+
+	public void setPocheDeMinerais(ArrayList<Minerai> pocheDeMinerais) {
+		this.pocheDeMinerais = pocheDeMinerais;
 	}
 }

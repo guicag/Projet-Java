@@ -2,10 +2,22 @@ package equipements;
 
 public class Case implements Comparable<Case> {
 
+	/**
+	 * Constructeur paramétré de Case.
+	 * @param caractere Caractère correpsondant à la Case.
+	 * @param nom  Nom de la case.
+	 */
 	public Case(char caractere, String nom) {
 		super();
 		this.caractere = caractere;
 		this.nom = nom;
+	}
+
+	/**
+	 * Constructeur non paramétré de Case.
+	 */
+	public Case() {
+		super();
 	}
 
 	protected char caractere;

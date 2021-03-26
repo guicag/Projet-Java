@@ -42,6 +42,10 @@ public class Minerai extends Case implements Comparable<Case>{
 		this.isMine = false;
 	}
 
+	public Minerai() {
+		super();
+	}
+
 	public int getValeur() {
 		return valeur;
 	}
