@@ -99,7 +99,7 @@ public class Robot {
 			miner((Minerai) carte.getMatriceMinerais()[posX][posY], dir);
 			carte.getMatriceMinerais()[posX][posY] = Vide.getInstance();
 		}
-		else this.configuration.put(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - (Double) configuration.get("temps_deplacement_vide"));
+		else this.configuration.replace(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - (Double) configuration.get("temps_deplacement_vide"));
 		return actions;
 	}
 	
@@ -112,7 +112,7 @@ public class Robot {
 		// Décrémentation du temps de rotation et de la batterie
 		System.out.println("");
 		this.batterieActuelle.setPuissanceActuelle(batterieActuelle.getPuissanceActuelle() - (Double) configuration.get("cout_rotation"));
-		this.configuration.put(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - (Double) configuration.get("temps_rotation"));
+		this.configuration.replace(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - (Double) configuration.get("temps_rotation"));
 		this.direction = dir;
 		return "TOURNER "+dir.name()+", AVANCER,";
 	}
@@ -144,9 +144,14 @@ public class Robot {
 		int dureteMinerai = minerai.getDurete();
 		double puiLaser = this.laserActuel.getPuissanceActuelle();
 		// Calcul du temps de minage et décrémentation du temps restant.
+		System.out.println(this.laserActuel.getPuissanceActuelle());
 		double tempsMinage =  dureteMinerai*100/puiLaser;
-		double emoussageLaser = tempsMinage * (Double) configuration.get("emoussage_laser"); 	// Emoussage du laser
-		this.laserActuel.setPuissanceActuelle(puiLaser - emoussageLaser);
+		double emoussageLaser = tempsMinage * (Double) configuration.get("emoussage_laser"); // Emoussage du laser
+		if ((puiLaser - emoussageLaser) <= (double) configuration.get("limite_emoussage")) {
+			this.laserActuel.setPuissanceActuelle((double) configuration.get("limite_emoussage"));
+		} else {
+			this.laserActuel.setPuissanceActuelle(puiLaser - emoussageLaser);
+		}
 		// Utilisation de la batterie
 		batterieActuelle.setPuissanceActuelle(batterieActuelle.getPuissanceActuelle() - (Double) configuration.get("cout_minage"));
 		// Incrémentation charge max
@@ -181,7 +186,7 @@ public class Robot {
 		}
 		double prix = equip.getCout();
 		this.score -= prix;
-		this.configuration.put(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - (Double) configuration.get(TEMPS_INSTALLATION));
+		this.configuration.replace(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - (Double) configuration.get(TEMPS_INSTALLATION));
 	}
 	
 	/**
@@ -214,18 +219,15 @@ public class Robot {
 	
 	public double getCoutRetourBase() {
 		double coutRetour = 0;
-		 for (int i = 0; i < listDeplacementsPourBase.size() -1; i++)  
-         {
-              int index = i;  
-              for (int j = 0; j < listDeplacementsPourBase.size(); j++)
-              {
-                   if (!listDeplacementsPourBase.get(j).equals(listDeplacementsPourBase.get(index))) { 
-                	   coutRetour += (Double) configuration.get("cout_rotation");
-                   }
-              }
-       	   coutRetour += (Double) configuration.get("cout_deplacement");
-         }
-		return coutRetour;
+        for (int i = 1; i < listDeplacementsPourBase.size()-1; i++)
+        {
+            if (!listDeplacementsPourBase.get(i).equals(listDeplacementsPourBase.get(i-1))) {
+                coutRetour += (Double) configuration.get("cout_rotation") + (Double) configuration.get("cout_deplacement");
+            } else {
+                coutRetour += (Double) configuration.get("cout_deplacement");
+            }
+        }
+       return coutRetour*2;
 	}
 	
 	
@@ -344,7 +346,7 @@ public class Robot {
 	public void setScore(int score) {
 		this.score = score;
 	}
-
+	
 	public ArrayList<Direction> getListDeplacementsPourBase() {
 		return listDeplacementsPourBase;
 	}
@@ -360,4 +362,5 @@ public class Robot {
 	public void setPocheDeMinerais(ArrayList<Minerai> pocheDeMinerais) {
 		this.pocheDeMinerais = pocheDeMinerais;
 	}
+
 }
