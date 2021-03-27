@@ -1,12 +1,6 @@
 package equipements;
 
 public class Batterie extends Equipement {
-	private String nomBatterie;
-	private int coutBatterie;
-	private double puissanceBatterieInitiale;
-	private double puissanceBatterieActuelle;
-	private double ratioBatterie;
-	
 	/**
 	 * Constructeur paramétré de Laser.
 	 * @param n Nom de la batterie

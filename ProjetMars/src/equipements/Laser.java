@@ -1,11 +1,6 @@
 package equipements;
 
 public class Laser extends Equipement  {
-	private String nomLaser;
-	private int coutLaser;
-	private double puissanceLaserInitiale;
-	private double puissanceLaserActuelle;
-	private double ratioLaser;
 	/**
 	 * Constructeur paramétré de Laser.
 	 * @param n Nom du laser
