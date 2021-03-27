@@ -76,23 +76,21 @@ public class Robot {
 		} else {
 			actions += "AVANCER,";
 		}
+		listDeplacementsPourBase.add(dir);
 		// Avance dans la "dir" souhaitée
 		switch(dir) {
 			case NORD :
 				this.posX--;
-				listDeplacementsPourBase.add(Direction.SUD);
+				
 				break;
 			case SUD :
 				this.posX++;
-				listDeplacementsPourBase.add(Direction.NORD);
 				break;
 			case EST :
 				this.posY++;
-				listDeplacementsPourBase.add(Direction.OUEST);
 				break;
 			case OUEST :
 				this.posY--;
-				listDeplacementsPourBase.add(Direction.EST);
 				break;
 		}
 		if(carte.getMatriceMinerais()[posX][posY] instanceof Minerai) {
@@ -100,6 +98,7 @@ public class Robot {
 			carte.getMatriceMinerais()[posX][posY] = Vide.getInstance();
 		}
 		else this.configuration.replace(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - (Double) configuration.get("temps_deplacement_vide"));
+		this.batterieActuelle.setPuissanceActuelle(batterieActuelle.getPuissanceActuelle() - (Double) configuration.get("cout_deplacement"));
 		return actions;
 	}
 	
