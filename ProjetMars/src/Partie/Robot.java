@@ -76,21 +76,23 @@ public class Robot {
 		} else {
 			actions += "AVANCER,";
 		}
-		listDeplacementsPourBase.add(dir);
 		// Avance dans la "dir" souhaitée
 		switch(dir) {
 			case NORD :
 				this.posX--;
-				
+				listDeplacementsPourBase.add(Direction.SUD);
 				break;
 			case SUD :
 				this.posX++;
+				listDeplacementsPourBase.add(Direction.NORD);
 				break;
 			case EST :
 				this.posY++;
+				listDeplacementsPourBase.add(Direction.OUEST);
 				break;
 			case OUEST :
 				this.posY--;
+				listDeplacementsPourBase.add(Direction.EST);
 				break;
 		}
 		if(carte.getMatriceMinerais()[posX][posY] instanceof Minerai) {
