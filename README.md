@@ -18,7 +18,7 @@ Implémentation d'un drone de défense pour se défendre des ennemis !!!
 
 ## Installation Projet
 
-Avant de commencer, petit [tuto](https://rogerdudler.github.io/git-guide/index.fr.html) sur git :)
+Avant de commencer, petit [tuto](https://rogerdudler.github.io/git-guide/index.fr.html) sur git :).
 
 
 - Génerer une clé SSH avec la commande --> `ssh-keygen`
@@ -29,18 +29,18 @@ Avant de commencer, petit [tuto](https://rogerdudler.github.io/git-guide/index.f
 
 ## Installation JavaFX
 
-- Telecharger e(fx) dans le marketplace d'Eclispe, puis redemarrer Eclipse
-- Download la librairie JavaFX Windows SDK [lien](https://gluonhq.com/products/javafx/), telecharger la librairie dans un dossier (ex : JavaFX)
-- Dans Eclipse, Windows/Preference/Build Path/User librairies/New, donner un nom (ex :JavaFX)
-- Puis cliquer sur cette librairie, importer avec le bouton Add External JARs, selectionner les fichiers .jar qui sont dans le sdkJavaFx/lib
-- Ensuite cliquer droit sur le projet; Build Path -> Configure -> Librairie -> Cliquer sur ClassPath -> Add librairie -> User Librairie et selectionner votre librairie
-- Aller dans votre main ou vous lancez votre application, Run -> Run Configuration -> Argument  -> Ajouter '--module-path "votre Chemin ...dkJavaFX/Lib " --add-modules javafx.controls,javafx.fxml'
+- Télécharger e(fx) dans le marketplace d'Eclispe, puis redémarrer Eclipse.
+- Download la librairie JavaFX Windows SDK [lien](https://gluonhq.com/products/javafx/), télécharger la librairie dans un dossier (ex : JavaFX).
+- Dans Eclipse, Windows/Preference/Build Path/User librairies/New, donner un nom (ex :JavaFX).
+- Puis cliquer sur cette librairie, importer avec le bouton Add External JARs, sélectionner les fichiers .jar qui sont dans le sdkJavaFx/lib.
+- Ensuite, clic droit sur le projet; Build Path -> Configure -> Librairie -> Cliquer sur ClassPath -> Add librairie -> User Librairie et sélectionner votre librairie.
+- Aller dans votre main ou vous lancez votre application, Run -> Run Configuration -> Argument  -> Ajouter '--module-path "votre Chemin ...dkJavaFX/Lib " --add-modules javafx.controls,javafx.fxml'.
 
 ## Installation Scene Builder
 
-- Telecharger Scene Builder [lien](https://gluonhq.com/products/scene-builder/#download) dans le meme dossier crée précédemment
-- Retourner sur Eclipse, Windows -> Preference -> JavaFx -> Mettre le chemin du .exe Scene Builder
-- Maintenant vous pouvez ouvrir les fichier fxml avec Scene Builder en faisant un clique droit sur le fichier, Ouvrir avec Scene Builder
+- Télecharger Scene Builder [lien](https://gluonhq.com/products/scene-builder/#download) dans le même dossier créé précédemment.
+- Retourner sur Eclipse, Windows -> Preference -> JavaFx -> Mettre le chemin du .exe Scene Builder.
+- Maintenant, vous pouvez ouvrir les fichiers .fxml avec Scene Builder en faisant un clic droit sur le fichier, Ouvrir avec Scene Builder.
 
 Un lien qui resume l'installation [video](https://www.youtube.com/watch?v=bC4XB6JAaoU)
 
@@ -54,7 +54,7 @@ Un lien qui resume l'installation [video](https://www.youtube.com/watch?v=bC4XB6
 
 ## License
 
-Ce projet réalisé dans le cadre de notre formation d'Ingénieur Informatique à 3iL afin de valider le module de Java sous la direction de notre excellent professeur M. Philippe Roussille
+Ce projet réalisé dans le cadre de notre formation d'Ingénieur Informatique à 3iL afin de valider le module de Java sous la direction de notre excellent professeur M. Philippe Roussille.
 
 
 
