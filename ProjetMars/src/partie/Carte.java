@@ -1,15 +1,19 @@
-package Partie;
+package partie;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import GestionFichiers.FileParser;
-import equipements.Base;
-import equipements.Case;
-import equipements.Minerai;
-import equipements.Vide;
-
+import elementsCarte.Base;
+import elementsCarte.Case;
+import elementsCarte.Minerai;
+import elementsCarte.Vide;
+import gestionFichiers.FileParser;
+/**
+ * 
+ * @author Clément
+ *
+ */
 public class Carte {
 	
 	private Case[][] matriceCase;

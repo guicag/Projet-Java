@@ -8,23 +8,23 @@ import java.io.IOException;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 
-import Partie.Direction;
-import Partie.Jeu;
+import elementsCarte.Case;
+import elementsCarte.Minerai;
+import elementsCarte.Vide;
 import equipements.Batterie;
-import equipements.Case;
 import equipements.Equipement;
-import equipements.Minerai;
-import equipements.Vide;
+import partie.Direction;
+import partie.Jeu;
 
 /**
  * Classe permettant de tester les méthodes de l'objet Robot.
  * @author Clément
  */
-public class testRobot {
+public class TestRobot {
 	
 	private Jeu jeu;
 	
-	testRobot() {
+	TestRobot() {
 		try {
 			this.jeu = new Jeu();
 		} catch (IOException e) {

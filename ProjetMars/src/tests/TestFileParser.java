@@ -10,17 +10,17 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import GestionFichiers.FileParser;
-import equipements.Base;
-import equipements.Case;
+import elementsCarte.Base;
+import elementsCarte.Case;
+import elementsCarte.Minerai;
 import equipements.Equipement;
-import equipements.Minerai;
+import gestionFichiers.FileParser;
 
 /**
  * Classe permettant de tester les fonctions de la classe FileParser, qui lit les fichiers du jeu. 
  * @author cleme
  */
-class testFileParser {
+class TestFileParser {
 
 	@Test
 	/**

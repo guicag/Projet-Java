@@ -31,7 +31,7 @@
                   <Label text="Cependant cette mission est ardue du fait que la NASA est sur la trace de notre équipe " textFill="WHITE" />
                   <Label text="ils n’ont que 24h avant d’être détecter." textFill="WHITE" />
                   <Label prefHeight="57.0" prefWidth="358.0" text="L'équipe tatou se compose:" textFill="WHITE" />
-                  <Label prefHeight="17.0" prefWidth="517.0" text="    Colonel Tatou               Commandant Tatou               Lieutenant Tatou              1er classe Tatou" textFill="WHITE" />
+                  <Label prefHeight="17.0" prefWidth="517.0" text="    Colonel Tatou               Commandant Tatou               Lieutenant Tatou              Sergent Tatou" textFill="WHITE" />
                   <Label prefHeight="17.0" prefWidth="532.0" text="     Clément JOURET           Guillaume CAGNIARD            Paul ESPINOSA                  Théo BOUVIALA" textFill="WHITE" />
                   <HBox alignment="CENTER" prefHeight="181.0" prefWidth="471.0">
                      <children>

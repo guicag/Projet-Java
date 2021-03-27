@@ -1,12 +1,11 @@
-package Interface;
+package interfaceGraphique;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import Partie.Jeu;
+import elementsCarte.Minerai;
 import equipements.Equipement;
-import equipements.Minerai;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -21,6 +20,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import partie.Jeu;
 
 public class ControllerGame implements Initializable{
 	

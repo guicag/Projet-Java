@@ -1,12 +1,11 @@
-package Interface;
+package interfaceGraphique;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import Partie.Jeu;
+import elementsCarte.Minerai;
 import equipements.Equipement;
-import equipements.Minerai;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +25,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import partie.Jeu;
 
 public class ControllerAccueil {
 	

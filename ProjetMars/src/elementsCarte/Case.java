@@ -1,7 +1,10 @@
-package equipements;
+package elementsCarte;
 
 public class Case implements Comparable<Case> {
-
+	
+	protected char caractere;
+	protected String nom;
+	
 	/**
 	 * Constructeur paramétré de Case.
 	 * @param caractere Caractère correpsondant à la Case.
@@ -20,9 +23,6 @@ public class Case implements Comparable<Case> {
 		super();
 	}
 
-	protected char caractere;
-	protected String nom;
-
 	public char getCaractere() {
 		return caractere;
 	}
@@ -40,12 +40,13 @@ public class Case implements Comparable<Case> {
 	}
 
 	@Override
+	/**
+	 * Compare deux objets Case;
+	 * Compare deux minerais si les deux objets sont des instance de Minerai, sinon retourne 0.
+	 */
 	public int compareTo(Case o) {
-		if(this instanceof Minerai && o instanceof Minerai) {
-			
+		if(this instanceof Minerai && o instanceof Minerai) 
 			return ((Minerai) this).compareTo(o);
-		}
 		return 0;
 	}
-
 }

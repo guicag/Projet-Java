@@ -1,5 +1,10 @@
 package equipements;
 
+/**
+ * Objet Batterie dont peut s'équiper l'objet Robot, et qui lui est nécéssaire pour les instructions de ses méthodes.
+ * Hérite de Equipement.
+ * @author Clément
+ */
 public class Batterie extends Equipement {
 	/**
 	 * Constructeur paramétré de Laser.
@@ -12,6 +17,9 @@ public class Batterie extends Equipement {
 		super(n, c, pi);
 	}
 	
+	/**
+	 * Constructeur non paramétré de l'objet Batterie.
+	 */
 	public Batterie() {
 		super();
 	}

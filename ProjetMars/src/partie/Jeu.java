@@ -1,23 +1,25 @@
-package Partie;
+package partie;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import elementsCarte.Base;
+import elementsCarte.Case;
+import elementsCarte.Minerai;
+import elementsCarte.Vide;
+
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 
-import GestionFichiers.FileParser;
-import GestionFichiers.FileWrite;
-import equipements.Base;
 import equipements.Batterie;
-import equipements.Case;
 import equipements.Equipement;
 import equipements.Laser;
-import equipements.Minerai;
-import equipements.Vide;
+import gestionFichiers.FileParser;
+import gestionFichiers.FileWrite;
 
 public class Jeu {
 	

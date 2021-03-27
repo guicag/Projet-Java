@@ -1,15 +1,15 @@
-package Partie;
+package partie;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import elementsCarte.Case;
+import elementsCarte.Minerai;
+import elementsCarte.Vide;
 import equipements.Batterie;
-import equipements.Case;
 import equipements.Equipement;
 import equipements.Laser;
-import equipements.Minerai;
-import equipements.Vide;
 
 public class Robot {
 	private int baseX;

@@ -1,5 +1,9 @@
 package equipements;
 
+/**
+ * Objet Laser, correspond au laser que le robot utilise pour miner l'objet Minerai dans la Carte.
+ * @author cleme
+ */
 public class Laser extends Equipement  {
 	/**
 	 * Constructeur paramétré de Laser.
@@ -12,6 +16,9 @@ public class Laser extends Equipement  {
 		super(n, c, pi);
 	}
 	
+	/**
+	 * Constructeur non paramétré de l'objet Laser.
+	 */
 	public Laser() {
 		super();
 	}

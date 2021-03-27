@@ -1,6 +1,8 @@
-package equipements;
+package elementsCarte;
+
 /**
- * @author cleme
+ * Objet Minerai, hérite de Case, et est un composant de la matrice d'objets Case de la Carte.
+ * @author Clément
  *
  *
  */
@@ -9,12 +11,12 @@ public class Minerai extends Case implements Comparable<Case>{
 	private int valeur;
 	private int durete;
 	private int poids;
-	private double ratio;// Le ratio correspond au rapport de la dureté sur la valeur du minerai. Différent de 0 si valeur l'est aussi.
+	private double ratio; // Le ratio correspond au rapport de la valeur sur la dureté du minerai
 	private boolean isMine;
 	
 	/**
 	 * Constructeur de copie.
-	 * @param other
+	 * @param other L'objet Minerai à copier.
 	 */
 	public Minerai(Minerai other) {
 		super(other.caractere, other.nom);
@@ -42,6 +44,9 @@ public class Minerai extends Case implements Comparable<Case>{
 		this.isMine = false;
 	}
 
+	/**
+	 * Constructeur non paramétré de l'objet Minerai.
+	 */
 	public Minerai() {
 		super();
 	}
@@ -79,6 +84,12 @@ public class Minerai extends Case implements Comparable<Case>{
 	}
 
 	@Override
+	/**
+	 * Compare deux objets Minerai, Si l'objet en paramètre n'est pas un Minerai, retourne -1 indiquant que le Minerai est supérieur à cet objet.
+	 * Sinon comprare les deux objets Minerai en fonction du ratio. Si les deux objets Minerai ont un ratio égal à 0, compare sur la dureté.
+	 * @param Case cas : le Minerai ou la Case à comparer.
+	 * @return Un entier indiquant l'odre entre les deux éléments. 0 s'il sont égaux, 1 si l'objet Minerai en paramètre a un ratio supérieur ou une durete supérieure, et -1 pour le cas contraire.
+	 */
 	public int compareTo(Case cas) {
 		if(cas instanceof Minerai) {
 			Minerai min = (Minerai) cas;

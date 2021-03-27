@@ -1,4 +1,4 @@
-package Partie;
+package partie;
 
 import java.io.IOException;
 

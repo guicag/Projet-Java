@@ -1,11 +1,16 @@
 package equipements;
 
-public class Equipement implements Comparable<Object>{
+/**
+ * Objet Equipement, correspond au matériel que le robot peut équiper.
+ * Implément linterface Comparable afin de pouvoir les comparer en fonction de leur ratio.
+ * @author Clément
+ */
+public class Equipement implements Comparable<Equipement>{
 	protected String nom;
 	protected int cout;
 	protected double puissanceInitiale;
 	protected double puissanceActuelle;
-	protected double ratio;
+	protected double ratio; // Le ratio correspond au rapport de la puissanceInitiale sur le coût de l'équipement
 	
 	/**
 	 * Constructeur paramétré d'un Equipement.
@@ -21,6 +26,9 @@ public class Equipement implements Comparable<Object>{
 		if(pi!=0) this.ratio = (double) c/ pi;
 	}
 	
+	/**
+	 * Constructeur non paramétré de l'objet 
+	 */
 	public Equipement() {
 		super();
 	}
@@ -34,7 +42,7 @@ public class Equipement implements Comparable<Object>{
 	}
 	
 	@Override
-	public int compareTo(Object o) {
+	public int compareTo(Equipement o) {
 		Equipement equip = (Equipement) o;
 		int res = 0;
 		if(equip.ratio<ratio) res = -1;

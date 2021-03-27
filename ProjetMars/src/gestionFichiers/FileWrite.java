@@ -1,4 +1,4 @@
-package GestionFichiers;
+package gestionFichiers;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -12,9 +12,9 @@ import java.util.List;
 public abstract class FileWrite {
 
 	/**
-	 * Permet d'écrire dans le fichier mission.txt tous les mouvements du robot
-	 * @param historique
-	 * @throws IOException
+	 * Permet d'écrire dans le fichier mission.txt tous les mouvements du robot.
+	 * @param historique Une liste contenant les actions qu'a effectué le robot durant la mission.
+	 * @throws IOException Lève une exception de lecture de fichier en cas de d'exception dans la création de l'objet Path, ou à l'appel de la méthode Files.write.
 	 */
 	public static void ecritureMission (ArrayList<String> historique) throws IOException {
 		// Chemin du fichier
