@@ -239,7 +239,7 @@ public class Jeu {
  			} else {
  				FileWrite.ecritureMission(parcoursRobot);
  				System.out.println("\n\n*************Partie Termine*************");
- 				System.out.println("Vous avez miner " + pourcentageMinage + " de la carte \n\n");
+ 				System.out.println("Vous avez mine " + pourcentageMinage + "% de la carte \n\n");
  				System.out.println("*************Carte Finale*************");
  				carte.afficherCarte();
  				return 0;

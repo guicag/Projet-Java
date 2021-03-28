@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import elementsCarte.Case;
 import elementsCarte.Minerai;
 import elementsCarte.Vide;
 import equipements.Batterie;
@@ -27,6 +26,7 @@ public class Robot {
 	private int score;
 	private static final String TEMPS_NASA_RESTANT = "temps_avant_que_nasa_repere";
 	private static final String TEMPS_INSTALLATION = "temps_installation";
+	private static final String COUT_DEPLACEMENT = "cout_deplacement";
 	
 	/**
 	 * Constructeur non paramatré de l'objet Robot.
@@ -56,8 +56,8 @@ public class Robot {
 		this.direction = Direction.NORD;
 		this.score = 0;
 		this.charge = 0;
-		this.listDeplacementsPourBase = new ArrayList<Direction>();
-		this.pocheDeMinerais = new ArrayList<Minerai>();
+		this.listDeplacementsPourBase = new ArrayList<>();
+		this.pocheDeMinerais = new ArrayList<>();
 	}
 	
 	
@@ -100,7 +100,7 @@ public class Robot {
 			carte.getMatriceMinerais()[posX][posY] = Vide.getInstance();
 		}
 		else this.configuration.replace(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - (Double) configuration.get("temps_deplacement_vide"));
-		this.batterieActuelle.setPuissanceActuelle(batterieActuelle.getPuissanceActuelle() - (Double) configuration.get("cout_deplacement"));
+		this.batterieActuelle.setPuissanceActuelle(batterieActuelle.getPuissanceActuelle() - (Double) configuration.get(COUT_DEPLACEMENT));
 		return actions;
 	}
 	
@@ -198,7 +198,7 @@ public class Robot {
 	 * @return Renvoie la liste des actions effectuées par le robot pour rentrer à la base.
 	 */
 	public List<String> rentrerBase(Carte carte) {
-		List<String> listDeplacements = new ArrayList<String>();
+		List<String> listDeplacements = new ArrayList<>();
 		for (int i = listDeplacementsPourBase.size() - 1; i >= 0; i--) {
 			listDeplacements.add(avancer(listDeplacementsPourBase.get(i), carte));
 		}
@@ -225,9 +225,9 @@ public class Robot {
         for (int i = 1; i < listDeplacementsPourBase.size()-1; i++)
         {
             if (!listDeplacementsPourBase.get(i).equals(listDeplacementsPourBase.get(i-1))) {
-                coutRetour += (Double) configuration.get("cout_rotation") + (Double) configuration.get("cout_deplacement");
+                coutRetour += (Double) configuration.get("cout_rotation") + (Double) configuration.get(COUT_DEPLACEMENT);
             } else {
-                coutRetour += (Double) configuration.get("cout_deplacement");
+                coutRetour += (Double) configuration.get(COUT_DEPLACEMENT);
             }
         }
        return coutRetour*2;
@@ -241,9 +241,7 @@ public class Robot {
 	public Batterie getBestBatterieAchetable() {
 		for (Equipement equipement : equipementsDisponibles) {
 			if (equipement instanceof Batterie) {
-				if (score >=  equipement.getCout()) {
-					return (Batterie) equipement;
-				}
+				if (score >=  equipement.getCout()) return (Batterie) equipement;
 			}
 		}
 		return null;
@@ -350,20 +348,20 @@ public class Robot {
 		this.score = score;
 	}
 	
-	public ArrayList<Direction> getListDeplacementsPourBase() {
+	public List<Direction> getListDeplacementsPourBase() {
 		return listDeplacementsPourBase;
 	}
 
-	public void setListDeplacementsPourBase(ArrayList<Direction> listDeplacementsPourBase) {
-		this.listDeplacementsPourBase = listDeplacementsPourBase;
+	public void setListDeplacementsPourBase(List<Direction> listDeplacementsPourBase) {
+		this.listDeplacementsPourBase = (ArrayList<Direction>) listDeplacementsPourBase;
 	}
 
-	public ArrayList<Minerai> getPocheDeMinerais() {
+	public List<Minerai> getPocheDeMinerais() {
 		return pocheDeMinerais;
 	}
 
-	public void setPocheDeMinerais(ArrayList<Minerai> pocheDeMinerais) {
-		this.pocheDeMinerais = pocheDeMinerais;
+	public void setPocheDeMinerais(List<Minerai> pocheDeMinerais) {
+		this.pocheDeMinerais = (ArrayList<Minerai>) pocheDeMinerais;
 	}
 
 }

@@ -23,17 +23,22 @@ import partie.Jeu;
 public class TestRobot {
 	
 	private Jeu jeu;
+	private static final String TEMPS_NASA_RESTANT = "temps_avant_que_nasa_repere";
+	private static final String ERREUR_FICHIER = "Erreur dans la lecture des fichiers de configuration.";
+	private static final String COUT_MINAGE = "cout_minage";
+
+	
 	
 	TestRobot() {
 		try {
 			this.jeu = new Jeu();
 		} catch (IOException e) {
-			System.out.println("Erreur dans la lecture des fichiers de configuration.");
+			System.out.println(ERREUR_FICHIER);
 			e.printStackTrace();
 		}
 	}
 
-	@Ignore
+	@Test
 	/**
 	 * Permet de tester si le robot est bien rentré à la base après l'appel de la
 	 * fonction rentrerBase.
@@ -47,7 +52,7 @@ public class TestRobot {
 		assertEquals(jeu.getRobot().getBaseY(), jeu.getRobot().getPosY());
 	}
 	
-	@Ignore
+	@Test
 	/**
 	 * Fonction permettant de tester si le robot se décharge bien lorsqu'il est à la base,
 	 *  et que les minerais qu'il dépose incrémentent bien score.
@@ -65,7 +70,7 @@ public class TestRobot {
 		assertTrue(jeu.getRobot().getPocheDeMinerais().isEmpty());
 	}
 	
-	@Ignore
+	@Test
 	/**
 	 * Permet de tester si le robot s'est bien déplacé d'une case après l'appel de la méthode avancer.
 	 * Vérifie également que le temps restant aie été décrémenté si la case est vide, et que la batterie aie bien été décrémentée de cout_deplacement;
@@ -74,7 +79,7 @@ public class TestRobot {
 		int posXDebut = jeu.getRobot().getPosX();
 		int posYDebut = jeu.getRobot().getPosY();
 		Direction dirChoisie = jeu.choisirDirection();
-		double tempsAvantAvancer = (Double) jeu.getRobot().getConfiguration().get("temps_avant_que_nasa_repere");
+		double tempsAvantAvancer = (Double) jeu.getRobot().getConfiguration().get(TEMPS_NASA_RESTANT);
 		double puissanceBatterieAvant = jeu.getRobot().getBatterieActuelle().getPuissanceActuelle();
 		boolean isCaseVide = getCaseDirection(dirChoisie) instanceof Vide;
 		boolean isDirectionDifferente = jeu.getRobot().getDirection() != dirChoisie;
@@ -94,14 +99,14 @@ public class TestRobot {
 				break;
 		}
 		double newBat = puissanceBatterieAvant;
-		if(isCaseVide) assertTrue((Double) jeu.getRobot().getConfiguration().get("temps_avant_que_nasa_repere") == tempsAvantAvancer - (Double) jeu.getRobot().getConfiguration().get("temps_deplacement_vide"));
-		else newBat -= (Double) jeu.getRobot().getConfiguration().get("cout_minage");
+		if(isCaseVide) assertTrue((Double) jeu.getRobot().getConfiguration().get(TEMPS_NASA_RESTANT) == tempsAvantAvancer - (Double) jeu.getRobot().getConfiguration().get("cout_deplacement_vide"));
+		else newBat -= (Double) jeu.getRobot().getConfiguration().get(COUT_MINAGE);
 		if(isDirectionDifferente) newBat -= (Double) jeu.getRobot().getConfiguration().get("cout_rotation");
 		assertTrue(jeu.getCarte().getMatriceMinerais()[jeu.getRobot().getPosX()][jeu.getRobot().getPosY()] instanceof Vide);
 		assertEquals((Double) jeu.getRobot().getBatterieActuelle().getPuissanceActuelle(), newBat - (Double) jeu.getRobot().getConfiguration().get("cout_deplacement"));
 	}
 
-	@Ignore
+	@Test
 	/**
 	 * Permet de tester si la case dans laquelle le robot a avancé est bien minée,
 	 * c'est à dire une instance de l'objet Vide. Vérifie également que le dernier objet Minerai ajouté à la pocheDeMinerais du robot
@@ -112,7 +117,7 @@ public class TestRobot {
 		Minerai mineraiMine = new Minerai();
 		double batterieAvant = jeu.getRobot().getBatterieActuelle().getPuissanceActuelle();
 		double puiLaserAvant = jeu.getRobot().getBatterieActuelle().getPuissanceActuelle();
-		double tempsAvant = (Double) jeu.getRobot().getConfiguration().get("temps_avant_que_nasa_repere");
+		double tempsAvant = (Double) jeu.getRobot().getConfiguration().get(TEMPS_NASA_RESTANT);
 		// Récupération du minerai dans la direction choisie.
 		switch (dirChoisie) {
 			case NORD:
@@ -137,14 +142,14 @@ public class TestRobot {
 		jeu.getRobot().miner(mineraiMine, dirChoisie);
 		assertEquals(jeu.getRobot().getLaserActuel().getPuissanceActuelle(), puiLaserAvant - emoussageLaser);
 		assertEquals(jeu.getRobot().getBatterieActuelle().getPuissanceActuelle(), batterieAvant 
-				- (Double) jeu.getRobot().getConfiguration().get("cout_minage"));
-		assertEquals(jeu.getRobot().getConfiguration().get("temps_avant_que_nasa_repere"), 
+				- (Double) jeu.getRobot().getConfiguration().get(COUT_MINAGE));
+		assertEquals(jeu.getRobot().getConfiguration().get(TEMPS_NASA_RESTANT), 
 				tempsAvant - tempsMinage);
 		Minerai lastInsertedMinerai = jeu.getRobot().getPocheDeMinerais().get(jeu.getRobot().getPocheDeMinerais().size() -1);
 		assertTrue(lastInsertedMinerai.compareTo(mineraiMine) == 0);
 	}
 	
-	@Ignore
+	@Test
 	/**
 	 * Permet de tester si le robot a bien tourné après l'appel de la fonction
 	 */
@@ -163,7 +168,7 @@ public class TestRobot {
 	void testEquiper() {
 		Equipement equip = jeu.getRobot().getEquipementsDisponibles().get(0);
 		int scoreAvant = (Integer) jeu.getRobot().getScore() + equip.getCout();
-		double tempsAvant = (Double) jeu.getRobot().getConfiguration().get("temps_avant_que_nasa_repere");
+		double tempsAvant = (Double) jeu.getRobot().getConfiguration().get(TEMPS_NASA_RESTANT);
 		jeu.getRobot().setScore(scoreAvant);
 		jeu.getRobot().equiper(equip);
 		if(equip instanceof Batterie)
@@ -171,7 +176,7 @@ public class TestRobot {
 		else 
 			assertEquals(jeu.getRobot().getLaserActuel(), equip);
 		assertEquals(jeu.getRobot().getScore(), scoreAvant - equip.getCout());
-		assertEquals((Double) jeu.getRobot().getConfiguration().get("temps_avant_que_nasa_repere"), tempsAvant - (Double) jeu.getRobot().getConfiguration().get("temps_installation"));
+		assertEquals((Double) jeu.getRobot().getConfiguration().get(TEMPS_NASA_RESTANT), tempsAvant - (Double) jeu.getRobot().getConfiguration().get("temps_installation"));
 	}
 	
 	Case getCaseDirection(Direction dir) {
@@ -181,9 +186,9 @@ public class TestRobot {
 			case SUD:
 				return jeu.getCarte().getMatriceMinerais()[jeu.getRobot().getPosX()-1][jeu.getRobot().getPosY()];
 			case EST:
-				return (Minerai) jeu.getCarte().getMatriceMinerais()[jeu.getRobot().getPosX()][jeu.getRobot().getPosY()+1];
+				return jeu.getCarte().getMatriceMinerais()[jeu.getRobot().getPosX()][jeu.getRobot().getPosY()+1];
 			case OUEST:
-				return (Minerai) jeu.getCarte().getMatriceMinerais()[jeu.getRobot().getPosX()][jeu.getRobot().getPosY()-1];
+				return jeu.getCarte().getMatriceMinerais()[jeu.getRobot().getPosX()][jeu.getRobot().getPosY()-1];
 		}
 		return null;
 	}
