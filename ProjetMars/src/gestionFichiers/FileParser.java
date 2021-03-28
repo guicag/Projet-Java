@@ -30,6 +30,11 @@ public abstract class FileParser {
 	private static final String ERREUR_FICHIER = "File I/O error";
 	private static final String FICHIER = "Fichiers";
 	
+	
+	private FileParser() {
+		super();
+	}
+
 	/**
 	 * Lis le fichier fichiers/descriptif_mesures.txt afin de retourner une liste
 	 * d'objets Minerai dont est compos�e la carte.

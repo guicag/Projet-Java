@@ -84,6 +84,7 @@ public class Carte {
 	 * @return Un tableau d'entiers comprenant dans [0] la position X, et dans [1] la position Y.
 	 */
 	public int[] getBase() {
+		int[] ret = null;
 		for(int ligne = 0; ligne < getRowLength(); ligne++) {
 			for(int col = 0; col < getColumnLength(); col++) {
 				if (this.matriceCase[ligne][col] instanceof Base) {
@@ -92,7 +93,7 @@ public class Carte {
 				}
 			}
 		}
-		return null;
+		return ret;
 	}
 
 	public static String getErreurCarte() {

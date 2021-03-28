@@ -1,18 +1,15 @@
 package partie;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import elementsCarte.Base;
 import elementsCarte.Case;
 import elementsCarte.Minerai;
 import elementsCarte.Vide;
 
-import java.util.Random;
-import java.util.Set;
 import java.util.TreeMap;
 
 import equipements.Batterie;
@@ -67,8 +64,8 @@ public class Jeu {
 	public Direction choisirDirection() {
 		int posXRobot = robot.getPosX();
 		int posYRobot = robot.getPosY();
-		TreeMap<Case, Direction> listMineraiDir = new TreeMap<Case, Direction>();
-		TreeMap<Double, Direction> listVideDir = new TreeMap<Double, Direction>();
+		TreeMap<Case, Direction> listMineraiDir = new TreeMap<>();
+		TreeMap<Double, Direction> listVideDir = new TreeMap<>();
 		for(Direction dir : Direction.values()) {
 			switch(dir) {
 				case NORD :
@@ -153,10 +150,9 @@ public class Jeu {
 	public double calculDistance (int posX, int posY) {
 		int posXBase = robot.getBaseX();
 		int posYBase = robot.getBaseY();
-		double x = (posXBase -  posX) * (posXBase -  posX);
-		double y = (posYBase - posY) * (posYBase - posY);
-		double res = Math.sqrt(x + y);
-		return res;
+		int x = (posXBase -  posX) * (posXBase -  posX);
+		int y = (posYBase - posY) * (posYBase - posY);
+		return Math.sqrt(x + y);
 	}
 	
 	/**
@@ -166,7 +162,7 @@ public class Jeu {
 	public Direction getRandomDirection() {
 		int posXRobot = robot.getPosX();
 		int posYRobot = robot.getPosY();
-		List<Direction> listDirection = new ArrayList<Direction>();
+		List<Direction> listDirection = new ArrayList<>();
     	listDirection.add(Direction.EST);
     	listDirection.add(Direction.OUEST);
     	listDirection.add(Direction.SUD);
@@ -180,7 +176,8 @@ public class Jeu {
 		} else if (posYRobot == 0) {
 			listDirection.remove(Direction.OUEST);
 		}
-		int min = 0, max = listDirection.size() -1;
+		int min = 0;
+		int max = listDirection.size() -1;
 	    int random = (int)(Math.random() * (max - min + 1) + min);
 	    return listDirection.get(random);
 	}
@@ -223,7 +220,6 @@ public class Jeu {
  			double pourcentage = ((double) getNombreCaseVide()/ (double)getNombreCase()) * 100;
  			if (pourcentage < pourcentageMinage) {
  				Direction direction = choisirDirection();
- 				double coutBase = robot.getCoutRetourBase();
  				if (robot.getCoutRetourBase() + (Double) robot.getConfiguration().get("cout_minage") < robot.getBatterieActuelle().getPuissanceActuelle()) {
  					if (testerMinerDirection(direction) ) {
  						nbmouvement++;
@@ -259,7 +255,7 @@ public class Jeu {
 	 * Enregistre les mouvements du robot aussi
 	 */
 	public void rentrerVider() {
-		List<String> tempList = new ArrayList<String>();
+		List<String> tempList;
 		tempList = robot.rentrerBase(carte);
 		for (String e : tempList) {
 			parcoursRobot.add(e);
@@ -275,7 +271,7 @@ public class Jeu {
 	 * S'il lui reste encore assez d'argent, il achete le laser avec le meilleur ratio sinon en focntion de son argent il achete un autre laser ou pas
 	 */
 	public void rentrerChangerEquipement() {
-		List<String> temp = new ArrayList<String>();
+		List<String> temp;
 		temp = robot.rentrerBase(carte);
 		for (String e : temp) {
 			parcoursRobot.add(e);

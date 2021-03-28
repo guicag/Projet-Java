@@ -43,7 +43,7 @@ public class Equipement implements Comparable<Equipement>{
 	
 	@Override
 	public int compareTo(Equipement o) {
-		Equipement equip = (Equipement) o;
+		Equipement equip = o;
 		int res = 0;
 		if(equip.ratio<ratio) res = -1;
 		if(equip.ratio>ratio) res = 1;
