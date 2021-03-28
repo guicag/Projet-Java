@@ -1,0 +1,19 @@
+Après de nombreuses nuits de code acharné, l’équipe Tatou est fière de vous présenter le Tatou-robot ultra sophistiqué. Pour réaliser cette prouesse technologique, nous avons codé l’intégralité du code sous Éclipse, de plus l’outil git nous a été d’une grande utilité pour ne pas avoir de conflits sur notre code. 
+Pour simplifier la face de codage, nous avons réalisé une réunion. Au cours de cette dernière nous avons plusieurs objectifs : le premier était d’être sûr que tout le groupe parte sur la même base de compréhension du sujet. 
+De plus, nous avons commencé à réfléchir à la conception de notre projet et la réalisation du diagramme UML. Notre code est divisé en 5 packages le premier étant l’équipement, c’est ici que notre robot choisira une batterie ainsi qu’un laser en fonction de son score. 
+Le deuxième est a été la gestion de fichiers comment retranscrire dans le code les données issues des fichiers textes fournis. Nous avions le besoin de traiter l'information pour pouvoir commencer une partie. 
+Comme par exemple les lasers et batteries disponibles ou bien l'ensemble des paramètres de configuation du robot. La partie interface permet à l’utilisateur du programme d’avoir une application qui est plus agréable à regarder qu’un terminal. 
+Vous pourrez trouver une page d’accueil pour aller directement dans jouer afin de voir le résultat de notre programme ou alors sur la page d'édition qui permet d’avoir des informations sur le projet. 
+Pour finir, nosu avons le package "Partie" où nous trouvons la stratégie de notre équipe. Notre automate applique une stratégie simple pour choisir sa direction, il regarde les 4 cases autour de lui (Nord, Sud, Est et Ouest) puis il choisit la case avec le meilleur ratio d'abord sur la valeur puis sur la dureté. 
+Donc, si toutes les cases ne possèdent aucune valeur, notre robot choisira le minerai le plus léger. Tant que nous avons assez de batterie pour rentrer à la base, nous continuons de miner avec la même stratégie expliquée plus haut. 
+Une fois de retour à la base, nous achetons le meilleur équipement possible avec notre score actuel. Pour choisir quelle est le meilleur équipement, nous les classons en fonction de leurs prix sur la capacité.
+Plus la partie avance plus nous minons et un nouveau cas apparaît si nous avons miné toutes les cases autour de lui. Dans ce cas, le robot se dirige vers la case vide la plus éloignée dans le but d’explorer une nouvelle partie de la carte. 
+La partie prend fin lorsque le temps est écoulé, c’est-à-dire quand la NASA nous repère ou bien lorsque nous avons miné 50 % de la taille de la carte.
+De plus, nous avons réalisé un autre package avec tous les tests sur notre projet, cela permet de vérifier que toutes nos fonctions renvoient la bonne information, effectuent correctement ce que l'on souhaite.
+Pour la répartition des rôles, comme énoncé plus haut nous avons fait plusieurs réunions de code cependant la structure du code a majoritairement été réalisée par Clément JOURET. 
+Pour les autres tâches, elles ont été faites ensemble.
+Ce projet n’a pas été simple à réaliser, nous avons rencontré plusieurs problèmes. 
+Premièrement, nous avons réalisé les tests à la fin. Il aurait été plus efficace et moins fastidieux de les réaliser tout au long du projet. Le fait de ne pas réaliser plusieurs branches sur le git à été une réelle erreur, car nous avons eu plusieurs problèmes de conflit lors des push et des pulls de notre code, 
+ce qui nous a fait perdre pas mal de temps. 
+Pour finir nous avions mal évalué la difficulté de l’implémentation de notre stratégie et de tous les paramètres que nous devant respecter par le sujet. Ce qui a eu comme conséquence que nous avons change de stratégie au cours de la programmation. 
+Pour pallier à ce problème nous aurions dû accorder plus d’importance à la partie conception en amont du projet. 
