@@ -211,6 +211,7 @@ public class Jeu {
 	 * 
 	 * @return Un enum Direction indisuant la prhcaine direction à suivre.
 	 * @throws IOException 
+	 * @throws InterruptedException 
 	 */
 	public int jouer() throws IOException {
 		//Première phase 
@@ -242,7 +243,6 @@ public class Jeu {
  			}
 		}
  		FileWrite.ecritureMission(parcoursRobot);
-		FileWrite.ecritureMission(parcoursRobot);
 		System.out.println("\n\n*************Partie Termine*************");
 		System.out.println("La nasa vous a reperé \n\n");
 		System.out.println("*************Carte Finale*************");
@@ -354,7 +354,7 @@ public class Jeu {
 	 * Permet d'affichir les informations apres que le robot est miner
 	 */
 	public void afficherInfoRobotMinage() {
-		System.out.println("Mouvement n° " + nbmouvement + " (Action Minage) : \n");
+		System.out.println("Mouvement n° " + nbmouvement + " (Action Avancer) : \n");
 		System.out.println("Temps -> " + robot.getConfiguration().get("temps_avant_que_nasa_repere"));
 		System.out.println("Position X Robot : " + robot.getPosX() + " ; Position Y Robot : " + robot.getPosY());
 		System.out.println("Score Robot -> " + robot.getScore());
@@ -368,13 +368,9 @@ public class Jeu {
 	 * Permet d'affichir les informations d'un mouvement du robot quand il rentre vers la base parce que la charge du robot est pleine
 	 */
 	public void afficherInfoRobotRentrerCharge() {
+		nbmouvement++;
 		System.out.println("Mouvement n° " + nbmouvement + " (Action Rentrer Base ChargeRobot >= ChargeMaxi) : \n");
-		System.out.println("Temps -> " + robot.getConfiguration().get("temps_avant_que_nasa_repere"));
-		System.out.println("Position X Robot : " + robot.getPosX() + " ; Position Y Robot : " + robot.getPosY());
-		System.out.println("Score Robot -> " + robot.getScore());
-		System.out.println("Deplacement -> " + parcoursRobot.get(nbmouvement - 1));
-		System.out.println("Batterie -> " + robot.getBatterieActuelle().getNom() + " ; Puissance : " + robot.getBatterieActuelle().getPuissanceActuelle());
-		System.out.println("Laser -> " + robot.getLaserActuel().getNom() + " ; Puissance : " + robot.getLaserActuel().getPuissanceActuelle());
+		System.out.println("******************Le Robot rentre à la Base******************");
 		System.out.println("\n\n");
 	}
 	
@@ -384,12 +380,7 @@ public class Jeu {
 	public void afficherInfoRobotRentrerEquipement() {
 		nbmouvement++;
 		System.out.println("Mouvement n° " + nbmouvement + " (Action Rentrer pour changer Equipement) : \n");
-		System.out.println("Temps -> " + robot.getConfiguration().get("temps_avant_que_nasa_repere"));
-		System.out.println("Position X Robot : " + robot.getPosX() + " ; Position Y Robot : " + robot.getPosY());
-		System.out.println("Score Robot -> " + robot.getScore());
-		System.out.println("Deplacement -> " + parcoursRobot.get(nbmouvement - 1));
-		System.out.println("Batterie -> " + robot.getBatterieActuelle().getNom() + " ; Puissance : " + robot.getBatterieActuelle().getPuissanceActuelle());
-		System.out.println("Laser -> " + robot.getLaserActuel().getNom() + " ; Puissance : " + robot.getLaserActuel().getPuissanceActuelle());
+		System.out.println("******************Le Robot rentre à la Base******************");
 		System.out.println("\n\n");
 	}
 	

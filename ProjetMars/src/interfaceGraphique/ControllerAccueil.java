@@ -33,7 +33,7 @@ public class ControllerAccueil {
     private Button btnJouer;
 
     @FXML
-    private Button btnEdit;
+    private Button btnCredit;
 
     @FXML
     private Button btnQuitter;
@@ -54,9 +54,9 @@ public class ControllerAccueil {
     }
 
     @FXML
-    void ouvrirPageEdit(ActionEvent event) {
+    void ouvrirPageCredit(ActionEvent event) {
         try {
-        	Parent root = FXMLLoader.load(getClass().getResource("edit.fxml"));
+        	Parent root = FXMLLoader.load(getClass().getResource("credit.fxml"));
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();

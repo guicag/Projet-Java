@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:controller="Interface.ControllerAccueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfaceGraphique.ControllerAccueil">
    <children>
       <ImageView fitHeight="300.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -36,9 +36,9 @@
          <center>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="187.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" text="Jouer" onAction="#ouvrirPageGame" />
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" text="Edit" onAction="#ouvrirPageEdit" />
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" text="Quitter" onAction="#fermerApp" />
+                  <Button mnemonicParsing="false" onAction="#ouvrirPageGame" prefHeight="30.0" prefWidth="115.0" text="Jouer" />
+                  <Button fx:id="btnCredit" mnemonicParsing="false" onAction="#ouvrirPageCredit" prefHeight="30.0" prefWidth="115.0" text="Credit" />
+                  <Button mnemonicParsing="false" onAction="#fermerApp" prefHeight="30.0" prefWidth="115.0" text="Quitter" />
                </children>
             </VBox>
          </center></BorderPane>
