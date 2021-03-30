@@ -16,7 +16,7 @@ public class Equipement implements Comparable<Equipement>{
 	 * Constructeur paramétré d'un Equipement.
 	 * @param n Nom de l'équipement
 	 * @param c Coût de l'équipement
-	 * @param p Puissance de l'équipement
+	 * @param pi Puissance de l'équipement
 	 */
 	public Equipement(String n, int c, double pi) {
 		this.setNom(n);

@@ -41,8 +41,8 @@ public class Robot {
 	 * @param equipementsDisponibles Liste d'objet Equipement correspondant aux équipement que peux achter le robot.
 	 * @param batterieDef Batterie par defaut que va equiper le robot.
 	 * @param laserDef Laser par defaut que va equiper le robot.
-	 * @param posX 
-	 * @param posY
+	 * @param posX Position X initiale du robot
+	 * @param posY Position Y initiale du robot
 	 */
 	public Robot(Map<String, Number> configuration, List<Equipement> equipementsDisponibles, Batterie batterieDef, Laser laserDef, int posX, int posY) {
 		this.configuration = configuration;
@@ -63,11 +63,9 @@ public class Robot {
 	
 	/**
 	 * Permet de déplacer le robot dans une direction.
-	 * 
 	 * @param dir Enum direction indiquant la direction dans laquelle avancer
-	 * 
-	 * @return actions7
-	 * @throws Exception 
+	 * @param carte La carte actuelle sur laquelle se déplace le robot.
+	 * @return actions
 	 */
 	public String avancer(Direction dir, Carte carte){
 		String actions = "";
@@ -96,7 +94,7 @@ public class Robot {
 				break;
 		}
 		if(carte.getMatriceMinerais()[posX][posY] instanceof Minerai) {
-			miner((Minerai) carte.getMatriceMinerais()[posX][posY], dir);
+			miner((Minerai) carte.getMatriceMinerais()[posX][posY]);
 			carte.getMatriceMinerais()[posX][posY] = Vide.getInstance();
 		}
 		else this.configuration.replace(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - (Double) configuration.get("temps_deplacement_vide"));
@@ -106,7 +104,7 @@ public class Robot {
 	
 	/**
 	 * Permet de faire tourner le robot dans une direction donner en parametre
-	 * @param dir
+	 * @param dir Direction indiquant la direction dans laquelle le robot doit tourner.
 	 * @return Un string qui decrit le comportement du robot
 	 */
 	public String tourner(Direction dir) {
@@ -120,8 +118,8 @@ public class Robot {
 	/**
 	 * Permet de tester si le robot est capable de porter ce minerai.
 	 * 
-	 * @param minerai
-	 * @return
+	 * @param c Minerai Un objet Minerai correspondant au minerai que la fonction va tester.
+	 * @return Un booleen indiquant si le robot peut porter le miner qui vient d'être testé.
 	 */
 	public boolean testerMiner(Minerai c) {
 		boolean mineraiOk = true;
@@ -133,12 +131,9 @@ public class Robot {
 	
 	/**
 	 *  Permet de miner le minerai à l'endroit ou se trouve le robot.
-	 *  
 	 * @param minerai Minerai à miner.
-	 * 
-	 * @throws Exception Lorsque vous ne pouvez pas porter le minerai. (charge maximale atteinte)
 	 */
-	public void miner(Minerai minerai, Direction dir){
+	public void miner(Minerai minerai){
 		// Récupération des caractéristiques du minerai
 		int poidsMinerai = minerai.getPoids();
 		int dureteMinerai = minerai.getDurete();
@@ -164,7 +159,7 @@ public class Robot {
 	
 	/**
 	 * Permet de décharger le robot. N'est appellée uniquement si le robot est bien à la base.
-	 * 
+	 * @return String Un chaine de caractère correspondant à l'action que vinet d'effectuer le robot.
 	 */
 	public String decharger() {
 		this.charge = 0;
@@ -177,6 +172,8 @@ public class Robot {
 	
 	/**
 	 * Permet de s'équiper d'un laser ou d'une batterie.
+	 * @param equip Un objet Equipement que va equiper le robot.
+	 * @return String Un chaine de caractère correspondant à l'action que vient d'effectuer le robot.
 	 */
 	public String equiper(Equipement equip) {
 		String message = "";
@@ -194,7 +191,7 @@ public class Robot {
 	
 	/**
 	 * Permet de retourner à la base.
-	 * @param Carte carte : la carte du jeu
+	 * @param carte Carte La carte du jeu.
 	 * @return Renvoie la liste des actions effectuées par le robot pour rentrer à la base.
 	 */
 	public List<String> rentrerBase(Carte carte) {

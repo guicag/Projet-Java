@@ -144,7 +144,8 @@ public class Jeu {
 	
 	/**
 	 * Permet de calculer la distance d'un point depuis la base
-	 * @param vide
+	 * @param posX Position X du robot
+	 * @param posY Position Y du robot
 	 * @return Double
 	 */
 	public double calculDistance (int posX, int posY) {
@@ -157,7 +158,7 @@ public class Jeu {
 	
 	/**
 	 * Permet de retourner une direction random
-	 * @return Direction
+	 * @return Direction Une diretion indiquant 
 	 */
 	public Direction getRandomDirection() {
 		int posXRobot = robot.getPosX();
@@ -184,7 +185,7 @@ public class Jeu {
 	
 	/**
 	 * Permet de recuperer le nombre de case Vide
-	 * @return Integer
+	 * @return Integer Un entier correspondant au nombre de cases Vides dont est composée la carte.
 	 */
 	public int getNombreCaseVide() {
 		int count = 0;
@@ -200,7 +201,7 @@ public class Jeu {
 	
 	/**
 	 * Retourne le nombre de case total
-	 * @return Integer
+	 * @return Integer Un entier correspondant au nombre de cases total sur la carte.
 	 */
 	public int getNombreCase() {
 		return carte.getColumnLength()*carte.getRowLength();
@@ -210,8 +211,7 @@ public class Jeu {
 	 * Fonction permettant de choisir une direction à suivre lors du prochain déplacement, et de toruner le robot dans celle-ci.
 	 * 
 	 * @return Un enum Direction indisuant la prhcaine direction à suivre.
-	 * @throws IOException 
-	 * @throws InterruptedException 
+	 * @throws IOException Une IOEsception en cas d'exception lors de l'écriture du parcours du robot dans le fichier mission.txt
 	 */
 	public int jouer() throws IOException {
 		//Première phase 
@@ -235,17 +235,15 @@ public class Jeu {
  				}
  			} else {
  				FileWrite.ecritureMission(parcoursRobot);
- 				System.out.println("\n\n*************Partie Termine*************");
- 				System.out.println("Vous avez mine " + pourcentageMinage + "% de la carte \n\n");
- 				System.out.println("*************Carte Finale*************");
+ 				String affichage = "\\n\\n*************Partie Termine*************\nVous avez mine " + pourcentageMinage + "% de la carte \n\n*************Carte Finale*************";
+ 				System.out.println(affichage);
  				carte.afficherCarte();
  				return 0;
  			}
 		}
  		FileWrite.ecritureMission(parcoursRobot);
-		System.out.println("\n\n*************Partie Termine*************");
-		System.out.println("La nasa vous a reperé \n\n");
-		System.out.println("*************Carte Finale*************");
+		String affichage = "\\n\\n*************Partie Termine*************\nLa nasa vous a reperé \n\n*************Carte Finale*************";
+		System.out.println(affichage);
 		carte.afficherCarte();
 		return 1;
 	}
@@ -351,57 +349,48 @@ public class Jeu {
 	}
 	
 	/**
-	 * Permet d'affichir les informations apres que le robot est miner
+	 * Permet d'afficher les informations apres que le robot ai miné.
 	 */
 	public void afficherInfoRobotMinage() {
-		System.out.println("Mouvement n° " + nbmouvement + " (Action Avancer) : \n");
-		System.out.println("Temps -> " + robot.getConfiguration().get("temps_avant_que_nasa_repere"));
-		System.out.println("Position X Robot : " + robot.getPosX() + " ; Position Y Robot : " + robot.getPosY());
-		System.out.println("Score Robot -> " + robot.getScore());
-		System.out.println("Deplacement -> " + parcoursRobot.get(nbmouvement - 1));
-		System.out.println("Batterie -> " + robot.getBatterieActuelle().getNom() + " ; Puissance : " + robot.getBatterieActuelle().getPuissanceActuelle());
-		System.out.println("Laser -> " + robot.getLaserActuel().getNom() + " ; Puissance : " + robot.getLaserActuel().getPuissanceActuelle());
-		System.out.println("\n\n");
+		System.out.println("Mouvement n° " + nbmouvement + " (Action Avancer) : \n"
+				+ "Temps -> " + robot.getConfiguration().get("temps_avant_que_nasa_repere") + "\n" 
+				+ "Position X Robot : " + robot.getPosX() + "; Position Y Robot : " + robot.getPosY() + "\n" 
+				+ "Score Robot -> " + robot.getScore() + "\n" 
+				+ "Deplacement -> " + parcoursRobot.get(nbmouvement - 1) + "\n" 
+				+ "Batterie -> " + robot.getBatterieActuelle().getNom() + " ; Puissance : " + robot.getBatterieActuelle().getPuissanceActuelle() + "\n" 
+				+ "Laser -> " + robot.getLaserActuel().getNom() + " ; Puissance : " + robot.getLaserActuel().getPuissanceActuelle() + "\n\n");
 	}
 	
 	/**
-	 * Permet d'affichir les informations d'un mouvement du robot quand il rentre vers la base parce que la charge du robot est pleine
+	 * Permet d'afficher les informations d'un mouvement du robot quand il rentre vers la base parce que la charge du robot est pleine
 	 */
 	public void afficherInfoRobotRentrerCharge() {
 		nbmouvement++;
-		System.out.println("Mouvement n° " + nbmouvement + " (Action Rentrer Base ChargeRobot >= ChargeMaxi) : \n");
-		System.out.println("******************Le Robot rentre à la Base******************");
-		System.out.println("\n\n");
+		System.out.println("Mouvement n° " + nbmouvement + " (Action Rentrer Base ChargeRobot >= ChargeMaxi) : \n******************Le Robot rentre à la Base******************\n\n");
 	}
 	
 	/**
-	 * Permet d'affichir les informations d'un mouvement du robot quand il rentre vers la base parce que la batterie est trop faible
+	 * Permet d'afficher les informations d'un mouvement du robot quand il rentre vers la base parce que la batterie est trop faible
 	 */
 	public void afficherInfoRobotRentrerEquipement() {
 		nbmouvement++;
-		System.out.println("Mouvement n° " + nbmouvement + " (Action Rentrer pour changer Equipement) : \n");
-		System.out.println("******************Le Robot rentre à la Base******************");
-		System.out.println("\n\n");
+		System.out.println("Mouvement n° " + nbmouvement + " (Action Rentrer pour changer Equipement) : \n******************Le Robot rentre à la Base******************\n\n");
 	}
 	
 	/**
-	 * Permet d'affichir les informations d'un mouvement quand le robot se décharge
+	 * Permet d'afficher les informations d'un mouvement quand le robot se décharge
 	 */
 	public void afficherInfoRobotDecharger() {
 		nbmouvement++;
-		System.out.println("Mouvement n° " + nbmouvement + " (Action Decharger) : \n");
-		System.out.println("******************Le Robot se decharge******************");
-		System.out.println("\n\n");
+		System.out.println("Mouvement n° " + nbmouvement + " (Action Decharger) : \n******************Le Robot se decharge******************\n\n");
 	}
 	
 	/**
-	 * Permet d'affichir les informations d'un mouvement quand le robot s'équipe
+	 * Permet d'afficher les informations d'un mouvement quand le robot s'équipe
 	 */
 	public void afficherInfoRobotEquiper() {
 		nbmouvement++;
-		System.out.println("Mouvement n° " + nbmouvement + " (Action Decharger) : \n");
-		System.out.println("******************Le Robot s'équipe******************");
-		System.out.println("\n\n");
+		System.out.println("Mouvement n° " + nbmouvement + " (Action Decharger) : \n******************Le Robot s'équipe******************\n\n");
 	}
 
 	public Carte getCarte() {

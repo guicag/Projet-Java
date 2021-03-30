@@ -183,7 +183,7 @@ public abstract class FileParser {
 	 * Lis le fichier fichiers/configuration_robot.txt afin d'analyser la
 	 * configuration du robot.
 	 * @return Une Map de clé String et de valeurs Number, contenant nom de la propriété de configuration, et sa valeur. 
-	 * @throws @throws IOException Lève une exception de lecture de fichier en cas de d'exception dans la création de l'objet Path, ou de l'objet BufferedReader.
+	 * @throws IOException Lève une exception de lecture de fichier en cas de d'exception dans la création de l'objet Path, ou de l'objet BufferedReader.
 	 */
 	public static Map<String, Number> lectureConfigurationRobot() throws IOException {
 		Map<String, Number> configuration = new HashMap<>();
