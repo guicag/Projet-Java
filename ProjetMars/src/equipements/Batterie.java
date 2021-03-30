@@ -23,6 +23,13 @@ public class Batterie extends Equipement {
 	public Batterie() {
 		super();
 	}
+	
+	/**
+	 * Constructeur de copie
+	 */
+	public Batterie(Batterie ancienne) {
+		super(ancienne.nom, ancienne.cout, ancienne.puissanceActuelle);
+	}
 
 	public boolean equals(Object bestBatterie) {
 		boolean res = false;

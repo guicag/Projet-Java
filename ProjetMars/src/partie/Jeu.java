@@ -183,29 +183,6 @@ public class Jeu {
 	    return listDirection.get(random);
 	}
 	
-	/**
-	 * Permet de recuperer le nombre de case Vide
-	 * @return Integer Un entier correspondant au nombre de cases Vides dont est composée la carte.
-	 */
-	public int getNombreCaseVide() {
-		int count = 0;
-		for (int i = 0; i < carte.getRowLength(); i++) {
-			for (int j = 0; j < carte.getColumnLength(); j++) {
-				if (carte.getMatriceMinerais()[i][j] instanceof Vide) {
-					count++;
-				}
-			}
-		}
-		return count;
-	}
-	
-	/**
-	 * Retourne le nombre de case total
-	 * @return Integer Un entier correspondant au nombre de cases total sur la carte.
-	 */
-	public int getNombreCase() {
-		return carte.getColumnLength()*carte.getRowLength();
-	}
 	
 	/**
 	 * Fonction permettant de choisir une direction à suivre lors du prochain déplacement, et de toruner le robot dans celle-ci.
@@ -216,36 +193,38 @@ public class Jeu {
 	public int jouer() throws IOException {
 		//Première phase 
 		//Stratégie : Miner les plus rentable jusqu'à avoir le meilleur laser et la meilleure batterie.
-		int pourcentageMinage = 50;
- 		while ((Double) robot.getConfiguration().get("temps_avant_que_nasa_repere") > 0.0) {
- 			double pourcentage = ((double) getNombreCaseVide()/ (double)getNombreCase()) * 100;
- 			if (pourcentage < pourcentageMinage) {
- 				Direction direction = choisirDirection();
- 				if (robot.getCoutRetourBase() + (Double) robot.getConfiguration().get("cout_minage") < robot.getBatterieActuelle().getPuissanceActuelle()) {
- 					if (testerMinerDirection(direction) ) {
- 						nbmouvement++;
- 						String s = robot.avancer(direction, carte);
- 						parcoursRobot.add(s);
- 						afficherInfoRobotMinage();
- 					} else {
- 						rentrerVider();
- 					}
+ 		while ((Double) robot.getConfiguration().get("temps_avant_que_nasa_repere") > 0) {
+ 			Direction direction = choisirDirection();
+ 			if (robot.getCoutRetourBase() + (Double) robot.getConfiguration().get("cout_minage") < robot.getBatterieActuelle().getPuissanceActuelle()) {
+ 				if (testerMinerDirection(direction) ) {
+ 					nbmouvement++;
+ 					String s = robot.avancer(direction, carte);
+ 					parcoursRobot.add(s);
+ 					afficherInfoRobotMinage();
  				} else {
- 					rentrerChangerEquipement();
+ 					if (robot.getTempsRetourBase() <= (Double) robot.getConfiguration().get("temps_avant_que_nasa_repere")) {
+ 						rentrerVider();
+ 					} else {
+ 						robot.getConfiguration().replace("temps_avant_que_nasa_repere", 0);
+ 						break;
+ 					}
  				}
  			} else {
- 				FileWrite.ecritureMission(parcoursRobot);
- 				String affichage = "\\n\\n*************Partie Termine*************\nVous avez mine " + pourcentageMinage + "% de la carte \n\n*************Carte Finale*************";
- 				System.out.println(affichage);
- 				carte.afficherCarte();
- 				return 0;
+ 				if (robot.getTempsRetourBase() <= (Double) robot.getConfiguration().get("temps_avant_que_nasa_repere")) {
+ 	 				rentrerChangerEquipement();
+ 				} else {
+					robot.getConfiguration().replace("temps_avant_que_nasa_repere", 0);
+					break;
+				}
  			}
 		}
- 		FileWrite.ecritureMission(parcoursRobot);
-		String affichage = "\\n\\n*************Partie Termine*************\nLa nasa vous a reperé \n\n*************Carte Finale*************";
+		FileWrite.ecritureMission(parcoursRobot);
+		String affichage = "\n\n*************Partie Termine*************\n La nasa vous a repere \n\n*************Carte Finale*************";
 		System.out.println(affichage);
+		robot.getConfiguration().replace("temps_avant_que_nasa_repere", 0);
+		afficherInfoRobot();
 		carte.afficherCarte();
-		return 1;
+		return 0;
 	}
 	
 	/**
@@ -269,15 +248,8 @@ public class Jeu {
 	 * S'il lui reste encore assez d'argent, il achete le laser avec le meilleur ratio sinon en focntion de son argent il achete un autre laser ou pas
 	 */
 	public void rentrerChangerEquipement() {
-		List<String> temp;
-		temp = robot.rentrerBase(carte);
-		for (String e : temp) {
-			parcoursRobot.add(e);
-			afficherInfoRobotRentrerEquipement();
-		}
-		//double pourcentageLaser = (robot.getLaserActuel().getPuissanceActuelle()/robot.getLaserActuel().getPuissanceInitiale())*100;
-		parcoursRobot.add(robot.decharger());
-		afficherInfoRobotDecharger();
+		rentrerVider();
+		double pourcentageLaser = (robot.getLaserActuel().getPuissanceActuelle()/robot.getLaserActuel().getPuissanceInitiale())*100;
 		if ((Integer) robot.getScore() >= robot.getBestBatterie().getCout()) {
 			parcoursRobot.add(robot.equiper(robot.getBestBatterie()));
 			afficherInfoRobotEquiper();
@@ -285,7 +257,6 @@ public class Jeu {
 			parcoursRobot.add(robot.equiper(robot.getBestBatterieAchetable()));
 			afficherInfoRobotEquiper();
 		}
-
 		if ((Integer) robot.getScore() >= robot.getBestLaser().getCout()) {
 			parcoursRobot.add(robot.equiper(robot.getBestLaser()));
 		} else if ( robot.getBestLaserAchetable() != null) {
@@ -349,10 +320,23 @@ public class Jeu {
 	}
 	
 	/**
-	 * Permet d'afficher les informations apres que le robot ai miné.
+	 * Permet d'afficher les informations apres que le robot est miné.
 	 */
 	public void afficherInfoRobotMinage() {
 		System.out.println("Mouvement n° " + nbmouvement + " (Action Avancer) : \n"
+				+ "Temps -> " + robot.getConfiguration().get("temps_avant_que_nasa_repere") + "\n" 
+				+ "Position X Robot : " + robot.getPosX() + "; Position Y Robot : " + robot.getPosY() + "\n" 
+				+ "Score Robot -> " + robot.getScore() + "\n" 
+				+ "Deplacement -> " + parcoursRobot.get(nbmouvement - 1) + "\n" 
+				+ "Batterie -> " + robot.getBatterieActuelle().getNom() + " ; Puissance : " + robot.getBatterieActuelle().getPuissanceActuelle() + "\n" 
+				+ "Laser -> " + robot.getLaserActuel().getNom() + " ; Puissance : " + robot.getLaserActuel().getPuissanceActuelle() + "\n\n");
+	}
+	
+	/**
+	 * Permet d'afficher les informations du robot.
+	 */
+	public void afficherInfoRobot() {
+		System.out.println("Mouvement n° " + nbmouvement + " (Final) : \n"
 				+ "Temps -> " + robot.getConfiguration().get("temps_avant_que_nasa_repere") + "\n" 
 				+ "Position X Robot : " + robot.getPosX() + "; Position Y Robot : " + robot.getPosY() + "\n" 
 				+ "Score Robot -> " + robot.getScore() + "\n" 

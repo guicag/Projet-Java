@@ -34,7 +34,7 @@ public class Carte {
 		for(int ligne = 0; ligne < getRowLength(); ligne++) {
 			for(int col = 0; col < getColumnLength(); col++) {
 				if(matriceCase[ligne][col] instanceof Base) System.out.print('B');
-				else if (matriceCase[ligne][col] instanceof Vide) System.out.print("1");
+				else if (matriceCase[ligne][col] instanceof Vide) System.out.print(" ");
 				else System.out.print(matriceCase[ligne][col].getCaractere());
 			}
 			System.out.println();

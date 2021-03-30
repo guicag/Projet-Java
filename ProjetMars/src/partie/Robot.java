@@ -1,5 +1,6 @@
 package partie;
 
+import java.awt.image.RescaleOp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -177,15 +178,21 @@ public class Robot {
 	 */
 	public String equiper(Equipement equip) {
 		String message = "";
+		Batterie copieB;
+		Laser copieL;
 		if(equip instanceof Laser) {
-			this.laserActuel = (Laser) equip;
+			copieL = new Laser((Laser) equip);
+			this.laserActuel = copieL;
 		} else {
-			this.batterieActuelle = (Batterie) equip;
+			copieB = new Batterie((Batterie) equip);
+			this.batterieActuelle = copieB;
+			
 		}
 		double prix = equip.getCout();
 		this.score -= prix;
 		this.configuration.replace(TEMPS_NASA_RESTANT, (Double) configuration.get(TEMPS_NASA_RESTANT) - (Double) configuration.get(TEMPS_INSTALLATION));
-		message += "ACHETER/EQUIPER : " + equip.getNom() +",";
+		message += "ACHETER : " + equip.getNom() + ", \n";
+		message += "EQUIPER : " + equip.getNom() + ", ";
 		return message;
 	}
 	
@@ -217,9 +224,13 @@ public class Robot {
 		return null;
 	}
 	
+	/**
+	 * Permet de calculer le cout de retour pour rentrer à la base
+	 * @return Un INTEGER qui est le cout de retour
+	 */
 	public double getCoutRetourBase() {
-		double coutRetour = 0;
-        for (int i = 1; i < listDeplacementsPourBase.size()-1; i++)
+		double coutRetour = (Double) configuration.get("cout_rotation") + (Double) configuration.get(COUT_DEPLACEMENT);
+        for (int i = 1; i < listDeplacementsPourBase.size(); i++)
         {
             if (!listDeplacementsPourBase.get(i).equals(listDeplacementsPourBase.get(i-1))) {
                 coutRetour += (Double) configuration.get("cout_rotation") + (Double) configuration.get(COUT_DEPLACEMENT);
@@ -227,10 +238,28 @@ public class Robot {
                 coutRetour += (Double) configuration.get(COUT_DEPLACEMENT);
             }
         }
-       return coutRetour*2;
+       return coutRetour;
 	}
 	
-	
+	/**
+	 * Permet de calculer le temps de retour pour rentrer à la base
+	 * @return Un INTEGER qui est le temp de retour
+	 */
+	public double getTempsRetourBase() {
+		int currentValue=0;
+	    int lastValue=0;
+		double temps = 0;
+		boolean res = false;
+		temps += (Double) configuration.get("temps_rotation") + (Double) configuration.get("temps_deplacement_vide");
+		for (int i = 1; i < listDeplacementsPourBase.size(); i++) {
+			if (!listDeplacementsPourBase.get(i).equals(listDeplacementsPourBase.get(i-1))) {
+				temps += (Double) configuration.get("temps_rotation");
+			}
+			temps += (Double) configuration.get("temps_deplacement_vide");
+		
+		}
+		return temps;
+	}
 	/**
 	 * Cette fonction permet de retourner la meilleure batterie en fonction du score
 	 * @return Batterie

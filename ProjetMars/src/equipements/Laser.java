@@ -23,6 +23,14 @@ public class Laser extends Equipement  {
 		super();
 	}
 	
+	/**
+	 * Constructeur de copie
+	 */
+	public Laser(Laser ancienne) {
+		super(ancienne.nom, ancienne.cout, ancienne.puissanceActuelle);
+	}
+
+	
 	@Override
 	public boolean equals(Object obj) {
 		  if (obj == null)
