@@ -6,14 +6,14 @@ concurrents. Voici l'intrigue de ce projet...
 **Partie 1 - Exploiration sur Mars :**  
 Implémentation d'un robot qui doit collecter différent minérais en fonction d'une carte de la planète, d'équipements futuristes comme des batteries aux vibranium ou encore des laser Adegan.
 
-* [Documentation Conception]()
+* [Documentation Conception](https://rodez.3il.fr/gitlab/Promotion_19/Promotion_19_-_Projet_Java_-_Equipe_Tatou/projet-java-objectif-mars/-/blob/master/Documentations/Dossier_de_Conception.pdf)
 * [Documentation Technique](https://rodez.3il.fr/gitlab/Promotion_19/Promotion_19_-_Projet_Java_-_Equipe_Tatou/projet-java-objectif-mars/-/tree/master/ProjetMars/doc)
 
 
 **Partie 2 - Combats :**   
 Implémentation d'un drone de défense pour se défendre des ennemis !!!
 
-* [Documentation Conception]()
+* [Documentation Conception](https://rodez.3il.fr/gitlab/Promotion_19/Promotion_19_-_Projet_Java_-_Equipe_Tatou/projet-java-objectif-mars/-/blob/master/Documentations/Dossier_de_Conception.pdf)
 * [Documentation Technique](https://rodez.3il.fr/gitlab/Promotion_19/Promotion_19_-_Projet_Java_-_Equipe_Tatou/projet-java-objectif-mars/-/tree/master/ProjetMars/doc)
 
 ## Installation Projet
