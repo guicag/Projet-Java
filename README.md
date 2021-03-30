@@ -7,14 +7,14 @@ concurrents. Voici l'intrigue de ce projet...
 Implémentation d'un robot qui doit collecter différent minérais en fonction d'une carte de la planète, d'équipements futuristes comme des batteries aux vibranium ou encore des laser Adegan.
 
 * [Documentation Conception]()
-* [Documentation Technique]()
+* [Documentation Technique](https://rodez.3il.fr/gitlab/Promotion_19/Promotion_19_-_Projet_Java_-_Equipe_Tatou/projet-java-objectif-mars/-/tree/master/ProjetMars/doc)
 
 
 **Partie 2 - Combats :**   
 Implémentation d'un drone de défense pour se défendre des ennemis !!!
 
 * [Documentation Conception]()
-* [Documentation Technique]()
+* [Documentation Technique](https://rodez.3il.fr/gitlab/Promotion_19/Promotion_19_-_Projet_Java_-_Equipe_Tatou/projet-java-objectif-mars/-/tree/master/ProjetMars/doc)
 
 ## Installation Projet
 
