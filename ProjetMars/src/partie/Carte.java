@@ -18,18 +18,14 @@ public class Carte {
 	
 	private Case[][] matriceCase;
 	private ArrayList<Minerai> mineraisDisponibles;
-	private static final String ERREUR_CARTE = "Erreur lors de la lecture du fichier de la carte.";
+	
 	/**
 	 * Constructeur paramétré d'une carte.
 	 * @param minerais Matrice de minerais 
 	 */
-	public Carte(Case[][] minerais) {
+	public Carte(Case[][] minerais, ArrayList<Minerai> listMinerai) {
 		this.matriceCase = minerais;
-		try {
-			this.mineraisDisponibles = (ArrayList<Minerai>) FileParser.lectureDescriptifMesures();
-		} catch (IOException e) {
-			getErreurCarte();
-		}
+		this.mineraisDisponibles = listMinerai;
 		afficherCarte();
 	}
 	
@@ -95,10 +91,4 @@ public class Carte {
 		}
 		return ret;
 	}
-
-	public static String getErreurCarte() {
-		return ERREUR_CARTE;
-	}
-	
-	
 }

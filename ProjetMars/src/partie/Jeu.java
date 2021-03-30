@@ -33,7 +33,7 @@ public class Jeu {
 		//Analyse des minerais
 		ArrayList<Minerai> listMinerai = (ArrayList<Minerai>) FileParser.lectureDescriptifMesures();
 		//Analyse de la carte
-		this.carte = new Carte(FileParser.lectureCarte(listMinerai));
+		this.carte = new Carte(FileParser.lectureCarte(listMinerai), listMinerai);
 		//Analyse du matériel disponible
 		ArrayList<Equipement> listEquipement = (ArrayList<Equipement>) FileParser.lectureEquipementsDisponibles();
 		//Analyse de la configuration du robot 
