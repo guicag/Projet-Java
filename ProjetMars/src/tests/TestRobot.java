@@ -139,7 +139,7 @@ public class TestRobot {
 		}
 		double tempsMinage = mineraiMine.getDurete()*100/jeu.getRobot().getLaserActuel().getPuissanceActuelle();
 		double emoussageLaser = tempsMinage * (Double) jeu.getRobot().getConfiguration().get("emoussage_laser");
-		jeu.getRobot().miner(mineraiMine, dirChoisie);
+		jeu.getRobot().miner(mineraiMine);
 		assertEquals(jeu.getRobot().getLaserActuel().getPuissanceActuelle(), puiLaserAvant - emoussageLaser);
 		assertEquals(jeu.getRobot().getBatterieActuelle().getPuissanceActuelle(), batterieAvant 
 				- (Double) jeu.getRobot().getConfiguration().get(COUT_MINAGE));
